@@ -53,7 +53,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y proximity;
+  scroll-snap-type: y mandatory;
   scroll-padding-top: var(--topbar-h);
 }
 body {
@@ -269,18 +269,20 @@ h1, h2, h3 { color: var(--ink); }
   .hero-word, .hero-anim { opacity: 1; transform: none; animation: none; }
 }
 
-/* Credo / pull-quote */
+/* Credo / pull-quote: full width on desktop */
 .credo {
-  margin: 76px 0 0;
-  padding: 4px 0 4px 28px;
+  margin: 88px 0 0;
+  padding: 10px 0 10px 36px;
   border-left: 3px solid var(--accent);
-  max-width: 66ch;
+  max-width: none;
 }
 .credo p {
   font-family: var(--serif);
-  font-size: 1.25rem; line-height: 1.4;
-  color: var(--ink); letter-spacing: -0.005em;
+  font-size: 1.6rem; line-height: 1.32;
+  color: var(--ink); letter-spacing: -0.012em;
   font-style: italic;
+  font-weight: 500;
+  max-width: 38em;
 }
 
 .role-block { margin-top: 76px; }
@@ -304,7 +306,7 @@ h1, h2, h3 { color: var(--ink); }
   .profil-photo { max-width: 320px; aspect-ratio: 4 / 5; justify-self: start; }
   .role-grid { grid-template-columns: 1fr; }
   .credo { margin-top: 56px; padding-left: 20px; }
-  .credo p { font-size: 1.1rem; }
+  .credo p { font-size: 1.2rem; line-height: 1.36; }
 }
 
 /* ============ ERFAHRUNG ============ */
@@ -339,6 +341,26 @@ h1, h2, h3 { color: var(--ink); }
   font-weight: 600;
   margin-bottom: 12px;
   padding: 0 4px;
+}
+
+/* Column headings (Erfahrung / Skills) */
+.col-heading {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 1.55rem; letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-bottom: 22px;
+}
+.erfahrung-main > .col-heading { margin-bottom: 22px; }
+.skill-panel > .col-heading {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  padding: 0;
+}
+.skill-intro {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  margin-bottom: 16px;
 }
 .skill-list {
   display: flex; flex-direction: column; gap: 6px;
@@ -456,7 +478,6 @@ h1, h2, h3 { color: var(--ink); }
 .arbeitsweise-list {
   list-style: none; padding: 0;
   margin: 0 0 60px;
-  max-width: 72ch;
 }
 .arbeitsweise-list li {
   padding: 16px 0;
@@ -484,7 +505,7 @@ h1, h2, h3 { color: var(--ink); }
   border-top: 1px solid var(--line);
 }
 .persona-intro {
-  max-width: 62ch; font-size: 0.98rem;
+  font-size: 0.98rem;
   color: var(--ink-soft); margin-bottom: 26px;
 }
 .persona-cards {
@@ -742,14 +763,10 @@ h1, h2, h3 { color: var(--ink); }
 <section id="erfahrung" class="snap-sec">
   <div class="wrap">
 
-    <div class="section-eyebrow" data-de="Erfahrung &amp; Skills" data-en="Experience &amp; skills">Erfahrung &amp; Skills</div>
-    <p class="skills-intro reveal"
-       data-de="Skill auswählen, um zu sehen, wo er zum Tragen kam."
-       data-en="Pick a skill to see where it played a role.">Skill auswählen, um zu sehen, wo er zum Tragen kam.</p>
-
     <div class="erfahrung-layout">
 
       <div class="erfahrung-main">
+        <h2 class="col-heading" data-de="Erfahrung" data-en="Experience">Erfahrung</h2>
         <div class="stations">
 
           <article class="station" data-station="porsche" data-collapsible="true">
@@ -960,7 +977,8 @@ h1, h2, h3 { color: var(--ink); }
 
       <aside class="erfahrung-aside">
         <div class="skill-panel">
-          <div class="skill-panel-label" data-de="Skills" data-en="Skills">Skills</div>
+          <h2 class="col-heading" data-de="Skills" data-en="Skills">Skills</h2>
+          <p class="skill-intro" data-de="Skill auswählen, um zu sehen, wo er zum Tragen kam." data-en="Pick a skill to see where it played a role.">Skill auswählen, um zu sehen, wo er zum Tragen kam.</p>
           <div class="skill-list" role="group" aria-label="Skills">
             <button class="skillchip" data-skill="gtm" data-de="Go-to-Market &amp; Markteintritt" data-en="Go-to-market &amp; market entry">Go-to-Market &amp; Markteintritt</button>
             <button class="skillchip" data-skill="vertriebsaufbau" data-de="Vertriebsaufbau &amp; Teamführung" data-en="Sales build-out &amp; team leadership">Vertriebsaufbau &amp; Teamführung</button>
