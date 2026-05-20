@@ -194,7 +194,7 @@ section.snap-sec > .wrap { width: 100%; }
 
 /* Werte-Section: extra Puffer, damit Persönlichkeitsprofil mittig sichtbar ist
    bevor Snap zur nächsten Sektion greift. */
-section.snap-sec#werte { padding-bottom: 220px; }
+section.snap-sec#werte { padding-bottom: 280px; }
 
 /* Kontakt fits its content, not a forced viewport-height. */
 section.snap-sec.contact-section {
@@ -561,10 +561,14 @@ h1, h2, h3 { color: var(--ink); }
 .persona-card-note { color: var(--ink-mute); font-size: 0.86rem; line-height: 1.5; }
 
 .insights-wheel, .mbti-chart { margin: 16px 0 4px; }
-.insights-wheel svg, .mbti-chart svg { width: 100%; max-width: 320px; height: auto; display: block; }
+.insights-wheel svg, .mbti-chart svg {
+  width: 100%; max-width: 320px; height: auto; display: block;
+  margin: 0 auto; /* horizontally centered in the card */
+}
 .iw-caption {
   font-size: 0.84rem; color: var(--ink-mute);
-  max-width: 320px; margin-top: 10px; line-height: 1.5;
+  margin-top: 10px; line-height: 1.5;
+  /* takes the card's text-width so it matches the paragraph above */
 }
 
 @media (max-width: 880px) {
@@ -779,6 +783,14 @@ h1, h2, h3 { color: var(--ink); }
               </svg>
               <span data-de="Co-Founder, wenn Idee und Team passen" data-en="Co-founder, if idea and team fit">Co-Founder, wenn Idee und Team passen</span>
             </div>
+            <div class="felder-item">
+              <svg class="felder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="12" cy="12" r="6"/>
+                <circle cx="12" cy="12" r="2"/>
+              </svg>
+              <span data-de="Impact Investing oder Consulting (Associate, Principal)" data-en="Impact investing or consulting (associate, principal)">Impact Investing oder Consulting (Associate, Principal)</span>
+            </div>
           </div>
         </div>
         <div class="role-tile">
@@ -817,6 +829,14 @@ h1, h2, h3 { color: var(--ink); }
               </svg>
               <span data-de="Circular Economy" data-en="Circular economy">Circular Economy</span>
             </div>
+            <div class="felder-item">
+              <svg class="felder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="6" cy="19" r="3"/>
+                <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/>
+                <circle cx="18" cy="5" r="3"/>
+              </svg>
+              <span data-de="Mobility" data-en="Mobility">Mobility</span>
+            </div>
           </div>
         </div>
         <div class="role-tile">
@@ -837,6 +857,14 @@ h1, h2, h3 { color: var(--ink); }
                 <circle cx="12" cy="10" r="3"/>
               </svg>
               <span data-de="Hamburg oder remote-first" data-en="Hamburg or remote-first">Hamburg oder remote-first</span>
+            </div>
+            <div class="felder-item">
+              <svg class="felder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+              <span data-de="Investment oder NGO" data-en="Investment or NGO">Investment oder NGO</span>
             </div>
           </div>
         </div>
