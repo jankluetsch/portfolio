@@ -1309,6 +1309,22 @@ h1, h2, h3 { color: var(--ink); }
 <script>
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+/* ============ SCROLL POSITION ON LOAD ============ */
+// Disable browser scroll restoration so reload always starts predictably.
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+window.addEventListener('load', () => {
+  if (window.location.hash) {
+    // URL has an anchor — jump there after layout settles.
+    const target = document.querySelector(window.location.hash);
+    if (target) setTimeout(() => target.scrollIntoView({ behavior: 'auto', block: 'start' }), 60);
+  } else {
+    // No anchor — start at the top.
+    window.scrollTo(0, 0);
+  }
+});
+
 /* ============ LANGUAGE TOGGLE ============ */
 function setLang(lang) {
   document.documentElement.lang = lang;
