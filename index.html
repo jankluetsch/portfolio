@@ -42,7 +42,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y proximity;
+  scroll-snap-type: y mandatory;
   scroll-padding-top: var(--topbar-h);
 }
 body {
@@ -271,20 +271,18 @@ section.snap-sec {
   transform: translateY(110%);
 }
 .hero-rot.active {
-  animation: rot-in 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: rot-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 .hero-rot.exit {
-  animation: rot-out 0.55s cubic-bezier(0.4, 0, 0.7, 0) forwards;
+  animation: rot-out 0.4s cubic-bezier(0.4, 0, 0.7, 0) forwards;
 }
 @keyframes rot-in {
-  0%   { transform: translateY(110%); opacity: 0; }
-  20%  { opacity: 1; }
+  0%   { transform: translateY(105%); opacity: 0; }
   100% { transform: translateY(0); opacity: 1; }
 }
 @keyframes rot-out {
   0%   { transform: translateY(0); opacity: 1; }
-  80%  { opacity: 1; }
-  100% { transform: translateY(-110%); opacity: 0; }
+  100% { transform: translateY(-105%); opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -757,10 +755,17 @@ section.snap-sec {
   font-size: 14px;
   color: var(--ink-soft);
   line-height: 1.6;
+  position: relative;
 }
-.engagement-col + .engagement-col {
-  padding-left: 48px;
-  border-left: 1px solid var(--line);
+/* Vertical divider line sitting in the gap, doesn't affect column width
+   so both engagement photos render at identical size. */
+.engagement-col + .engagement-col::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -24px;
+  width: 1px;
+  background: var(--line);
 }
 .engagement-photo {
   margin-bottom: 22px;
@@ -818,9 +823,9 @@ section.snap-sec {
     grid-template-columns: 1fr; gap: 32px;
     padding: 32px 0;
   }
-  .engagement-col + .engagement-col {
-    padding-left: 0; border-left: 0;
-    padding-top: 32px; border-top: 1px solid var(--line);
+  .engagement-col + .engagement-col::before {
+    /* On mobile, replace vertical line with horizontal one above col */
+    top: -16px; bottom: auto; left: 0; right: 0; width: auto; height: 1px;
   }
 }
 
@@ -1616,25 +1621,26 @@ function updateTopbar() { tb.classList.toggle('scrolled', window.scrollY > 8); }
 window.addEventListener('scroll', updateTopbar, { passive: true });
 updateTopbar();
 
-/* ============ HERO ROTATING WORD (slot-style) ============ */
+/* ============ HERO ROTATING WORD (slot-style, no overlap) ============ */
 (function () {
   const rots = document.querySelectorAll('.hero-rotate .hero-rot');
   if (rots.length < 2) return;
   if (prefersReduced) return; /* first word stays, no rotation */
   let idx = 0;
-  const STEP = 3800;   /* total time per word, ms */
-  const ANIM = 700;    /* exit animation duration, ms */
+  const STEP = 3800;    /* total time per word, ms */
+  const OUT_MS = 400;   /* exit animation duration */
+  const GAP_MS = 60;    /* tiny gap so the words never overlap */
   setInterval(() => {
     const current = rots[idx];
     const next = (idx + 1) % rots.length;
-    // Clear any leftover exit on the incoming word (rare edge case)
-    rots[next].classList.remove('exit');
-    // Animate current out (up), next in (from below)
+    // Old word slides out and fades
     current.classList.remove('active');
     current.classList.add('exit');
-    rots[next].classList.add('active');
-    // Reset exit class after animation finishes so word returns to "below" default
-    setTimeout(() => current.classList.remove('exit'), ANIM);
+    // After exit completes (plus a tiny pause), bring in the next word from below
+    setTimeout(() => {
+      current.classList.remove('exit'); // resets to "below" default
+      rots[next].classList.add('active');
+    }, OUT_MS + GAP_MS);
     idx = next;
   }, STEP);
 })();
