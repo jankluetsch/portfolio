@@ -9,11 +9,6 @@
 
 <style>
 @font-face {
-  font-family: 'Fraunces';
-  src: url('./assets/fonts/fraunces.woff2') format('woff2-variations');
-  font-weight: 100 900; font-display: swap;
-}
-@font-face {
   font-family: 'Inter Tight';
   src: url('./assets/fonts/inter-tight.woff2') format('woff2-variations');
   font-weight: 100 900; font-display: swap;
@@ -22,23 +17,23 @@
 :root {
   color-scheme: light only;
   --paper:    #fcfcfa;
+  --surface:  #f3f3f0;
   --ink:      #222222;
   --ink-soft: #4a4a4a;
   --ink-mute: #7b7b7b;
   --line:     #e5e5e2;
-  --surface:  #f3f3f0;
   --dark:     #1c1c1c;
   --topbar-h: 64px;
   --bottombar-h: 64px;
-  --side-x:   80px;
-  --serif: 'Fraunces', 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
-  --sans:  'Inter Tight', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --side-x:   60px;
+  --sans: 'Inter Tight', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #fcfcfa; --ink: #222222; --ink-soft: #4a4a4a;
-    --ink-mute: #7b7b7b; --line: #e5e5e2; --surface: #f3f3f0; --dark: #1c1c1c;
+    --paper: #fcfcfa; --surface: #f3f3f0;
+    --ink: #222222; --ink-soft: #4a4a4a; --ink-mute: #7b7b7b;
+    --line: #e5e5e2; --dark: #1c1c1c;
   }
   body { background: #fcfcfa; color: #222; }
 }
@@ -56,8 +51,8 @@ body {
   font-family: var(--sans);
   font-size: 16px;
   line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
   font-weight: 400;
+  -webkit-font-smoothing: antialiased;
 }
 ::selection { background: var(--ink); color: var(--paper); }
 
@@ -68,7 +63,7 @@ strong { color: var(--ink); font-weight: 600; }
 
 /* ============ COMMON ============ */
 .wrap {
-  max-width: 1280px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 var(--side-x);
 }
@@ -81,8 +76,8 @@ strong { color: var(--ink); font-weight: 600; }
   font-weight: 500;
 }
 .section-title {
-  font-family: var(--serif);
-  font-size: clamp(40px, 6vw, 72px);
+  font-family: var(--sans);
+  font-size: clamp(40px, 5.4vw, 64px);
   font-weight: 300;
   line-height: 1;
   letter-spacing: -0.02em;
@@ -93,25 +88,45 @@ strong { color: var(--ink); font-weight: 600; }
   :root { --side-x: 24px; }
 }
 
+/* ============ SECTIONS: alternating backgrounds, full width ============ */
+section {
+  width: 100%;
+  position: relative;
+}
+section.snap-sec {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+@media (max-width: 760px), (prefers-reduced-motion: reduce) {
+  html { scroll-snap-type: none; }
+  section.snap-sec { scroll-snap-align: none; }
+}
+
+#profil     { background: var(--paper); }
+#erfahrung  { background: var(--surface); }
+#werte      { background: var(--paper); }
+#engagement { background: var(--surface); }
+#kontakt    { background: var(--dark); }
+
 /* ============ TOPBAR ============ */
 .topbar {
   position: sticky; top: 0; z-index: 60;
   background: rgba(252,252,250,0.94);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid transparent;
-  transition: border-color .3s ease;
+  transition: border-color .3s ease, background .3s ease;
 }
 .topbar.scrolled { border-color: var(--line); }
 .topbar-in {
-  max-width: 1280px; margin: 0 auto;
-  padding: 18px var(--side-x);
+  max-width: 1400px; margin: 0 auto;
+  padding: 14px var(--side-x);
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center; gap: 22px;
   min-height: var(--topbar-h);
 }
 .wordmark {
-  font-family: var(--serif); font-size: 19px; font-weight: 500;
+  font-family: var(--sans); font-size: 18px; font-weight: 500;
   color: var(--ink); letter-spacing: -0.005em;
   white-space: nowrap; justify-self: start;
 }
@@ -165,7 +180,7 @@ strong { color: var(--ink); font-weight: 600; }
 .book-call .arr { font-size: 12px; line-height: 1; }
 
 @media (max-width: 880px) {
-  .topbar-in { grid-template-columns: 1fr auto; gap: 12px; padding: 14px var(--side-x); }
+  .topbar-in { grid-template-columns: 1fr auto; gap: 12px; padding: 12px var(--side-x); }
   .sectionnav { display: none; }
   .topbar-right { font-size: 12px; }
   .book-call { font-size: 12px; }
@@ -192,91 +207,55 @@ strong { color: var(--ink); font-weight: 600; }
   body { padding-bottom: var(--bottombar-h); }
 }
 
-/* ============ SECTIONS ============ */
-section.snap-sec {
-  scroll-snap-align: start;
-  scroll-snap-stop: normal;
-  position: relative;
-}
-@media (max-width: 760px), (prefers-reduced-motion: reduce) {
-  html { scroll-snap-type: none; }
-  section.snap-sec { scroll-snap-align: none; }
-}
-
-/* ============ HERO ============ */
-.hero {
-  min-height: calc(100vh - var(--topbar-h));
-  padding: 56px 0 80px;
-  position: relative;
-  display: flex; align-items: stretch;
+/* ============ HERO (in #profil) ============ */
+#profil {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 80px;
+  padding-bottom: 40px;
 }
 .hero-wrap {
-  max-width: 1280px; margin: 0 auto;
+  max-width: 1400px; margin: 0 auto;
   padding: 0 var(--side-x);
   width: 100%;
   display: grid;
-  grid-template-columns: 56fr 44fr;
-  gap: 48px;
-  position: relative;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
 }
 
-/* Vertical sidebar text */
-.hero-rail {
-  position: absolute;
-  left: 18px;
-  top: 24px;
-  bottom: 24px;
-  width: 24px;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: space-between;
-  pointer-events: none;
-}
-.hero-rail-text {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-size: 10px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  font-weight: 500;
-  color: var(--ink-mute);
-  white-space: nowrap;
-}
-.hero-rail-line {
-  width: 1px;
-  flex: 1;
-  background: var(--line);
-  margin: 18px 0;
-  min-height: 60px;
-}
-
-.hero-text {
-  display: flex; flex-direction: column;
-  justify-content: center;
-  padding: 12px 0 0;
-}
 .hero-eyebrow {
-  margin-bottom: 28px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 24px;
 }
 .hero-title {
-  font-family: var(--serif);
-  font-weight: 300;
-  font-size: clamp(72px, 12vw, 180px);
-  line-height: 0.95;
+  font-family: var(--sans);
+  font-weight: 250;
+  font-size: clamp(56px, 7vw, 112px);
+  line-height: 0.98;
   letter-spacing: -0.025em;
   color: var(--ink);
-  margin-bottom: 36px;
+  margin: 0 0 32px 0;
 }
+.hero-line { display: block; }
 .hero-word {
-  display: block;
+  display: inline-block;
+  margin-right: 0.25em;
   opacity: 0;
-  transform: translateY(12px);
+  transform: translateY(8px);
   animation:
-    hero-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards,
+    hero-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) forwards,
     hero-heartbeat 8s ease-in-out infinite;
 }
-.hero-word:nth-child(1) { animation-delay: 0.1s, 1.5s; }
-.hero-word:nth-child(2) { animation-delay: 0.35s, 1.75s; }
-.hero-word:nth-child(3) { animation-delay: 0.6s, 2s; }
+.hero-word:last-child { margin-right: 0; }
+.hero-word.w1 { animation-delay: 0.1s, 1.5s; }
+.hero-word.w2 { animation-delay: 0.35s, 1.75s; }
+.hero-word.w3 { animation-delay: 0.6s, 2s; }
 
 @keyframes hero-in {
   to { opacity: 1; transform: none; }
@@ -287,152 +266,212 @@ section.snap-sec {
   8%   { opacity: 1; }
   100% { opacity: 1; }
 }
+@media (prefers-reduced-motion: reduce) {
+  .hero-word { opacity: 1; transform: none; animation: none; }
+}
 
 .hero-subtitle {
-  font-size: 19px;
-  color: var(--ink);
-  line-height: 1.4;
-  max-width: 34ch;
-  margin-bottom: 18px;
+  font-family: var(--sans);
+  font-size: 18px;
   font-weight: 400;
+  line-height: 1.45;
+  color: var(--ink);
+  margin: 0 0 20px 0;
+  max-width: 480px;
 }
 .hero-usp {
-  font-size: 15px;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
   color: var(--ink-soft);
-  line-height: 1.62;
-  max-width: 46ch;
+  max-width: 480px;
 }
 .hero-usp strong { color: var(--ink); font-weight: 600; }
 
-.hero-photo {
-  position: relative;
+.hero-photo-wrap {
   display: flex;
   align-items: flex-end;
-  justify-content: flex-end;
-  min-height: 60vh;
+  justify-content: center;
+  height: 100%;
 }
-.hero-photo img {
-  max-height: 88vh;
-  max-width: 100%;
-  width: auto;
-  height: auto;
-  display: block;
+.hero-photo {
+  height: clamp(420px, 70vh, 640px);
+  width: auto; max-width: 100%;
   object-fit: contain;
-  filter: grayscale(1);
+  object-position: bottom;
+  filter: grayscale(100%);
+  display: block;
 }
-.hero-photo.photo-missing img { display: none; }
-.hero-photo.photo-missing::before {
-  content: 'Foto folgt';
-  display: flex; align-items: center; justify-content: center;
-  background: var(--surface);
+.hero-photo-wrap.photo-missing {
   width: 100%;
-  min-height: 70vh;
-  color: var(--ink-mute);
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  font-family: var(--sans);
-  text-transform: uppercase;
+  background: var(--surface);
+  min-height: 60vh;
+  align-items: center;
+  border: 1px solid var(--line);
 }
-
-.scroll-down {
-  position: absolute;
-  left: var(--side-x);
-  bottom: 24px;
+.hero-photo-wrap.photo-missing::after {
+  content: 'Foto folgt';
+  color: var(--ink-mute);
   font-size: 12px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+  font-weight: 500;
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--ink-mute);
   font-weight: 500;
+  opacity: 0.6;
+  transition: opacity 0.4s ease;
   pointer-events: none;
-  transition: opacity 0.6s ease;
 }
-.scroll-down.fade { opacity: 0; }
-.scroll-down .arr { font-size: 14px; margin-left: 6px; }
+.hero-scroll-hint.fade { opacity: 0; }
+.hero-scroll-hint .arr { margin-left: 4px; }
 
-@media (max-width: 880px) {
-  .hero { min-height: auto; padding: 32px 0 64px; }
-  .hero-rail { display: none; }
-  .hero-wrap { grid-template-columns: 1fr; gap: 32px; padding: 0 var(--side-x); }
-  .hero-eyebrow { margin-bottom: 18px; }
-  .hero-title { font-size: clamp(60px, 18vw, 100px); margin-bottom: 28px; }
-  .hero-subtitle { font-size: 17px; max-width: none; }
-  .hero-usp { font-size: 14px; max-width: none; }
-  .hero-photo { min-height: 48vh; justify-content: center; }
-  .hero-photo img { max-height: 60vh; }
-  .hero-photo.photo-missing::before { min-height: 48vh; }
-  .scroll-down { left: var(--side-x); bottom: 16px; }
+@media (max-width: 900px) {
+  #profil { min-height: auto; padding: 32px 0 64px; height: auto; }
+  .hero-wrap { grid-template-columns: 1fr; gap: 32px; align-items: start; }
+  .hero-title { font-size: clamp(56px, 14vw, 88px); margin-bottom: 24px; }
+  .hero-subtitle { font-size: 16px; max-width: none; }
+  .hero-usp { font-size: 13px; max-width: none; }
+  .hero-photo { height: clamp(280px, 55vh, 480px); }
+  .hero-photo-wrap { justify-content: center; }
+  .hero-photo-wrap.photo-missing { min-height: 40vh; }
+  .hero-scroll-hint { display: none; }
 }
 
 /* ============ WONACH ICH SUCHE ============ */
-.search {
-  padding: 96px 0 96px;
+.suche-section {
+  padding: 80px 0;
+  background: var(--paper);
+}
+.suche-eyebrow { margin-bottom: 32px; }
+.suche-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 48px;
+  padding: 48px 0;
   border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
-.search-head {
-  margin-bottom: 56px;
-  display: flex; flex-direction: column; gap: 18px;
+.suche-col {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.6;
 }
-.search-grid {
-  display: grid; grid-template-columns: 1fr 1fr 1fr;
-  gap: 56px;
+.suche-col + .suche-col {
+  padding-left: 48px;
+  border-left: 1px solid var(--line);
 }
-.search-col h3 {
-  font-family: var(--sans);
-  font-size: 11px; font-weight: 500;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--ink-mute);
-  margin-bottom: 18px;
+.suche-list {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column;
+  gap: 14px;
 }
-.search-col-list { display: flex; flex-direction: column; gap: 12px; }
-.search-item {
-  display: flex; align-items: flex-start; gap: 12px;
-  font-size: 14px; color: var(--ink-soft); line-height: 1.5;
+.suche-list li {
+  color: var(--ink);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.45;
 }
-.search-icon {
+.suche-fields {
+  display: flex; flex-direction: column;
+  gap: 12px;
+}
+.suche-field {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 14px; color: var(--ink-soft);
+}
+.suche-icon {
   width: 18px; height: 18px; flex-shrink: 0; color: var(--ink);
-  margin-top: 2px;
 }
-.search-fields-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+.suche-prose {
+  font-size: 14px; color: var(--ink-soft); line-height: 1.6;
 }
 
 @media (max-width: 880px) {
-  .search { padding: 64px 0; }
-  .search-grid { grid-template-columns: 1fr; gap: 40px; }
-  .search-fields-grid { grid-template-columns: 1fr; }
+  .suche-grid { grid-template-columns: 1fr; gap: 32px; padding: 32px 0; }
+  .suche-col + .suche-col {
+    padding-left: 0; border-left: 0;
+    padding-top: 32px; border-top: 1px solid var(--line);
+  }
 }
 
 /* ============ CREDO ============ */
 .credo-section {
-  padding: 96px 0;
-  border-top: 1px solid var(--line);
+  padding: 80px 0 100px;
+  background: var(--paper);
 }
-.credo-quote {
-  font-family: var(--serif);
+.credo {
+  font-family: var(--sans);
+  font-size: clamp(20px, 2.4vw, 32px);
   font-weight: 300;
-  font-size: clamp(28px, 3.4vw, 44px);
-  line-height: 1.25;
-  letter-spacing: -0.015em;
+  line-height: 1.45;
   color: var(--ink);
-  max-width: 26ch;
-}
-
-@media (max-width: 880px) {
-  .credo-section { padding: 64px 0; }
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--side-x);
+  text-align: left;
+  letter-spacing: -0.005em;
 }
 
 /* ============ ERFAHRUNG ============ */
-.career {
-  padding: 96px 0;
-  border-top: 1px solid var(--line);
+#erfahrung {
+  padding: 96px 0 112px;
 }
-.career-head {
-  margin-bottom: 56px;
-  display: flex; flex-direction: column; gap: 18px;
+.erfahrung-head {
+  margin-bottom: 32px;
+  display: flex; flex-direction: column; gap: 14px;
 }
-.career-hint {
+.erfahrung-hint {
   font-size: 13px; color: var(--ink-mute);
-  margin-top: 6px;
+  margin-top: 4px;
+}
+
+.erfahrung-grid {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 64px;
+  align-items: start;
+}
+.erfahrung-skills {
+  position: sticky;
+  top: calc(var(--topbar-h) + 24px);
+  align-self: start;
+  height: max-content;
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.skill-chip {
+  display: inline-flex;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--paper);
+  color: var(--ink-soft);
+  cursor: pointer;
+  border: 1px solid var(--line);
+  font-family: inherit;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  white-space: nowrap;
+}
+.skill-chip:hover {
+  background: var(--ink-mute);
+  color: var(--paper);
+  border-color: var(--ink-mute);
+}
+.skill-chip.active {
+  background: var(--dark);
+  color: var(--paper);
+  border-color: var(--dark);
 }
 
 .stations {
@@ -441,14 +480,15 @@ section.snap-sec {
 }
 .station {
   display: grid;
-  grid-template-columns: 28fr 44fr 28fr;
-  gap: 36px;
-  padding: 28px 0;
+  grid-template-columns: 26fr 50fr 24fr;
+  gap: 32px;
+  padding: 32px 0;
   border-bottom: 1px solid var(--line);
   align-items: start;
   transition: opacity 0.32s ease;
 }
 .station.dim { opacity: 0.32; }
+
 .station-co {
   font-family: var(--sans);
   font-size: 22px;
@@ -468,7 +508,7 @@ section.snap-sec {
   background: var(--ink-mute); display: inline-block;
 }
 .station-role {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   color: var(--ink);
   margin-bottom: 6px;
@@ -479,91 +519,123 @@ section.snap-sec {
   line-height: 1.55;
   max-width: 56ch;
 }
+.station-subitems {
+  margin-top: 18px;
+  list-style: none;
+  padding: 0;
+}
+.station-subitems li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  margin-bottom: 10px;
+  transition: opacity 0.25s ease;
+}
+.station-subitems li::before {
+  content: '·';
+  position: absolute;
+  left: 4px;
+  top: -3px;
+  font-size: 20px;
+  color: var(--ink-mute);
+  line-height: 1;
+}
+.station-subitems li.dimmed { opacity: 0.25; }
+.station-subitems li strong { color: var(--ink); font-weight: 600; }
 
 .station-tags {
   display: flex; flex-wrap: wrap; gap: 6px;
   justify-content: flex-end;
 }
-.skill-tag {
-  background: var(--surface);
-  color: var(--ink-soft);
-  font-size: 11px; font-weight: 500;
-  padding: 4px 11px;
-  border-radius: 999px;
-  cursor: pointer;
-  font-family: inherit;
-  border: 0;
-  transition: background 0.2s ease, color 0.2s ease;
-  white-space: nowrap;
+.station-tag {
+  font-size: 11px;
+  color: var(--ink-mute);
+  padding: 3px 10px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  font-weight: 500;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
-.skill-tag:hover {
-  background: var(--ink-mute);
-  color: var(--paper);
-}
-.skill-tag.active {
+.station-tag.active {
   background: var(--dark);
   color: var(--paper);
+  border-color: var(--dark);
 }
 
 @media (max-width: 880px) {
-  .career { padding: 64px 0; }
+  #erfahrung { padding: 64px 0; }
+  .erfahrung-grid { grid-template-columns: 1fr; gap: 28px; }
+  .erfahrung-skills {
+    position: static; height: auto;
+    display: flex; flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+    order: -1;
+  }
+  .skill-chip { flex-shrink: 0; }
   .station {
     grid-template-columns: 1fr;
-    gap: 12px;
-    padding: 22px 0;
+    gap: 14px;
+    padding: 24px 0;
   }
-  .station-tags { justify-content: flex-start; margin-top: 6px; }
+  .station-tags { justify-content: flex-start; }
 }
 
-/* ============ WERTE & ARBEITSWEISE ============ */
-.werte-section {
-  padding: 96px 0;
-  border-top: 1px solid var(--line);
+/* ============ WERTE ============ */
+#werte {
+  padding: 96px 0 112px;
 }
 .werte-head {
-  margin-bottom: 56px;
-  display: flex; flex-direction: column; gap: 18px;
+  margin-bottom: 32px;
+  display: flex; flex-direction: column; gap: 14px;
 }
-.werte-list {
-  display: flex; flex-direction: column;
-  border-top: 1px solid var(--line);
+.werte-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 40px 0 60px;
 }
-.value-block {
-  padding: 48px 0;
-  border-bottom: 1px solid var(--line);
-  display: grid; grid-template-columns: 1fr 1.5fr; gap: 48px;
-  align-items: baseline;
+.wert-card {
+  background: var(--surface);
+  padding: 32px;
+  border-radius: 4px;
+  border: 1px solid var(--line);
 }
-.value-name {
-  font-family: var(--serif);
-  font-size: clamp(40px, 5.2vw, 64px);
-  font-weight: 300;
-  letter-spacing: -0.02em;
+.wert-titel {
+  font-size: 20px;
+  font-weight: 500;
   color: var(--ink);
-  line-height: 1;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.01em;
 }
-.value-body {
-  font-size: 16px;
+.wert-text {
+  font-size: 14px;
   color: var(--ink-soft);
-  line-height: 1.6;
-  max-width: 56ch;
+  line-height: 1.55;
+  margin: 0;
 }
 
 @media (max-width: 880px) {
-  .werte-section { padding: 64px 0; }
-  .value-block { grid-template-columns: 1fr; gap: 12px; padding: 36px 0; }
+  #werte { padding: 64px 0; }
+  .werte-grid { grid-template-columns: 1fr; gap: 12px; padding: 24px 0 40px; }
+  .wert-card { padding: 24px; }
 }
 
-/* ARBEITSWEISE */
-.arbeit-section {
-  padding: 96px 0;
-  border-top: 1px solid var(--line);
+/* Arbeitsweise */
+.arbeit-block { padding-top: 32px; border-top: 1px solid var(--line); }
+.arbeit-head {
+  margin-bottom: 28px;
+  display: flex; flex-direction: column; gap: 12px;
 }
 .arbeit-grid {
   list-style: none;
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: 56px 80px;
-  margin-top: 48px;
+  gap: 48px 64px;
+  margin-top: 24px;
 }
 .arbeit-item {
   padding-top: 14px;
@@ -574,16 +646,16 @@ section.snap-sec {
   color: var(--ink-mute);
   letter-spacing: 0.18em;
   font-weight: 500;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 .arbeit-title {
-  font-family: var(--serif);
-  font-size: 26px;
-  font-weight: 300;
+  font-family: var(--sans);
+  font-size: 22px;
+  font-weight: 500;
   letter-spacing: -0.005em;
   color: var(--ink);
-  margin-bottom: 10px;
-  line-height: 1.2;
+  margin-bottom: 8px;
+  line-height: 1.25;
 }
 .arbeit-body {
   font-size: 14px;
@@ -593,53 +665,54 @@ section.snap-sec {
 }
 
 @media (max-width: 880px) {
-  .arbeit-section { padding: 64px 0; }
-  .arbeit-grid { grid-template-columns: 1fr; gap: 36px; }
+  .arbeit-grid { grid-template-columns: 1fr; gap: 32px; }
 }
 
-/* PERSÖNLICHKEIT */
-.persona-section {
-  padding: 96px 0 128px;
+/* Persönlichkeit */
+.persona-block {
+  padding-top: 48px;
+  margin-top: 56px;
   border-top: 1px solid var(--line);
 }
+.persona-head {
+  margin-bottom: 28px;
+  display: flex; flex-direction: column; gap: 12px;
+}
 .persona-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 56px;
   align-items: start;
-  margin-top: 48px;
+  margin-top: 24px;
 }
-.persona-block-mbti { padding-right: 32px; border-right: 1px solid var(--line); }
-.persona-block .pblock-eyebrow {
+.persona-col-mbti { padding-right: 32px; border-right: 1px solid var(--line); }
+.persona-col .pblock-eyebrow {
   font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--ink-mute); font-weight: 500; margin-bottom: 14px;
+  color: var(--ink-mute); font-weight: 500; margin-bottom: 12px;
 }
-.persona-block .pblock-title {
-  font-family: var(--serif);
-  font-size: 32px; font-weight: 300;
-  letter-spacing: -0.01em; color: var(--ink);
-  margin-bottom: 16px;
-  line-height: 1.15;
+.persona-col .pblock-title {
+  font-family: var(--sans);
+  font-size: 26px; font-weight: 500;
+  letter-spacing: -0.005em; color: var(--ink);
+  margin-bottom: 14px; line-height: 1.2;
 }
-.persona-block p {
+.persona-col p {
   font-size: 14.5px;
   color: var(--ink-soft);
   line-height: 1.6;
   margin-bottom: 12px;
-  max-width: 54ch;
 }
-.persona-block .pblock-note {
+.persona-col .pblock-note {
   color: var(--ink-mute); font-size: 13px;
 }
-
-.persona-block .insights-wheel,
-.persona-block .mbti-chart {
-  margin: 24px 0 6px;
+.persona-col .insights-wheel,
+.persona-col .mbti-chart {
+  margin: 20px 0 6px;
 }
-.persona-block .insights-wheel svg,
-.persona-block .mbti-chart svg {
+.persona-col .insights-wheel svg,
+.persona-col .mbti-chart svg {
   width: 100%; max-width: 320px; height: auto; display: block;
   margin: 0 auto;
 }
-.persona-block .iw-caption {
+.persona-col .iw-caption {
   margin-top: 12px;
   font-size: 13px;
   color: var(--ink-mute);
@@ -647,165 +720,153 @@ section.snap-sec {
 }
 
 @media (max-width: 880px) {
-  .persona-section { padding: 64px 0 96px; }
-  .persona-grid { grid-template-columns: 1fr; gap: 40px; }
-  .persona-block-mbti {
+  .persona-grid { grid-template-columns: 1fr; gap: 36px; }
+  .persona-col-mbti {
     padding-right: 0; border-right: 0;
-    padding-bottom: 40px; border-bottom: 1px solid var(--line);
+    padding-bottom: 36px; border-bottom: 1px solid var(--line);
   }
 }
 
 /* ============ ENGAGEMENT ============ */
-.engagement-section {
+#engagement {
   padding: 96px 0;
-  border-top: 1px solid var(--line);
 }
 .eng-head {
-  margin-bottom: 48px;
-  display: flex; flex-direction: column; gap: 18px;
+  margin-bottom: 32px;
+  display: flex; flex-direction: column; gap: 14px;
 }
-.engage-list {
-  display: flex; flex-direction: column;
-  border-top: 1px solid var(--line);
-}
-.engage-item {
-  padding: 40px 0;
-  border-bottom: 1px solid var(--line);
-  display: grid; grid-template-columns: 1fr 1.6fr;
+.engagement-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 48px;
-  align-items: baseline;
+  padding: 48px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
-.engage-eyebrow {
-  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--ink-mute); font-weight: 500;
-}
-.engage-title {
-  font-family: var(--serif);
-  font-size: clamp(28px, 3.2vw, 40px);
-  font-weight: 300;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  margin-top: 10px;
-  line-height: 1.2;
-}
-.engage-body {
-  font-size: 15px;
+.engagement-col {
+  font-size: 14px;
   color: var(--ink-soft);
   line-height: 1.6;
-  max-width: 56ch;
 }
-.engage-body a {
-  border-bottom: 1px solid currentColor;
-  padding-bottom: 1px;
+.engagement-col + .engagement-col {
+  padding-left: 48px;
+  border-left: 1px solid var(--line);
+}
+.engagement-eyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 12px;
+}
+.engagement-titel {
+  font-size: 18px;
+  font-weight: 500;
   color: var(--ink);
+  margin: 0 0 12px 0;
+  letter-spacing: -0.005em;
 }
-.engage-body a:hover { color: var(--ink-mute); border-bottom-color: var(--ink-mute); }
-.engage-meta {
-  margin-top: 12px;
-  font-size: 13px; color: var(--ink-mute);
-  display: flex; flex-wrap: wrap; gap: 6px 14px;
-}
-.engage-meta .sep { opacity: 0.4; }
-.engage-link {
-  margin-top: 18px;
-  display: inline-flex; align-items: center; gap: 6px;
+.engagement-link {
+  margin-top: 14px;
+  display: inline-flex; align-items: center; gap: 4px;
   font-size: 13px; font-weight: 500;
-  color: var(--ink); border-bottom: 1px solid var(--ink);
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink);
   padding-bottom: 1px;
 }
-.engage-link:hover { color: var(--ink-mute); border-bottom-color: var(--ink-mute); }
-.engage-tags-row {
-  margin-top: 14px;
-  display: flex; flex-wrap: wrap; gap: 6px 18px;
-  font-size: 13px; color: var(--ink-mute);
+.engagement-link:hover { color: var(--ink-mute); border-bottom-color: var(--ink-mute); }
+.engagement-tags {
+  margin-top: 12px;
+  display: flex; flex-wrap: wrap; gap: 6px 14px;
+  font-size: 12px; color: var(--ink-mute);
 }
-.engage-sub {
-  display: grid; grid-template-columns: 1fr auto;
-  gap: 18px;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--line);
-  align-items: baseline;
+.engagement-list {
+  list-style: none; padding: 0; margin: 12px 0 0;
+  display: flex; flex-direction: column; gap: 10px;
 }
-.engage-sub:last-child { border-bottom: 0; }
-.engage-sub-title { font-size: 15px; font-weight: 500; color: var(--ink); }
-.engage-sub-desc { font-size: 13.5px; color: var(--ink-soft); margin-top: 2px; }
-.engage-sub-when { font-size: 12px; color: var(--ink-mute); white-space: nowrap; }
+.engagement-list li {
+  font-size: 13.5px;
+}
+.engagement-list .e-name { color: var(--ink); font-weight: 500; }
+.engagement-list .e-when { color: var(--ink-mute); font-size: 11px; margin-left: 6px; }
 
 @media (max-width: 880px) {
-  .engagement-section { padding: 64px 0; }
-  .engage-item { grid-template-columns: 1fr; gap: 8px; padding: 28px 0; }
+  #engagement { padding: 64px 0; }
+  .engagement-grid {
+    grid-template-columns: 1fr; gap: 32px;
+    padding: 32px 0;
+  }
+  .engagement-col + .engagement-col {
+    padding-left: 0; border-left: 0;
+    padding-top: 32px; border-top: 1px solid var(--line);
+  }
 }
 
 /* ============ KONTAKT ============ */
-.contact-section {
-  background: var(--dark);
-  color: rgba(255,255,255,0.9);
-  padding: 112px 0;
+#kontakt {
+  color: var(--paper);
+  padding-top: 120px;
+  padding-bottom: 120px;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
 }
-.contact-section .wrap { max-width: 1280px; margin: 0 auto; padding: 0 var(--side-x); }
-.contact-eyebrow {
+#kontakt .wrap { width: 100%; }
+.kontakt-eyebrow {
   font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
   color: rgba(255,255,255,0.55); font-weight: 500;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
-.contact-line {
-  font-family: var(--serif);
-  font-weight: 300;
-  font-size: clamp(40px, 6vw, 72px);
-  line-height: 1.02;
-  letter-spacing: -0.02em;
-  color: #fff;
-  max-width: 18ch;
-  margin-bottom: 56px;
-}
-.contact-actions {
-  display: flex; flex-direction: column;
-  gap: 12px;
-  margin-bottom: 56px;
-}
-.contact-link {
+.kontakt-headline {
   font-family: var(--sans);
-  font-size: 15px; font-weight: 500;
-  color: #fff;
-  border-bottom: 1px solid rgba(255,255,255,0.4);
-  padding-bottom: 2px;
-  align-self: flex-start;
-  transition: opacity 0.2s ease, border-color 0.2s ease;
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 250;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--paper);
+  margin: 0 0 60px 0;
+  max-width: 14ch;
+}
+.kontakt-links {
+  display: flex;
+  gap: 32px 48px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+}
+.kontakt-link {
+  font-size: 15px;
+  color: var(--paper);
+  text-decoration: none;
+  border-bottom: 1px solid var(--paper);
+  padding-bottom: 4px;
+  transition: opacity 0.2s ease;
   display: inline-flex; align-items: center; gap: 6px;
 }
-.contact-link:hover {
-  opacity: 0.75; color: #fff;
-  border-bottom-color: rgba(255,255,255,0.85);
-}
-.contact-link .arr { font-size: 13px; }
-
-.contact-meta {
+.kontakt-link:hover { opacity: 0.65; color: var(--paper); }
+.kontakt-link .arr { font-size: 13px; }
+.kontakt-meta {
   display: flex; flex-wrap: wrap; gap: 8px 14px;
-  font-size: 13px;
+  font-size: 12px;
   color: rgba(255,255,255,0.5);
   align-items: center;
 }
-.contact-meta a {
-  color: rgba(255,255,255,0.72);
-}
-.contact-meta a:hover { color: #fff; }
-.contact-meta .sep { opacity: 0.4; }
+.kontakt-meta a { color: rgba(255,255,255,0.72); }
+.kontakt-meta a:hover { color: var(--paper); }
+.kontakt-meta .sep { opacity: 0.4; }
 
 @media (max-width: 880px) {
-  .contact-section { padding: 72px 0; }
+  #kontakt { padding: 72px 0; }
 }
 
-/* ============ REVEAL on scroll (non-hero) ============ */
-.reveal { opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; }
+/* ============ REVEAL on scroll ============ */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
 .reveal.in { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; scroll-snap-type: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
-  .station { transition: none; }
-  .hero-word {
-    opacity: 1; transform: none; animation: none;
-  }
+  .station, .station-subitems li { transition: none; }
 }
 </style>
 </head>
@@ -828,119 +889,96 @@ section.snap-sec {
         <span class="lt-sep">/</span>
         <button id="btn-en" onclick="setLang('en')">EN</button>
       </div>
-      <a href="#kontakt" class="book-call" data-de="Book a call" data-en="Book a call">Book a call<span class="arr" aria-hidden="true">↗</span></a>
+      <a href="#kontakt" class="book-call" data-de="Kontakt" data-en="Contact">Kontakt<span class="arr" aria-hidden="true">↗</span></a>
     </div>
   </div>
 </header>
 
 <main>
 
-<!-- ============ HERO ============ -->
-<section id="profil" class="snap-sec hero">
+<!-- ============ HERO / PROFIL ============ -->
+<section id="profil" class="snap-sec">
   <div class="hero-wrap">
 
-    <div class="hero-rail" aria-hidden="true">
-      <span class="hero-rail-text">Commercial Leader</span>
-      <span class="hero-rail-line"></span>
-      <span class="hero-rail-text">2026</span>
-    </div>
-
     <div class="hero-text">
-      <div class="hero-eyebrow eyebrow" data-de="Commercial Leader · Hamburg" data-en="Commercial Leader · Hamburg">Commercial Leader · Hamburg</div>
-      <h1 class="hero-title"><span class="hero-word">Good</span><span class="hero-word">Commercial</span><span class="hero-word">Leadership</span></h1>
+      <div class="hero-eyebrow" data-de="Hamburg · Commercial Leader" data-en="Hamburg · Commercial Leader">Hamburg · Commercial Leader</div>
+      <h1 class="hero-title">
+        <span class="hero-line">
+          <span class="hero-word w1">Good</span>
+        </span>
+        <span class="hero-line">
+          <span class="hero-word w2">Commercial</span>
+          <span class="hero-word w3">Leadership</span>
+        </span>
+      </h1>
       <p class="hero-subtitle"
-         data-de="Ich helfe Unternehmen und Organisationen, gute Ideen in nachhaltiges Wachstum zu überführen."
-         data-en="I help companies and organisations translate good ideas into sustainable growth.">Ich helfe Unternehmen und Organisationen, gute Ideen in nachhaltiges Wachstum zu überführen.</p>
+         data-de="Ich helfe Unternehmen und Organisationen, gute Ideen zu verkaufen und nachhaltig zu skalieren."
+         data-en="I help companies and organisations sell good ideas and scale them sustainably.">Ich helfe Unternehmen und Organisationen, gute Ideen zu verkaufen und nachhaltig zu skalieren.</p>
       <p class="hero-usp"
          data-de="<strong>Strategische Tiefe aus vier Jahren Top-Management-Beratung</strong> trifft auf den <strong>operativen Aufbau einer B2B-Vertriebsorganisation im Startup</strong>. Dazu ein über ein Jahrzehnt geschärftes <strong>Gespür für Kunden und Organisationen</strong>, die Fähigkeit, die menschliche Seite hinter Daten und Verhandlungen zu verstehen. Mich reizen besonders <strong>Felder, in denen Wachstum auch echten Impact schafft</strong>."
          data-en="<strong>Strategic depth from four years in top-management consulting</strong> meets the <strong>hands-on build-out of a B2B sales organisation at a startup</strong>. Add a feel for <strong>customers and organisations sharpened over more than a decade</strong>, the ability to read the human side behind data and negotiations. I am especially drawn to <strong>fields where growth also creates real impact</strong>."><strong>Strategische Tiefe aus vier Jahren Top-Management-Beratung</strong> trifft auf den <strong>operativen Aufbau einer B2B-Vertriebsorganisation im Startup</strong>. Dazu ein über ein Jahrzehnt geschärftes <strong>Gespür für Kunden und Organisationen</strong>, die Fähigkeit, die menschliche Seite hinter Daten und Verhandlungen zu verstehen. Mich reizen besonders <strong>Felder, in denen Wachstum auch echten Impact schafft</strong>.</p>
     </div>
 
-    <div class="hero-photo" id="hero-photo">
-      <img src="assets/photo/jan-portrait-bw.png" alt="Jan Klütsch" onerror="document.getElementById('hero-photo').classList.add('photo-missing'); this.remove();">
+    <div class="hero-photo-wrap" id="hero-photo-wrap">
+      <img class="hero-photo" src="assets/photo/jan-portrait-bw.png" alt="Jan Klütsch" onerror="document.getElementById('hero-photo-wrap').classList.add('photo-missing'); this.remove();">
     </div>
 
   </div>
-  <div class="scroll-down" id="scroll-down" aria-hidden="true">Scroll down<span class="arr">↓</span></div>
+  <div class="hero-scroll-hint" id="scroll-hint" aria-hidden="true">Scroll<span class="arr">↓</span></div>
 </section>
 
 <!-- ============ WONACH ICH SUCHE ============ -->
-<section class="search snap-sec" aria-labelledby="search-title">
+<section class="suche-section">
   <div class="wrap">
-    <div class="search-head reveal">
-      <div class="eyebrow" data-de="Wonach ich suche" data-en="What I am looking for">Wonach ich suche</div>
-      <h2 class="section-title" id="search-title" data-de="Rolle, Felder, Umfeld" data-en="Role, fields, setting">Rolle, Felder, Umfeld</h2>
-    </div>
+    <div class="suche-eyebrow eyebrow" data-de="Wonach ich suche" data-en="What I am looking for">Wonach ich suche</div>
+    <div class="suche-grid">
 
-    <div class="search-grid">
-      <div class="search-col reveal">
-        <h3 data-de="Rolle" data-en="Role">Rolle</h3>
-        <div class="search-col-list">
-          <div class="search-item">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-            </svg>
-            <span data-de="Head of Sales / Commercial, CRO oder CCO" data-en="Head of Sales / Commercial, CRO or CCO">Head of Sales / Commercial, CRO oder CCO</span>
-          </div>
-          <div class="search-item">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-            <span data-de="Co-Founder, wenn Idee und Team passen" data-en="Co-founder, if idea and team fit">Co-Founder, wenn Idee und Team passen</span>
-          </div>
-          <div class="search-item">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"/>
-              <circle cx="12" cy="12" r="6"/>
-              <circle cx="12" cy="12" r="2"/>
-            </svg>
-            <span data-de="Impact Investing oder Consulting (Associate, Principal)" data-en="Impact investing or consulting (associate, principal)">Impact Investing oder Consulting (Associate, Principal)</span>
-          </div>
-        </div>
+      <div class="suche-col">
+        <ul class="suche-list">
+          <li data-de="Head of Sales / Commercial" data-en="Head of Sales / Commercial">Head of Sales / Commercial</li>
+          <li data-de="CRO oder CCO" data-en="CRO or CCO">CRO oder CCO</li>
+          <li data-de="Co-Founder, wenn Idee und Team passen" data-en="Co-founder, if idea and team fit">Co-Founder, wenn Idee und Team passen</li>
+          <li data-de="Impact Investing oder Consulting (Associate, Principal)" data-en="Impact investing or consulting (associate, principal)">Impact Investing oder Consulting (Associate, Principal)</li>
+        </ul>
       </div>
 
-      <div class="search-col reveal">
-        <h3 data-de="Felder" data-en="Fields">Felder</h3>
-        <div class="search-fields-grid">
-          <div class="search-item">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <div class="suche-col">
+        <div class="suche-fields">
+          <div class="suche-field">
+            <svg class="suche-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.8 2c1 5 .5 10-4 14a5 5 0 0 1-9 0z"/>
               <path d="M2 21c0-3 1.85-5.36 5.08-6"/>
             </svg>
             <span data-de="FoodTech &amp; AgTech" data-en="FoodTech &amp; AgTech">FoodTech &amp; AgTech</span>
           </div>
-          <div class="search-item">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <div class="suche-field">
+            <svg class="suche-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
             </svg>
             <span data-de="CleanTech &amp; Energie" data-en="CleanTech &amp; energy">CleanTech &amp; Energie</span>
           </div>
-          <div class="search-item">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <div class="suche-field">
+            <svg class="suche-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
             </svg>
             <span data-de="Digital &amp; Mental Health" data-en="Digital &amp; mental health">Digital &amp; Mental Health</span>
           </div>
-          <div class="search-item">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <div class="suche-field">
+            <svg class="suche-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
             </svg>
             <span data-de="Sport" data-en="Sport">Sport</span>
           </div>
-          <div class="search-item">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <div class="suche-field">
+            <svg class="suche-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <polyline points="23 4 23 10 17 10"/>
               <polyline points="1 20 1 14 7 14"/>
               <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
             </svg>
             <span data-de="Circular Economy" data-en="Circular economy">Circular Economy</span>
           </div>
-          <div class="search-item">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <div class="suche-field">
+            <svg class="suche-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="6" cy="19" r="3"/>
               <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/>
               <circle cx="18" cy="5" r="3"/>
@@ -950,413 +988,452 @@ section.snap-sec {
         </div>
       </div>
 
-      <div class="search-col reveal">
-        <h3 data-de="Umfeld" data-en="Setting">Umfeld</h3>
-        <div class="search-col-list">
-          <div class="search-item">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
-              <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
-              <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
-              <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
-            </svg>
-            <span data-de="Startup oder Scale-up mit echter Ownership" data-en="Startup or scale-up with real ownership">Startup oder Scale-up mit echter Ownership</span>
-          </div>
-          <div class="search-item">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-              <circle cx="12" cy="10" r="3"/>
-            </svg>
-            <span data-de="Hamburg oder remote-first" data-en="Hamburg or remote-first">Hamburg oder remote-first</span>
-          </div>
-          <div class="search-item">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"/>
-              <line x1="2" y1="12" x2="22" y2="12"/>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-            </svg>
-            <span data-de="Investment oder NGO" data-en="Investment or NGO">Investment oder NGO</span>
-          </div>
-        </div>
+      <div class="suche-col">
+        <p class="suche-prose"
+           data-de="Startup oder Scale-up mit echter Ownership und langfristiger Perspektive. Hamburg oder remote-first. Auch Investment oder NGO, wenn Mission und Wirkung stimmen."
+           data-en="Startup or scale-up with real ownership and a long-term perspective. Hamburg or remote-first. Open to investment or NGO settings if mission and impact fit.">Startup oder Scale-up mit echter Ownership und langfristiger Perspektive. Hamburg oder remote-first. Auch Investment oder NGO, wenn Mission und Wirkung stimmen.</p>
       </div>
+
     </div>
   </div>
 </section>
 
 <!-- ============ CREDO ============ -->
-<section class="credo-section snap-sec">
-  <div class="wrap">
-    <blockquote class="credo-quote reveal">
-      <p data-de="„Wachstum entsteht dort, wo echter Kundennutzen vermittelt wird. Ohne Product-Market-Fit und Kundenzentriertheit gibt es kein nachhaltiges Wachstum. Meine Aufgabe ist, die Strukturen zu schaffen, in denen das gelingt. Daten helfen dabei. Am Ende geht es um Menschen.“"
-         data-en="„Growth happens where real customer value is created. Without product-market fit and customer focus, no growth is sustainable. My job is to build the structures in which that succeeds. Data helps. In the end, it is about people.“">„Wachstum entsteht dort, wo echter Kundennutzen vermittelt wird. Ohne Product-Market-Fit und Kundenzentriertheit gibt es kein nachhaltiges Wachstum. Meine Aufgabe ist, die Strukturen zu schaffen, in denen das gelingt. Daten helfen dabei. Am Ende geht es um Menschen.“</p>
-    </blockquote>
-  </div>
+<section class="credo-section">
+  <blockquote class="credo">
+    <p data-de="„Wachstum entsteht dort, wo echter Kundennutzen vermittelt wird. Ohne Product-Market-Fit und Kundenzentriertheit gibt es weder Erfolg noch Wirkung. Meine Aufgabe ist, die Strukturen zu schaffen, in denen das gelingt. KI und Daten helfen dabei. Am Ende geht es um Menschen.“"
+       data-en="„Growth happens where real customer value is created. Without product-market fit and customer focus, neither success nor impact follow. My job is to build the structures in which that succeeds. AI and data help. In the end, it is about people.“">„Wachstum entsteht dort, wo echter Kundennutzen vermittelt wird. Ohne Product-Market-Fit und Kundenzentriertheit gibt es weder Erfolg noch Wirkung. Meine Aufgabe ist, die Strukturen zu schaffen, in denen das gelingt. KI und Daten helfen dabei. Am Ende geht es um Menschen.“</p>
+  </blockquote>
 </section>
 
 <!-- ============ ERFAHRUNG ============ -->
-<section id="erfahrung" class="career snap-sec">
+<section id="erfahrung" class="snap-sec">
   <div class="wrap">
-    <div class="career-head reveal">
+    <div class="erfahrung-head reveal">
       <div class="eyebrow" data-de="Explore my career" data-en="Explore my career">Explore my career</div>
       <h2 class="section-title" data-de="Erfahrung" data-en="Career">Erfahrung</h2>
-      <div class="career-hint" data-de="Skill anklicken zum Filtern." data-en="Click a skill to filter.">Skill anklicken zum Filtern.</div>
+      <div class="erfahrung-hint" data-de="Skill anklicken zum Filtern." data-en="Click a skill to filter.">Skill anklicken zum Filtern.</div>
     </div>
 
-    <div class="stations">
+    <div class="erfahrung-grid">
 
-      <article class="station" data-station="porsche" data-skills="gtm strategie pricing vertriebsaufbau funnel stakeholder erklaerung b2b">
-        <div class="station-col-1">
-          <h3 class="station-co">Porsche Consulting</h3>
-          <div class="station-date">04/2021 – 09/2025</div>
-        </div>
-        <div class="station-col-2">
-          <div class="station-role" data-de="Manager, Brand &amp; Sales Practice" data-en="Manager, Brand &amp; Sales Practice">Manager, Brand &amp; Sales Practice</div>
-          <p class="station-desc" data-de="Strategieberatung im Volkswagen-Konzern; End-to-End-Vertriebsstrategien für Auto-Abo, Hardware-Startup, Automotive-Retail; Salesforce-Einführung."
-             data-en="Strategy consulting in the Volkswagen Group; end-to-end sales strategies for car subscription, hardware startup, automotive retail; Salesforce rollout.">Strategieberatung im Volkswagen-Konzern; End-to-End-Vertriebsstrategien für Auto-Abo, Hardware-Startup, Automotive-Retail; Salesforce-Einführung.</p>
-        </div>
-        <div class="station-col-3 station-tags">
-          <button class="skill-tag" data-skill="strategie" data-de="Strategie" data-en="Strategy">Strategie</button>
-          <button class="skill-tag" data-skill="gtm" data-de="Go-to-Market" data-en="Go-to-market">Go-to-Market</button>
-          <button class="skill-tag" data-skill="pricing" data-de="Pricing" data-en="Pricing">Pricing</button>
-          <button class="skill-tag" data-skill="stakeholder" data-de="Stakeholder" data-en="Stakeholder">Stakeholder</button>
-        </div>
-      </article>
+      <div class="erfahrung-main">
+        <div class="stations">
 
-      <article class="station" data-station="wunder" data-skills="vertriebsaufbau b2b stakeholder funnel gtm strategie">
-        <div class="station-col-1">
-          <h3 class="station-co">Wunder Mobility</h3>
-          <div class="station-date">03/2019 – 03/2021</div>
-        </div>
-        <div class="station-col-2">
-          <div class="station-role">Head of Sales</div>
-          <p class="station-desc" data-de="B2B-SaaS-Scale-up für Mikromobilität; Aufbau und Leitung des New-Ventures-Pod; Redesign der Commercial-Organisation; +30% MRR pro Quartal."
-             data-en="B2B SaaS scale-up for micro-mobility; built and led the New Ventures pod; redesign of the commercial organisation; +30% MRR per quarter.">B2B-SaaS-Scale-up für Mikromobilität; Aufbau und Leitung des New-Ventures-Pod; Redesign der Commercial-Organisation; +30% MRR pro Quartal.</p>
-        </div>
-        <div class="station-col-3 station-tags">
-          <button class="skill-tag" data-skill="vertriebsaufbau" data-de="Teamaufbau" data-en="Team build-out">Teamaufbau</button>
-          <button class="skill-tag" data-skill="funnel" data-de="Funnel" data-en="Funnel">Funnel</button>
-          <button class="skill-tag" data-skill="gtm" data-de="Go-to-Market" data-en="Go-to-market">Go-to-Market</button>
-          <button class="skill-tag" data-skill="b2b" data-de="Komplexer B2B" data-en="Complex B2B">Komplexer B2B</button>
-        </div>
-      </article>
+          <article class="station" data-station="porsche" data-skills="gtm strategie pricing vertriebsaufbau funnel stakeholder erklaerung b2b">
+            <div class="station-col-1">
+              <h3 class="station-co">Porsche Consulting</h3>
+              <div class="station-date">04/2021 – 09/2025</div>
+            </div>
+            <div class="station-col-2">
+              <div class="station-role" data-de="Manager, Brand &amp; Sales Practice" data-en="Manager, Brand &amp; Sales Practice">Manager, Brand &amp; Sales Practice</div>
+              <p class="station-desc" data-de="Strategieberatung im Volkswagen-Konzern; Fokus Brand, Marketing und Sales."
+                 data-en="Strategy consulting in the Volkswagen Group; focus on brand, marketing and sales.">Strategieberatung im Volkswagen-Konzern; Fokus Brand, Marketing und Sales.</p>
+              <ul class="station-subitems">
+                <li data-skills="gtm strategie pricing vertriebsaufbau funnel stakeholder"
+                    data-de="<strong>End-to-End-Vertriebsstrategie</strong> für einen mittelständischen Auto-Abo-Anbieter: Segmentanalyse, Produktstrategie, Pricing, Vertriebsstruktur, CRM und Zusammenarbeitsmodell."
+                    data-en="<strong>End-to-end sales strategy</strong> for a mid-sized car-subscription provider: segment analysis, product strategy, pricing, sales structure, CRM and collaboration model."><strong>End-to-End-Vertriebsstrategie</strong> für einen mittelständischen Auto-Abo-Anbieter: Segmentanalyse, Produktstrategie, Pricing, Vertriebsstruktur, CRM und Zusammenarbeitsmodell.</li>
+                <li data-skills="gtm pricing erklaerung strategie"
+                    data-de="<strong>Markteintritts- und Skalierungsstrategie</strong> für ein Hardware-Startup im Transportsektor: GTM-Design, Pricing-Logik, Channel-Strategie."
+                    data-en="<strong>Market entry and scaling strategy</strong> for a hardware startup in the transport sector: GTM design, pricing logic, channel strategy."><strong>Markteintritts- und Skalierungsstrategie</strong> für ein Hardware-Startup im Transportsektor: GTM-Design, Pricing-Logik, Channel-Strategie.</li>
+                <li data-skills="funnel vertriebsaufbau stakeholder"
+                    data-de="<strong>Vertriebs-Performance-Programm</strong> für einen mittelständischen Logistikdienstleister."
+                    data-en="<strong>Sales performance programme</strong> for a mid-sized logistics provider."><strong>Vertriebs-Performance-Programm</strong> für einen mittelständischen Logistikdienstleister.</li>
+                <li data-skills="funnel strategie stakeholder"
+                    data-de="<strong>Datengetriebene Vertriebsstrategie</strong> für Automotive-Retail-Gruppen in DE und FR: simulationsgestützte Strategie, Entscheidungstool."
+                    data-en="<strong>Data-driven sales strategy</strong> for automotive retail groups in Germany and France: simulation-based strategy, decision tool."><strong>Datengetriebene Vertriebsstrategie</strong> für Automotive-Retail-Gruppen in DE und FR: simulationsgestützte Strategie, Entscheidungstool.</li>
+                <li data-skills="strategie"
+                    data-de="<strong>Datenbasierte Analyse der Einflussfaktoren</strong> auf den Automobilhandel auf Konzernebene."
+                    data-en="<strong>Data-based analysis of the drivers</strong> shaping automotive retail at group level."><strong>Datenbasierte Analyse der Einflussfaktoren</strong> auf den Automobilhandel auf Konzernebene.</li>
+                <li data-skills="strategie stakeholder b2b"
+                    data-de="<strong>Akquisition eines Mietwagenanbieters</strong> für einen globalen Automotive-OEM, Mobility-Solutions-Strategie."
+                    data-en="<strong>Acquisition of a rental-car provider</strong> for a global automotive OEM, mobility solutions strategy."><strong>Akquisition eines Mietwagenanbieters</strong> für einen globalen Automotive-OEM, Mobility-Solutions-Strategie.</li>
+                <li data-skills="strategie"
+                    data-de="<strong>Circular-Business-Modell</strong> zur industriellen Revitalisierung gebrauchter Komponenten."
+                    data-en="<strong>Circular business model</strong> for the industrial revitalisation of used components."><strong>Circular-Business-Modell</strong> zur industriellen Revitalisierung gebrauchter Komponenten.</li>
+                <li data-skills="strategie stakeholder b2b"
+                    data-de="<strong>Optimierung der externen Vergabe</strong> von Entwicklungsaufträgen im Engineering: Strategie, Compliance, Stakeholder-Steuerung."
+                    data-en="<strong>Optimisation of external contract awarding</strong> in engineering: strategy, compliance, stakeholder steering."><strong>Optimierung der externen Vergabe</strong> von Entwicklungsaufträgen im Engineering: Strategie, Compliance, Stakeholder-Steuerung.</li>
+                <li data-skills="vertriebsaufbau funnel"
+                    data-de="<strong>Übergreifend:</strong> Generative-AI-Taskforce, Salesforce-Einführung als CRM, interne Schulungen zu Sales Excellence."
+                    data-en="<strong>Cross-firm:</strong> Generative AI taskforce, Salesforce rollout as CRM, internal trainings on sales excellence."><strong>Übergreifend:</strong> Generative-AI-Taskforce, Salesforce-Einführung als CRM, interne Schulungen zu Sales Excellence.</li>
+              </ul>
+            </div>
+            <div class="station-col-3 station-tags">
+              <span class="station-tag" data-skill="strategie" data-de="Strategie" data-en="Strategy">Strategie</span>
+              <span class="station-tag" data-skill="gtm" data-de="Go-to-Market" data-en="Go-to-market">Go-to-Market</span>
+              <span class="station-tag" data-skill="pricing" data-de="Pricing" data-en="Pricing">Pricing</span>
+              <span class="station-tag" data-skill="stakeholder" data-de="Stakeholder" data-en="Stakeholder">Stakeholder</span>
+            </div>
+          </article>
 
-      <article class="station" data-station="google" data-skills="gtm stakeholder b2b funnel vertriebsaufbau">
-        <div class="station-col-1">
-          <h3 class="station-co">Google</h3>
-          <div class="station-date">07/2018 – 11/2018</div>
-        </div>
-        <div class="station-col-2">
-          <div class="station-role">Large Customer Sales, Search Specialist</div>
-          <p class="station-desc" data-de="Search-Vertrieb für den deutschen Retail-Markt aus dem Dublin-HQ; Q4-Aktivitäten, Umsatzziel über 600 Mio. USD; Tools und Prozesse für Account Manager."
-             data-en="Search sales for the German retail market from the Dublin HQ; Q4 activities, revenue target above USD 600m; tools and processes for account managers.">Search-Vertrieb für den deutschen Retail-Markt aus dem Dublin-HQ; Q4-Aktivitäten, Umsatzziel über 600 Mio. USD; Tools und Prozesse für Account Manager.</p>
-        </div>
-        <div class="station-col-3 station-tags">
-          <button class="skill-tag" data-skill="gtm" data-de="Go-to-Market" data-en="Go-to-market">Go-to-Market</button>
-          <button class="skill-tag" data-skill="funnel" data-de="Funnel" data-en="Funnel">Funnel</button>
-          <button class="skill-tag" data-skill="stakeholder" data-de="Stakeholder" data-en="Stakeholder">Stakeholder</button>
-          <button class="skill-tag" data-skill="b2b" data-de="Komplexer B2B" data-en="Complex B2B">Komplexer B2B</button>
-        </div>
-      </article>
+          <article class="station" data-station="wunder" data-skills="vertriebsaufbau b2b stakeholder funnel gtm strategie">
+            <div class="station-col-1">
+              <h3 class="station-co">Wunder Mobility</h3>
+              <div class="station-date">03/2019 – 03/2021</div>
+            </div>
+            <div class="station-col-2">
+              <div class="station-role">Head of Sales</div>
+              <p class="station-desc" data-de="B2B-SaaS-Scale-up für Mikromobilität und Carsharing."
+                 data-en="B2B SaaS scale-up for micro-mobility and carsharing.">B2B-SaaS-Scale-up für Mikromobilität und Carsharing.</p>
+              <ul class="station-subitems">
+                <li data-skills="vertriebsaufbau b2b stakeholder"
+                    data-de="<strong>Aufbau und Leitung des New-Ventures-Pod</strong> mit sieben Mitarbeitenden (SDR, BD, Account Management)."
+                    data-en="<strong>Built and led the New Ventures pod</strong> with seven team members (SDR, BD, account management)."><strong>Aufbau und Leitung des New-Ventures-Pod</strong> mit sieben Mitarbeitenden (SDR, BD, Account Management).</li>
+                <li data-skills="funnel gtm vertriebsaufbau"
+                    data-de="<strong>Verantwortung für den gesamten B2B-Funnel</strong> aus Inbound, Outbound und Account Expansion; Wachstum bis +30% MRR pro Quartal."
+                    data-en="<strong>Responsibility for the full B2B funnel</strong>: inbound, outbound, account expansion; growth up to +30% MRR per quarter."><strong>Verantwortung für den gesamten B2B-Funnel</strong> aus Inbound, Outbound und Account Expansion; Wachstum bis +30% MRR pro Quartal.</li>
+                <li data-skills="funnel gtm stakeholder"
+                    data-de="<strong>Aufbau einer Lead-Generation-Engine</strong> in enger Zusammenarbeit mit Performance Marketing."
+                    data-en="<strong>Build-out of a lead-generation engine</strong> in close collaboration with performance marketing."><strong>Aufbau einer Lead-Generation-Engine</strong> in enger Zusammenarbeit mit Performance Marketing.</li>
+                <li data-skills="vertriebsaufbau funnel strategie"
+                    data-de="<strong>Redesign der Commercial-Organisation:</strong> KPI-Framework, CRM-Setup (Pipedrive), Reporting."
+                    data-en="<strong>Redesign of the commercial organisation:</strong> KPI framework, CRM setup (Pipedrive), reporting."><strong>Redesign der Commercial-Organisation:</strong> KPI-Framework, CRM-Setup (Pipedrive), Reporting.</li>
+                <li data-skills="b2b stakeholder"
+                    data-de="<strong>Komplexer Lösungsvertrieb</strong> an B2B-Kunden mit mehrstufigen Entscheidungswegen."
+                    data-en="<strong>Complex solution sales</strong> to B2B customers with multi-stage decision paths."><strong>Komplexer Lösungsvertrieb</strong> an B2B-Kunden mit mehrstufigen Entscheidungswegen.</li>
+              </ul>
+            </div>
+            <div class="station-col-3 station-tags">
+              <span class="station-tag" data-skill="vertriebsaufbau" data-de="Teamaufbau" data-en="Team build-out">Teamaufbau</span>
+              <span class="station-tag" data-skill="funnel" data-de="Funnel" data-en="Funnel">Funnel</span>
+              <span class="station-tag" data-skill="gtm" data-de="Go-to-Market" data-en="Go-to-market">Go-to-Market</span>
+              <span class="station-tag" data-skill="b2b" data-de="Komplexer B2B" data-en="Complex B2B">Komplexer B2B</span>
+            </div>
+          </article>
 
-      <article class="station" data-station="simonkucher" data-skills="pricing strategie erklaerung">
-        <div class="station-col-1">
-          <h3 class="station-co">Simon-Kucher &amp; Partners</h3>
-          <div class="station-date">06/2017 – 08/2017</div>
-        </div>
-        <div class="station-col-2">
-          <div class="station-role">Associate Consultant</div>
-          <p class="station-desc" data-de="Globales B2B/B2C-Price-Transformation-Projekt für einen führenden Elektronikhersteller; wertbasiertes Ersatzteil-Pricing-Modell für ein Schweizer Robotics-Unternehmen."
-             data-en="Global B2B/B2C price-transformation project for a leading electronics manufacturer; value-based spare-parts pricing model for a Swiss robotics company.">Globales B2B/B2C-Price-Transformation-Projekt für einen führenden Elektronikhersteller; wertbasiertes Ersatzteil-Pricing-Modell für ein Schweizer Robotics-Unternehmen.</p>
-        </div>
-        <div class="station-col-3 station-tags">
-          <button class="skill-tag" data-skill="pricing" data-de="Pricing" data-en="Pricing">Pricing</button>
-          <button class="skill-tag" data-skill="strategie" data-de="Strategie" data-en="Strategy">Strategie</button>
-          <button class="skill-tag" data-skill="erklaerung" data-de="Komplexe Produkte" data-en="Complex products">Komplexe Produkte</button>
-        </div>
-      </article>
+          <article class="station" data-station="google" data-skills="gtm stakeholder b2b funnel vertriebsaufbau">
+            <div class="station-col-1">
+              <h3 class="station-co">Google</h3>
+              <div class="station-date">07/2018 – 11/2018</div>
+            </div>
+            <div class="station-col-2">
+              <div class="station-role">Large Customer Sales, Search Specialist</div>
+              <p class="station-desc" data-de="Search-Vertrieb für den deutschen Retail-Markt aus dem Dublin-HQ."
+                 data-en="Search sales for the German retail market from the Dublin HQ.">Search-Vertrieb für den deutschen Retail-Markt aus dem Dublin-HQ.</p>
+              <ul class="station-subitems">
+                <li data-skills="gtm stakeholder b2b"
+                    data-de="<strong>Begleitung der Q4-Aktivitäten</strong> für Googles Retail-Sektor, Umsatzziel über 600 Mio. USD; Reporting an die Retail-Leadership in DE und Dublin."
+                    data-en="<strong>Supporting Q4 activities</strong> for Google's retail sector, revenue target above USD 600m; reporting into retail leadership in Germany and Dublin."><strong>Begleitung der Q4-Aktivitäten</strong> für Googles Retail-Sektor, Umsatzziel über 600 Mio. USD; Reporting an die Retail-Leadership in DE und Dublin.</li>
+                <li data-skills="funnel vertriebsaufbau"
+                    data-de="<strong>Entwicklung neuer Tools und Prozesse</strong> für Account Manager und Specialists."
+                    data-en="<strong>Development of new tools and processes</strong> for account managers and specialists."><strong>Entwicklung neuer Tools und Prozesse</strong> für Account Manager und Specialists.</li>
+                <li data-skills="funnel"
+                    data-de="<strong>Identifikation von Wachstumspotenzialen</strong> per Datenanalyse, skalierte Initiativen mit Stakeholdern in Central Europe."
+                    data-en="<strong>Identifying growth potentials</strong> through data analysis, rolling out scaled initiatives with stakeholders across Central Europe."><strong>Identifikation von Wachstumspotenzialen</strong> per Datenanalyse, skalierte Initiativen mit Stakeholdern in Central Europe.</li>
+                <li data-skills="b2b stakeholder"
+                    data-de="<strong>Enge Zusammenarbeit mit den größten Retail-Kunden</strong> zur Vorbereitung auf das pivotale Q4-Geschäft."
+                    data-en="<strong>Close collaboration with Google's largest retail customers</strong> in preparation for the pivotal Q4 business."><strong>Enge Zusammenarbeit mit den größten Retail-Kunden</strong> zur Vorbereitung auf das pivotale Q4-Geschäft.</li>
+              </ul>
+            </div>
+            <div class="station-col-3 station-tags">
+              <span class="station-tag" data-skill="gtm" data-de="Go-to-Market" data-en="Go-to-market">Go-to-Market</span>
+              <span class="station-tag" data-skill="funnel" data-de="Funnel" data-en="Funnel">Funnel</span>
+              <span class="station-tag" data-skill="stakeholder" data-de="Stakeholder" data-en="Stakeholder">Stakeholder</span>
+              <span class="station-tag" data-skill="b2b" data-de="Komplexer B2B" data-en="Complex B2B">Komplexer B2B</span>
+            </div>
+          </article>
 
-      <article class="station" data-station="mankiewicz" data-skills="vertriebsaufbau b2b stakeholder gtm erklaerung">
-        <div class="station-col-1">
-          <h3 class="station-co">Mankiewicz Gebr. &amp; Co</h3>
-          <div class="station-date">04/2014 – 04/2016</div>
+          <article class="station" data-station="simonkucher" data-skills="pricing strategie erklaerung">
+            <div class="station-col-1">
+              <h3 class="station-co">Simon-Kucher &amp; Partners</h3>
+              <div class="station-date">06/2017 – 08/2017</div>
+            </div>
+            <div class="station-col-2">
+              <div class="station-role">Associate Consultant</div>
+              <p class="station-desc" data-de="Boutique-Beratung für Pricing und Wachstumsstrategie."
+                 data-en="Boutique consultancy for pricing and growth strategy.">Boutique-Beratung für Pricing und Wachstumsstrategie.</p>
+              <ul class="station-subitems">
+                <li data-skills="pricing strategie"
+                    data-de="<strong>Globales B2B/B2C-Price-Transformation-Projekt</strong> für einen Elektronikhersteller: Listenpreise, Discounting, Peer-Pricing, automatisiertes Toolset."
+                    data-en="<strong>Global B2B/B2C price-transformation project</strong> for an electronics manufacturer: list prices, discounting, peer pricing, automated toolset."><strong>Globales B2B/B2C-Price-Transformation-Projekt</strong> für einen Elektronikhersteller: Listenpreise, Discounting, Peer-Pricing, automatisiertes Toolset.</li>
+                <li data-skills="pricing erklaerung"
+                    data-de="<strong>Wertbasiertes Ersatzteil-Pricing-Modell</strong> für ein Schweizer Robotics-Unternehmen, inklusive integriertem Pricing-Tool."
+                    data-en="<strong>Value-based spare-parts pricing model</strong> for a Swiss robotics company, including integrated pricing tool."><strong>Wertbasiertes Ersatzteil-Pricing-Modell</strong> für ein Schweizer Robotics-Unternehmen, inklusive integriertem Pricing-Tool.</li>
+              </ul>
+            </div>
+            <div class="station-col-3 station-tags">
+              <span class="station-tag" data-skill="pricing" data-de="Pricing" data-en="Pricing">Pricing</span>
+              <span class="station-tag" data-skill="strategie" data-de="Strategie" data-en="Strategy">Strategie</span>
+              <span class="station-tag" data-skill="erklaerung" data-de="Komplexe Produkte" data-en="Complex products">Komplexe Produkte</span>
+            </div>
+          </article>
+
+          <article class="station" data-station="mankiewicz" data-skills="vertriebsaufbau b2b stakeholder gtm erklaerung">
+            <div class="station-col-1">
+              <h3 class="station-co">Mankiewicz Gebr. &amp; Co</h3>
+              <div class="station-date">04/2014 – 04/2016</div>
+            </div>
+            <div class="station-col-2">
+              <div class="station-role">Global Key Account Manager</div>
+              <p class="station-desc" data-de="Industrielacke und Beschichtungssysteme für globale OEMs."
+                 data-en="Industrial coatings and paint systems for global OEMs.">Industrielacke und Beschichtungssysteme für globale OEMs.</p>
+              <ul class="station-subitems">
+                <li data-skills="vertriebsaufbau b2b stakeholder"
+                    data-de="<strong>Jüngster Key Account Manager der Firmengeschichte:</strong> globale Betreuung von Toyota, Markt-Lead für UK, Indien und Japan."
+                    data-en="<strong>Youngest key account manager in the company history:</strong> global responsibility for Toyota, market lead for UK, India and Japan."><strong>Jüngster Key Account Manager der Firmengeschichte:</strong> globale Betreuung von Toyota, Markt-Lead für UK, Indien und Japan.</li>
+                <li data-skills="b2b vertriebsaufbau gtm"
+                    data-de="<strong>Steigerung des betreuten Umsatzvolumens um 30%</strong> innerhalb eines Jahres."
+                    data-en="<strong>Increase of assigned revenue volume by 30%</strong> within one year."><strong>Steigerung des betreuten Umsatzvolumens um 30%</strong> innerhalb eines Jahres.</li>
+                <li data-skills="erklaerung b2b"
+                    data-de="<strong>Verkauf von Beschichtungslösungen</strong> an die größten Automotive-OEMs, Zulieferer und Lackierbetriebe weltweit."
+                    data-en="<strong>Selling coating solutions</strong> to the largest automotive OEMs, suppliers and coating shops worldwide."><strong>Verkauf von Beschichtungslösungen</strong> an die größten Automotive-OEMs, Zulieferer und Lackierbetriebe weltweit.</li>
+                <li data-skills="stakeholder erklaerung"
+                    data-de="<strong>Steuerung von Projektkomplexität</strong> und vielfältigen Stakeholdern entlang der automobilen Lieferkette, inklusive Claim Management."
+                    data-en="<strong>Steering project complexity</strong> and diverse stakeholders along the automotive supply chain, including claim management."><strong>Steuerung von Projektkomplexität</strong> und vielfältigen Stakeholdern entlang der automobilen Lieferkette, inklusive Claim Management.</li>
+              </ul>
+            </div>
+            <div class="station-col-3 station-tags">
+              <span class="station-tag" data-skill="vertriebsaufbau" data-de="Teamaufbau" data-en="Team build-out">Teamaufbau</span>
+              <span class="station-tag" data-skill="b2b" data-de="Komplexer B2B" data-en="Complex B2B">Komplexer B2B</span>
+              <span class="station-tag" data-skill="erklaerung" data-de="Komplexe Produkte" data-en="Complex products">Komplexe Produkte</span>
+              <span class="station-tag" data-skill="stakeholder" data-de="Stakeholder" data-en="Stakeholder">Stakeholder</span>
+            </div>
+          </article>
+
         </div>
-        <div class="station-col-2">
-          <div class="station-role">Global Key Account Manager</div>
-          <p class="station-desc" data-de="Jüngster KAM der Firmengeschichte; globale Betreuung von Toyota, Markt-Lead UK/Indien/Japan; +30% Umsatzsteigerung; Verkauf erklärungsbedürftiger Beschichtungslösungen."
-             data-en="Youngest KAM in the company history; global responsibility for Toyota, market lead UK/India/Japan; +30% revenue increase; selling complex coating solutions.">Jüngster KAM der Firmengeschichte; globale Betreuung von Toyota, Markt-Lead UK/Indien/Japan; +30% Umsatzsteigerung; Verkauf erklärungsbedürftiger Beschichtungslösungen.</p>
-        </div>
-        <div class="station-col-3 station-tags">
-          <button class="skill-tag" data-skill="vertriebsaufbau" data-de="Teamaufbau" data-en="Team build-out">Teamaufbau</button>
-          <button class="skill-tag" data-skill="b2b" data-de="Komplexer B2B" data-en="Complex B2B">Komplexer B2B</button>
-          <button class="skill-tag" data-skill="erklaerung" data-de="Komplexe Produkte" data-en="Complex products">Komplexe Produkte</button>
-          <button class="skill-tag" data-skill="stakeholder" data-de="Stakeholder" data-en="Stakeholder">Stakeholder</button>
-        </div>
-      </article>
+      </div>
+
+      <aside class="erfahrung-skills" aria-label="Skills">
+        <button class="skill-chip" data-skill="gtm" data-de="Go-to-Market" data-en="Go-to-market">Go-to-Market</button>
+        <button class="skill-chip" data-skill="vertriebsaufbau" data-de="Teamaufbau" data-en="Team build-out">Teamaufbau</button>
+        <button class="skill-chip" data-skill="funnel" data-de="Funnel" data-en="Funnel">Funnel</button>
+        <button class="skill-chip" data-skill="strategie" data-de="Strategie" data-en="Strategy">Strategie</button>
+        <button class="skill-chip" data-skill="pricing" data-de="Pricing" data-en="Pricing">Pricing</button>
+        <button class="skill-chip" data-skill="b2b" data-de="Komplexer B2B" data-en="Complex B2B">Komplexer B2B</button>
+        <button class="skill-chip" data-skill="erklaerung" data-de="Komplexe Produkte" data-en="Complex products">Komplexe Produkte</button>
+        <button class="skill-chip" data-skill="stakeholder" data-de="Stakeholder" data-en="Stakeholder">Stakeholder</button>
+      </aside>
 
     </div>
   </div>
 </section>
 
 <!-- ============ WERTE ============ -->
-<section id="werte" class="werte-section snap-sec">
+<section id="werte" class="snap-sec">
   <div class="wrap">
     <div class="werte-head reveal">
       <div class="eyebrow" data-de="Was mich antreibt" data-en="What drives me">Was mich antreibt</div>
       <h2 class="section-title" data-de="Werte" data-en="Values">Werte</h2>
     </div>
 
-    <div class="werte-list">
-      <article class="value-block reveal">
-        <h3 class="value-name" data-de="Fairness" data-en="Fairness">Fairness</h3>
-        <p class="value-body" data-de="Ehrlich, transparent und berechenbar, nach innen wie nach außen."
+    <div class="werte-grid">
+      <article class="wert-card reveal">
+        <h3 class="wert-titel" data-de="Fairness" data-en="Fairness">Fairness</h3>
+        <p class="wert-text" data-de="Ehrlich, transparent und berechenbar, nach innen wie nach außen."
            data-en="Honest, transparent and predictable, inside and out.">Ehrlich, transparent und berechenbar, nach innen wie nach außen.</p>
       </article>
-      <article class="value-block reveal">
-        <h3 class="value-name" data-de="Authentizität" data-en="Authenticity">Authentizität</h3>
-        <p class="value-body" data-de="Ich sage, was ich meine, und stehe für das, was ich sage."
+      <article class="wert-card reveal">
+        <h3 class="wert-titel" data-de="Authentizität" data-en="Authenticity">Authentizität</h3>
+        <p class="wert-text" data-de="Ich sage, was ich meine, und stehe für das, was ich sage."
            data-en="I say what I mean and stand by what I say.">Ich sage, was ich meine, und stehe für das, was ich sage.</p>
       </article>
-      <article class="value-block reveal">
-        <h3 class="value-name" data-de="Begeisterung" data-en="Enthusiasm">Begeisterung</h3>
-        <p class="value-body" data-de="Menschen mit klarem Storytelling für eine Idee gewinnen und in Bewegung bringen."
+      <article class="wert-card reveal">
+        <h3 class="wert-titel" data-de="Begeisterung" data-en="Enthusiasm">Begeisterung</h3>
+        <p class="wert-text" data-de="Menschen mit klarem Storytelling für eine Idee gewinnen und in Bewegung bringen."
            data-en="Winning people over for an idea with clear storytelling and getting them moving.">Menschen mit klarem Storytelling für eine Idee gewinnen und in Bewegung bringen.</p>
       </article>
-      <article class="value-block reveal">
-        <h3 class="value-name" data-de="Qualität" data-en="Quality">Qualität</h3>
-        <p class="value-body" data-de="In der Arbeit, in der Zusammenarbeit, und im Leben. Lieber gründlich richtig als schnell ungefähr, lieber Substanz als Show."
+      <article class="wert-card reveal">
+        <h3 class="wert-titel" data-de="Qualität" data-en="Quality">Qualität</h3>
+        <p class="wert-text" data-de="In der Arbeit, in der Zusammenarbeit, und im Leben. Lieber gründlich richtig als schnell ungefähr, lieber Substanz als Show."
            data-en="In work, in collaboration, and in life. Better thoroughly right than quickly close enough, substance over show.">In der Arbeit, in der Zusammenarbeit, und im Leben. Lieber gründlich richtig als schnell ungefähr, lieber Substanz als Show.</p>
       </article>
-      <article class="value-block reveal">
-        <h3 class="value-name" data-de="Bescheidenheit" data-en="Modesty">Bescheidenheit</h3>
-        <p class="value-body" data-de="Die besten Lösungen entstehen selten allein. Zuhören kommt vor Entscheiden."
+      <article class="wert-card reveal">
+        <h3 class="wert-titel" data-de="Bescheidenheit" data-en="Modesty">Bescheidenheit</h3>
+        <p class="wert-text" data-de="Die besten Lösungen entstehen selten allein. Zuhören kommt vor Entscheiden."
            data-en="The best solutions rarely come alone. Listening comes before deciding.">Die besten Lösungen entstehen selten allein. Zuhören kommt vor Entscheiden.</p>
       </article>
     </div>
-  </div>
-</section>
 
-<!-- ============ ARBEITSWEISE ============ -->
-<section class="arbeit-section snap-sec">
-  <div class="wrap">
-    <div class="werte-head reveal">
-      <div class="eyebrow" data-de="Wie ich arbeite" data-en="How I work">Wie ich arbeite</div>
-      <h2 class="section-title" data-de="Arbeitsweise" data-en="Way of working">Arbeitsweise</h2>
+    <div class="arbeit-block">
+      <div class="arbeit-head reveal">
+        <div class="eyebrow" data-de="Wie ich arbeite" data-en="How I work">Wie ich arbeite</div>
+        <h2 class="section-title" data-de="Arbeitsweise" data-en="Way of working">Arbeitsweise</h2>
+      </div>
+      <ol class="arbeit-grid">
+        <li class="arbeit-item reveal">
+          <div class="arbeit-num">01</div>
+          <h3 class="arbeit-title" data-de="Aus Ideen Umsetzung machen" data-en="Turning ideas into execution">Aus Ideen Umsetzung machen</h3>
+          <p class="arbeit-body" data-de="Am besten in kleinen, motivierten Teams, Verantwortung übernehmen, ins Tun kommen."
+             data-en="Best in small, driven teams, taking ownership, getting things moving.">Am besten in kleinen, motivierten Teams, Verantwortung übernehmen, ins Tun kommen.</p>
+        </li>
+        <li class="arbeit-item reveal">
+          <div class="arbeit-num">02</div>
+          <h3 class="arbeit-title" data-de="Mit Storytelling überzeugen" data-en="Convincing with storytelling">Mit Storytelling überzeugen</h3>
+          <p class="arbeit-body" data-de="Auch in herausfordernden Situationen vorangehen, interne wie externe Stakeholder für eine Idee gewinnen."
+             data-en="Leading in challenging situations, winning over internal and external stakeholders for an idea.">Auch in herausfordernden Situationen vorangehen, interne wie externe Stakeholder für eine Idee gewinnen.</p>
+        </li>
+        <li class="arbeit-item reveal">
+          <div class="arbeit-num">03</div>
+          <h3 class="arbeit-title" data-de="Die menschliche Seite verstehen" data-en="Reading the human side">Die menschliche Seite verstehen</h3>
+          <p class="arbeit-body" data-de="Mit Empathie hinter Daten und Verhandlungen schauen."
+             data-en="Looking behind data and negotiations with empathy.">Mit Empathie hinter Daten und Verhandlungen schauen.</p>
+        </li>
+        <li class="arbeit-item reveal">
+          <div class="arbeit-num">04</div>
+          <h3 class="arbeit-title" data-de="Intellektuelle Neugier" data-en="Intellectual curiosity">Intellektuelle Neugier</h3>
+          <p class="arbeit-body" data-de="Komplexe Themen schnell durchdringen, Annahmen hinterfragen, neue Felder mit Offenheit angehen."
+             data-en="Getting into complex topics quickly, questioning assumptions, approaching new fields with openness.">Komplexe Themen schnell durchdringen, Annahmen hinterfragen, neue Felder mit Offenheit angehen.</p>
+        </li>
+        <li class="arbeit-item reveal">
+          <div class="arbeit-num">05</div>
+          <h3 class="arbeit-title" data-de="Datengetrieben arbeiten" data-en="Working with data">Datengetrieben arbeiten</h3>
+          <p class="arbeit-body" data-de="Entscheidungen mit Daten unterlegen, ohne den Blick fürs Wesentliche zu verlieren."
+             data-en="Backing decisions with data without losing sight of what really matters.">Entscheidungen mit Daten unterlegen, ohne den Blick fürs Wesentliche zu verlieren.</p>
+        </li>
+        <li class="arbeit-item reveal">
+          <div class="arbeit-num">06</div>
+          <h3 class="arbeit-title" data-de="Komplexität steuern" data-en="Steering complexity">Komplexität steuern</h3>
+          <p class="arbeit-body" data-de="Große Teams und vielfältige Stakeholder durch komplexe, dynamische Setups führen."
+             data-en="Leading large teams and diverse stakeholders through complex, dynamic setups.">Große Teams und vielfältige Stakeholder durch komplexe, dynamische Setups führen.</p>
+        </li>
+      </ol>
     </div>
 
-    <ol class="arbeit-grid">
-      <li class="arbeit-item reveal">
-        <div class="arbeit-num">01</div>
-        <h3 class="arbeit-title" data-de="Aus Ideen Umsetzung machen" data-en="Turning ideas into execution">Aus Ideen Umsetzung machen</h3>
-        <p class="arbeit-body" data-de="Am besten in kleinen, motivierten Teams, Verantwortung übernehmen, ins Tun kommen."
-           data-en="Best in small, driven teams, taking ownership, getting things moving.">Am besten in kleinen, motivierten Teams, Verantwortung übernehmen, ins Tun kommen.</p>
-      </li>
-      <li class="arbeit-item reveal">
-        <div class="arbeit-num">02</div>
-        <h3 class="arbeit-title" data-de="Mit Storytelling überzeugen" data-en="Convincing with storytelling">Mit Storytelling überzeugen</h3>
-        <p class="arbeit-body" data-de="Auch in herausfordernden Situationen vorangehen, interne wie externe Stakeholder für eine Idee gewinnen."
-           data-en="Leading in challenging situations, winning over internal and external stakeholders for an idea.">Auch in herausfordernden Situationen vorangehen, interne wie externe Stakeholder für eine Idee gewinnen.</p>
-      </li>
-      <li class="arbeit-item reveal">
-        <div class="arbeit-num">03</div>
-        <h3 class="arbeit-title" data-de="Die menschliche Seite verstehen" data-en="Reading the human side">Die menschliche Seite verstehen</h3>
-        <p class="arbeit-body" data-de="Mit Empathie hinter Daten und Verhandlungen schauen."
-           data-en="Looking behind data and negotiations with empathy.">Mit Empathie hinter Daten und Verhandlungen schauen.</p>
-      </li>
-      <li class="arbeit-item reveal">
-        <div class="arbeit-num">04</div>
-        <h3 class="arbeit-title" data-de="Intellektuelle Neugier" data-en="Intellectual curiosity">Intellektuelle Neugier</h3>
-        <p class="arbeit-body" data-de="Komplexe Themen schnell durchdringen, Annahmen hinterfragen, neue Felder mit Offenheit angehen."
-           data-en="Getting into complex topics quickly, questioning assumptions, approaching new fields with openness.">Komplexe Themen schnell durchdringen, Annahmen hinterfragen, neue Felder mit Offenheit angehen.</p>
-      </li>
-      <li class="arbeit-item reveal">
-        <div class="arbeit-num">05</div>
-        <h3 class="arbeit-title" data-de="Datengetrieben arbeiten" data-en="Working with data">Datengetrieben arbeiten</h3>
-        <p class="arbeit-body" data-de="Entscheidungen mit Daten unterlegen, ohne den Blick fürs Wesentliche zu verlieren."
-           data-en="Backing decisions with data without losing sight of what really matters.">Entscheidungen mit Daten unterlegen, ohne den Blick fürs Wesentliche zu verlieren.</p>
-      </li>
-      <li class="arbeit-item reveal">
-        <div class="arbeit-num">06</div>
-        <h3 class="arbeit-title" data-de="Komplexität steuern" data-en="Steering complexity">Komplexität steuern</h3>
-        <p class="arbeit-body" data-de="Große Teams und vielfältige Stakeholder durch komplexe, dynamische Setups führen."
-           data-en="Leading large teams and diverse stakeholders through complex, dynamic setups.">Große Teams und vielfältige Stakeholder durch komplexe, dynamische Setups führen.</p>
-      </li>
-    </ol>
-  </div>
-</section>
+    <div class="persona-block">
+      <div class="persona-head reveal">
+        <div class="eyebrow" data-de="Wer ich bin" data-en="Who I am">Wer ich bin</div>
+        <h2 class="section-title" data-de="Persönlichkeit" data-en="Personality">Persönlichkeit</h2>
+      </div>
 
-<!-- ============ PERSÖNLICHKEIT ============ -->
-<section class="persona-section snap-sec">
-  <div class="wrap">
-    <div class="werte-head reveal">
-      <div class="eyebrow" data-de="Wer ich bin" data-en="Who I am">Wer ich bin</div>
-      <h2 class="section-title" data-de="Persönlichkeit" data-en="Personality">Persönlichkeit</h2>
+      <div class="persona-grid">
+        <article class="persona-col persona-col-mbti reveal">
+          <div class="pblock-eyebrow">MBTI</div>
+          <div class="pblock-title">ENTP</div>
+          <p data-de="Ideen- und hypothesengetrieben, mit Energie aus neuen und komplexen Problemen. Klare Präferenz fürs Treiben statt Verwalten."
+             data-en="Idea- and hypothesis-driven, energised by new and complex problems. A clear preference for driving things rather than administering them.">Ideen- und hypothesengetrieben, mit Energie aus neuen und komplexen Problemen. Klare Präferenz fürs Treiben statt Verwalten.</p>
+          <p class="pblock-note"
+             data-de="Beim MBTI geht es um vier Achsen der Wahrnehmung und Entscheidung. ENTP steht für extravertiert, intuitiv, denkend, wahrnehmend."
+             data-en="MBTI maps four axes of perception and decision-making. ENTP stands for extraverted, intuitive, thinking, perceiving.">Beim MBTI geht es um vier Achsen der Wahrnehmung und Entscheidung. ENTP steht für extravertiert, intuitiv, denkend, wahrnehmend.</p>
+
+          <div class="mbti-chart" aria-label="MBTI Achsen">
+            <svg viewBox="0 0 320 224" role="img">
+              <g font-family="Inter Tight, system-ui, sans-serif">
+                <text x="160" y="20" font-size="9" text-anchor="middle" letter-spacing="1.4" font-weight="600" fill="#7b7b7b" data-de="EXTRAVERSION · INTROVERSION" data-en="EXTRAVERSION · INTROVERSION">EXTRAVERSION · INTROVERSION</text>
+                <text x="22" y="48" font-size="13" font-weight="700" fill="#222">E</text>
+                <line x1="44" y1="44" x2="276" y2="44" stroke="#e5e5e2" stroke-width="2" stroke-linecap="round"/>
+                <text x="298" y="48" font-size="13" font-weight="600" fill="#7b7b7b" text-anchor="end">I</text>
+                <circle cx="90" cy="44" r="7" fill="#222" stroke="#fcfcfa" stroke-width="2"/>
+
+                <text x="160" y="72" font-size="9" text-anchor="middle" letter-spacing="1.4" font-weight="600" fill="#7b7b7b" data-de="INTUITION · SENSING" data-en="INTUITION · SENSING">INTUITION · SENSING</text>
+                <text x="22" y="100" font-size="13" font-weight="700" fill="#222">N</text>
+                <line x1="44" y1="96" x2="276" y2="96" stroke="#e5e5e2" stroke-width="2" stroke-linecap="round"/>
+                <text x="298" y="100" font-size="13" font-weight="600" fill="#7b7b7b" text-anchor="end">S</text>
+                <circle cx="102" cy="96" r="7" fill="#222" stroke="#fcfcfa" stroke-width="2"/>
+
+                <text x="160" y="124" font-size="9" text-anchor="middle" letter-spacing="1.4" font-weight="600" fill="#7b7b7b" data-de="THINKING · FEELING" data-en="THINKING · FEELING">THINKING · FEELING</text>
+                <text x="22" y="152" font-size="13" font-weight="700" fill="#222">T</text>
+                <line x1="44" y1="148" x2="276" y2="148" stroke="#e5e5e2" stroke-width="2" stroke-linecap="round"/>
+                <text x="298" y="152" font-size="13" font-weight="600" fill="#7b7b7b" text-anchor="end">F</text>
+                <circle cx="137" cy="148" r="7" fill="#222" stroke="#fcfcfa" stroke-width="2"/>
+
+                <text x="160" y="176" font-size="9" text-anchor="middle" letter-spacing="1.4" font-weight="600" fill="#7b7b7b" data-de="JUDGING · PERCEIVING" data-en="JUDGING · PERCEIVING">JUDGING · PERCEIVING</text>
+                <text x="22" y="204" font-size="13" font-weight="600" fill="#7b7b7b">J</text>
+                <line x1="44" y1="200" x2="276" y2="200" stroke="#e5e5e2" stroke-width="2" stroke-linecap="round"/>
+                <text x="298" y="204" font-size="13" font-weight="700" fill="#222" text-anchor="end">P</text>
+                <circle cx="195" cy="200" r="7" fill="#222" stroke="#fcfcfa" stroke-width="2"/>
+              </g>
+            </svg>
+            <div class="iw-caption"
+                 data-de="Marker zeigt die Tendenz pro Achse: extravertiert, intuitiv, leicht denkend, wahrnehmend."
+                 data-en="Marker shows the tendency on each axis: extraverted, intuitive, slightly thinking, perceiving.">Marker zeigt die Tendenz pro Achse: extravertiert, intuitiv, leicht denkend, wahrnehmend.</div>
+          </div>
+        </article>
+
+        <article class="persona-col reveal">
+          <div class="pblock-eyebrow">Insights Discovery</div>
+          <div class="pblock-title" data-de="Typ 48 · „Inspirierender Berater (Anpassungsfähig)“" data-en="Type 48 · ‘Inspiring Advisor (Adaptable)’">Typ 48 · „Inspirierender Berater (Anpassungsfähig)“</div>
+          <p data-de="Insights Discovery beschreibt vier Energien. Die Profilposition zeigt das Mischungsverhältnis. Bei mir nahezu gleich starkes Gelb, Grün und Blau, deutlich weniger Rot."
+             data-en="Insights Discovery describes four energies. The profile position shows the mix. With me, yellow, green and blue are nearly equally strong, while red is clearly less.">Insights Discovery beschreibt vier Energien. Die Profilposition zeigt das Mischungsverhältnis. Bei mir nahezu gleich starkes Gelb, Grün und Blau, deutlich weniger Rot.</p>
+
+          <div class="insights-wheel" aria-label="Insights Discovery Energien">
+            <svg viewBox="0 0 320 320" role="img">
+              <path d="M 160 160 L 160 30 A 130 130 0 0 0 30 160 Z" fill="#e8b934"/>
+              <path d="M 160 160 L 290 160 A 130 130 0 0 0 160 30 Z" fill="#c8423a"/>
+              <path d="M 160 160 L 160 290 A 130 130 0 0 0 290 160 Z" fill="#34608c"/>
+              <path d="M 160 160 L 30 160 A 130 130 0 0 0 160 290 Z" fill="#5e8a3f"/>
+              <circle cx="160" cy="160" r="130" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="1"/>
+              <circle cx="160" cy="160" r="34" fill="#fcfcfa"/>
+              <circle cx="160" cy="160" r="34" fill="none" stroke="#e5e5e2" stroke-width="1"/>
+              <g font-family="Inter Tight, system-ui, sans-serif" fill="#ffffff" text-anchor="middle">
+                <text x="92" y="98" font-size="11" font-weight="600" letter-spacing="1.4" data-de="GELB" data-en="YELLOW">GELB</text>
+                <text x="92" y="126" font-size="26" font-weight="700">61</text>
+                <text x="228" y="98" font-size="11" font-weight="600" letter-spacing="1.4" data-de="ROT" data-en="RED">ROT</text>
+                <text x="228" y="126" font-size="26" font-weight="700">35</text>
+                <text x="228" y="205" font-size="11" font-weight="600" letter-spacing="1.4" data-de="BLAU" data-en="BLUE">BLAU</text>
+                <text x="228" y="233" font-size="26" font-weight="700">59</text>
+                <text x="92" y="205" font-size="11" font-weight="600" letter-spacing="1.4" data-de="GRÜN" data-en="GREEN">GRÜN</text>
+                <text x="92" y="233" font-size="26" font-weight="700">60</text>
+              </g>
+              <circle cx="148" cy="208" r="10" fill="#222" stroke="#fcfcfa" stroke-width="3"/>
+            </svg>
+            <div class="iw-caption"
+                 data-de="Der Punkt: gewichtetes Mittel der vier Energien. Hier zwischen Gelb und Grün, mit leichter Tendenz Richtung Grün."
+                 data-en="The dot: weighted average of the four energies. Here between yellow and green, with a slight lean to green.">Der Punkt: gewichtetes Mittel der vier Energien. Hier zwischen Gelb und Grün, mit leichter Tendenz Richtung Grün.</div>
+          </div>
+        </article>
+      </div>
     </div>
 
-    <div class="persona-grid">
-      <article class="persona-block persona-block-mbti reveal">
-        <div class="pblock-eyebrow">MBTI</div>
-        <div class="pblock-title">ENTP</div>
-        <p data-de="Ideen- und hypothesengetrieben, mit Energie aus neuen und komplexen Problemen. Klare Präferenz fürs Treiben statt Verwalten."
-           data-en="Idea- and hypothesis-driven, energised by new and complex problems. A clear preference for driving things rather than administering them.">Ideen- und hypothesengetrieben, mit Energie aus neuen und komplexen Problemen. Klare Präferenz fürs Treiben statt Verwalten.</p>
-        <p class="pblock-note"
-           data-de="Beim MBTI geht es um vier Achsen der Wahrnehmung und Entscheidung. ENTP steht für extravertiert, intuitiv, denkend, wahrnehmend."
-           data-en="MBTI maps four axes of perception and decision-making. ENTP stands for extraverted, intuitive, thinking, perceiving.">Beim MBTI geht es um vier Achsen der Wahrnehmung und Entscheidung. ENTP steht für extravertiert, intuitiv, denkend, wahrnehmend.</p>
-
-        <div class="mbti-chart" aria-label="MBTI Achsen">
-          <svg viewBox="0 0 320 224" role="img" aria-labelledby="mbti-title mbti-desc">
-            <title id="mbti-title">MBTI ENTP</title>
-            <desc id="mbti-desc">Vier Achsen: Extraversion · Introversion, Intuition · Sensing, Thinking · Feeling, Judging · Perceiving. Marker zeigt die Tendenz auf jeder Achse.</desc>
-            <g font-family="Inter Tight, system-ui, sans-serif">
-              <text x="160" y="20" font-size="9" text-anchor="middle" letter-spacing="1.4" font-weight="600" fill="#7b7b7b" data-de="EXTRAVERSION · INTROVERSION" data-en="EXTRAVERSION · INTROVERSION">EXTRAVERSION · INTROVERSION</text>
-              <text x="22" y="48" font-size="13" font-weight="700" fill="#222">E</text>
-              <line x1="44" y1="44" x2="276" y2="44" stroke="#e5e5e2" stroke-width="2" stroke-linecap="round"/>
-              <text x="298" y="48" font-size="13" font-weight="600" fill="#7b7b7b" text-anchor="end">I</text>
-              <circle cx="90" cy="44" r="7" fill="#222" stroke="#fcfcfa" stroke-width="2"/>
-
-              <text x="160" y="72" font-size="9" text-anchor="middle" letter-spacing="1.4" font-weight="600" fill="#7b7b7b" data-de="INTUITION · SENSING" data-en="INTUITION · SENSING">INTUITION · SENSING</text>
-              <text x="22" y="100" font-size="13" font-weight="700" fill="#222">N</text>
-              <line x1="44" y1="96" x2="276" y2="96" stroke="#e5e5e2" stroke-width="2" stroke-linecap="round"/>
-              <text x="298" y="100" font-size="13" font-weight="600" fill="#7b7b7b" text-anchor="end">S</text>
-              <circle cx="102" cy="96" r="7" fill="#222" stroke="#fcfcfa" stroke-width="2"/>
-
-              <text x="160" y="124" font-size="9" text-anchor="middle" letter-spacing="1.4" font-weight="600" fill="#7b7b7b" data-de="THINKING · FEELING" data-en="THINKING · FEELING">THINKING · FEELING</text>
-              <text x="22" y="152" font-size="13" font-weight="700" fill="#222">T</text>
-              <line x1="44" y1="148" x2="276" y2="148" stroke="#e5e5e2" stroke-width="2" stroke-linecap="round"/>
-              <text x="298" y="152" font-size="13" font-weight="600" fill="#7b7b7b" text-anchor="end">F</text>
-              <circle cx="137" cy="148" r="7" fill="#222" stroke="#fcfcfa" stroke-width="2"/>
-
-              <text x="160" y="176" font-size="9" text-anchor="middle" letter-spacing="1.4" font-weight="600" fill="#7b7b7b" data-de="JUDGING · PERCEIVING" data-en="JUDGING · PERCEIVING">JUDGING · PERCEIVING</text>
-              <text x="22" y="204" font-size="13" font-weight="600" fill="#7b7b7b">J</text>
-              <line x1="44" y1="200" x2="276" y2="200" stroke="#e5e5e2" stroke-width="2" stroke-linecap="round"/>
-              <text x="298" y="204" font-size="13" font-weight="700" fill="#222" text-anchor="end">P</text>
-              <circle cx="195" cy="200" r="7" fill="#222" stroke="#fcfcfa" stroke-width="2"/>
-            </g>
-          </svg>
-          <div class="iw-caption"
-               data-de="Marker zeigt die Tendenz pro Achse: extravertiert, intuitiv, leicht denkend, wahrnehmend."
-               data-en="Marker shows the tendency on each axis: extraverted, intuitive, slightly thinking, perceiving.">Marker zeigt die Tendenz pro Achse: extravertiert, intuitiv, leicht denkend, wahrnehmend.</div>
-        </div>
-      </article>
-
-      <article class="persona-block reveal">
-        <div class="pblock-eyebrow">Insights Discovery</div>
-        <div class="pblock-title" data-de="Typ 48 · „Inspirierender Berater (Anpassungsfähig)“" data-en="Type 48 · ‘Inspiring Advisor (Adaptable)’">Typ 48 · „Inspirierender Berater (Anpassungsfähig)“</div>
-        <p data-de="Insights Discovery beschreibt vier Energien. Die Profilposition zeigt das Mischungsverhältnis. Bei mir nahezu gleich starkes Gelb, Grün und Blau, deutlich weniger Rot."
-           data-en="Insights Discovery describes four energies. The profile position shows the mix. With me, yellow, green and blue are nearly equally strong, while red is clearly less.">Insights Discovery beschreibt vier Energien. Die Profilposition zeigt das Mischungsverhältnis. Bei mir nahezu gleich starkes Gelb, Grün und Blau, deutlich weniger Rot.</p>
-
-        <div class="insights-wheel" aria-label="Insights Discovery Energien">
-          <svg viewBox="0 0 320 320" role="img" aria-labelledby="iw-title iw-desc">
-            <title id="iw-title">Insights Discovery Energien</title>
-            <desc id="iw-desc">Vier Quadranten: Gelb 61 oben links, Rot 35 oben rechts, Blau 59 unten rechts, Grün 60 unten links. Der Punkt markiert die Profilposition.</desc>
-            <path d="M 160 160 L 160 30 A 130 130 0 0 0 30 160 Z" fill="#e8b934"/>
-            <path d="M 160 160 L 290 160 A 130 130 0 0 0 160 30 Z" fill="#c8423a"/>
-            <path d="M 160 160 L 160 290 A 130 130 0 0 0 290 160 Z" fill="#34608c"/>
-            <path d="M 160 160 L 30 160 A 130 130 0 0 0 160 290 Z" fill="#5e8a3f"/>
-            <circle cx="160" cy="160" r="130" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="1"/>
-            <circle cx="160" cy="160" r="34" fill="#fcfcfa"/>
-            <circle cx="160" cy="160" r="34" fill="none" stroke="#e5e5e2" stroke-width="1"/>
-            <g font-family="Inter Tight, system-ui, sans-serif" fill="#ffffff" text-anchor="middle">
-              <text x="92" y="98" font-size="11" font-weight="600" letter-spacing="1.4" data-de="GELB" data-en="YELLOW">GELB</text>
-              <text x="92" y="126" font-size="26" font-weight="700" font-family="Fraunces, serif">61</text>
-              <text x="228" y="98" font-size="11" font-weight="600" letter-spacing="1.4" data-de="ROT" data-en="RED">ROT</text>
-              <text x="228" y="126" font-size="26" font-weight="700" font-family="Fraunces, serif">35</text>
-              <text x="228" y="205" font-size="11" font-weight="600" letter-spacing="1.4" data-de="BLAU" data-en="BLUE">BLAU</text>
-              <text x="228" y="233" font-size="26" font-weight="700" font-family="Fraunces, serif">59</text>
-              <text x="92" y="205" font-size="11" font-weight="600" letter-spacing="1.4" data-de="GRÜN" data-en="GREEN">GRÜN</text>
-              <text x="92" y="233" font-size="26" font-weight="700" font-family="Fraunces, serif">60</text>
-            </g>
-            <circle cx="148" cy="208" r="10" fill="#222222" stroke="#fcfcfa" stroke-width="3"/>
-          </svg>
-          <div class="iw-caption"
-               data-de="Der Punkt: gewichtetes Mittel der vier Energien. Hier zwischen Gelb und Grün, mit leichter Tendenz Richtung Grün."
-               data-en="The dot: weighted average of the four energies. Here between yellow and green, with a slight lean to green.">Der Punkt: gewichtetes Mittel der vier Energien. Hier zwischen Gelb und Grün, mit leichter Tendenz Richtung Grün.</div>
-        </div>
-      </article>
-    </div>
   </div>
 </section>
 
 <!-- ============ ENGAGEMENT ============ -->
-<section id="engagement" class="engagement-section snap-sec">
+<section id="engagement" class="snap-sec">
   <div class="wrap">
     <div class="eng-head reveal">
       <div class="eyebrow" data-de="Außerhalb der Arbeit" data-en="Beyond work">Außerhalb der Arbeit</div>
       <h2 class="section-title" data-de="Engagement" data-en="Engagement">Engagement</h2>
     </div>
 
-    <div class="engage-list">
-      <article class="engage-item reveal">
-        <div class="engage-eyebrow" data-de="Unternehmertum" data-en="Entrepreneurship">Unternehmertum</div>
-        <div>
-          <h3 class="engage-title" data-de="J.L. Ingwert" data-en="J.L. Ingwert">J.L. Ingwert</h3>
-          <p class="engage-body" data-de="Seit 2020 zusammen mit einem Freund einen selbst entwickelten Ingwer-Likör aufgebaut: von der Rezeptur über Marke und Verpackung bis zum Vertrieb. Erste Charge: 240 Flaschen, nahezu ausverkauft."
-             data-en="Since 2020 built a self-developed ginger liqueur together with a friend: from recipe through brand and packaging to distribution. First batch: 240 bottles, nearly sold out.">Seit 2020 zusammen mit einem Freund einen selbst entwickelten Ingwer-Likör aufgebaut: von der Rezeptur über Marke und Verpackung bis zum Vertrieb. Erste Charge: 240 Flaschen, nahezu ausverkauft.</p>
-          <a class="engage-link" href="https://www.ingwert.de/produkt/j-l-ingwert/" target="_blank" rel="noopener" data-de="Zum Produkt auf ingwert.de" data-en="See it on ingwert.de">Zum Produkt auf ingwert.de<span class="arr" aria-hidden="true">↗</span></a>
-        </div>
-      </article>
+    <div class="engagement-grid">
 
-      <article class="engage-item reveal">
-        <div class="engage-eyebrow" data-de="Sport" data-en="Sport">Sport</div>
-        <div>
-          <h3 class="engage-title" data-de="Ausdauer und Berge" data-en="Endurance and mountains">Ausdauer und Berge</h3>
-          <p class="engage-body" data-de="Ausdauersport ist für mich Leidenschaft und Teil meiner Identität. Lange Distanzen, draußen, oft in den Bergen. Das hält den Kopf frei und erinnert daran, was wirklich zählt."
-             data-en="Endurance sport is a passion and part of who I am. Long distances, outdoors, often in the mountains. It keeps my head clear and reminds me what really matters.">Ausdauersport ist für mich Leidenschaft und Teil meiner Identität. Lange Distanzen, draußen, oft in den Bergen. Das hält den Kopf frei und erinnert daran, was wirklich zählt.</p>
-          <div class="engage-tags-row">
-            <span data-de="3× Marathon" data-en="3× marathon">3× Marathon</span>
-            <span>Zugspitz Ultratrail</span>
-            <span data-de="Halbmarathon unter 1:30 h" data-en="Half marathon under 1:30 h">Halbmarathon unter 1:30 h</span>
-            <span>Triathlon FC St. Pauli</span>
-          </div>
-          <a class="engage-link" href="https://www.strava.com/athletes/53896142" target="_blank" rel="noopener" data-de="Strava-Profil" data-en="Strava profile">Strava-Profil<span class="arr" aria-hidden="true">↗</span></a>
-        </div>
-      </article>
+      <div class="engagement-col">
+        <div class="engagement-eyebrow" data-de="Unternehmertum" data-en="Entrepreneurship">Unternehmertum</div>
+        <h3 class="engagement-titel">J.L. Ingwert</h3>
+        <p data-de="Seit 2020 mit einem Freund einen Ingwer-Likör von der Rezeptur über Marke bis zum Vertrieb aufgebaut. Erste Charge: 240 Flaschen, nahezu ausverkauft."
+           data-en="Since 2020 built a ginger liqueur with a friend, from recipe through brand to distribution. First batch: 240 bottles, nearly sold out.">Seit 2020 mit einem Freund einen Ingwer-Likör von der Rezeptur über Marke bis zum Vertrieb aufgebaut. Erste Charge: 240 Flaschen, nahezu ausverkauft.</p>
+        <a class="engagement-link" href="https://www.ingwert.de/produkt/j-l-ingwert/" target="_blank" rel="noopener" data-de="ingwert.de" data-en="ingwert.de">ingwert.de<span class="arr" aria-hidden="true">↗</span></a>
+      </div>
 
-      <article class="engage-item reveal">
-        <div class="engage-eyebrow" data-de="Gesellschaft" data-en="Society">Gesellschaft</div>
-        <div>
-          <h3 class="engage-title" data-de="Gesellschaftliches Engagement" data-en="Social commitment">Gesellschaftliches Engagement</h3>
-          <div style="margin-top: 14px;">
-            <div class="engage-sub">
-              <div>
-                <div class="engage-sub-title">Schlaufox</div>
-                <div class="engage-sub-desc" data-de="1:1-Mentoring für einen 14-jährigen Jugendlichen aus Ghana."
-                     data-en="One-to-one mentoring for a 14-year-old from Ghana.">1:1-Mentoring für einen 14-jährigen Jugendlichen aus Ghana.</div>
-              </div>
-              <span class="engage-sub-when" data-de="laufend" data-en="ongoing">laufend</span>
-            </div>
-            <div class="engage-sub">
-              <div>
-                <div class="engage-sub-title">Arbeiterkind.de</div>
-                <div class="engage-sub-desc" data-de="Unterstützung bei Infoveranstaltungen für Erststudierende."
-                     data-en="Supporting info events for first-generation students.">Unterstützung bei Infoveranstaltungen für Erststudierende.</div>
-              </div>
-              <span class="engage-sub-when" data-de="laufend" data-en="ongoing">laufend</span>
-            </div>
-            <div class="engage-sub">
-              <div>
-                <div class="engage-sub-title">GoBanyo</div>
-                <div class="engage-sub-desc" data-de="Mobiler Hygiene-Service für obdachlose Menschen in Hamburg."
-                     data-en="Mobile hygiene service for homeless people in Hamburg.">Mobiler Hygiene-Service für obdachlose Menschen in Hamburg.</div>
-              </div>
-              <span class="engage-sub-when" data-de="laufend" data-en="ongoing">laufend</span>
-            </div>
-            <div class="engage-sub">
-              <div>
-                <div class="engage-sub-title" data-de="Deutschunterricht, Flüchtlingsunterkunft Hamburg" data-en="German lessons, refugee shelter Hamburg">Deutschunterricht, Flüchtlingsunterkunft Hamburg</div>
-              </div>
-              <span class="engage-sub-when">2015–2016</span>
-            </div>
-            <div class="engage-sub">
-              <div>
-                <div class="engage-sub-title">180 Degrees Consulting</div>
-                <div class="engage-sub-desc" data-de="Pro-bono-Strategiearbeit für eine NGO, Stockholm."
-                     data-en="Pro-bono strategy work for an NGO, Stockholm.">Pro-bono-Strategiearbeit für eine NGO, Stockholm.</div>
-              </div>
-              <span class="engage-sub-when">2017</span>
-            </div>
-          </div>
+      <div class="engagement-col">
+        <div class="engagement-eyebrow" data-de="Sport" data-en="Sport">Sport</div>
+        <h3 class="engagement-titel" data-de="Ausdauer und Berge" data-en="Endurance and mountains">Ausdauer und Berge</h3>
+        <p data-de="Ausdauersport ist für mich Leidenschaft und Teil meiner Identität. Lange Distanzen, draußen, oft in den Bergen."
+           data-en="Endurance sport is a passion and part of who I am. Long distances, outdoors, often in the mountains.">Ausdauersport ist für mich Leidenschaft und Teil meiner Identität. Lange Distanzen, draußen, oft in den Bergen.</p>
+        <div class="engagement-tags">
+          <span data-de="3× Marathon" data-en="3× marathon">3× Marathon</span>
+          <span>Zugspitz Ultratrail</span>
+          <span data-de="Halbmarathon &lt; 1:30 h" data-en="Half marathon &lt; 1:30 h">Halbmarathon &lt; 1:30 h</span>
+          <span>Triathlon FC St. Pauli</span>
         </div>
-      </article>
+        <a class="engagement-link" href="https://www.strava.com/athletes/53896142" target="_blank" rel="noopener" data-de="Strava-Profil" data-en="Strava profile">Strava-Profil<span class="arr" aria-hidden="true">↗</span></a>
+      </div>
+
+      <div class="engagement-col">
+        <div class="engagement-eyebrow" data-de="Gesellschaft" data-en="Society">Gesellschaft</div>
+        <h3 class="engagement-titel" data-de="Gesellschaftliches Engagement" data-en="Social commitment">Gesellschaftliches Engagement</h3>
+        <ul class="engagement-list">
+          <li><span class="e-name">Schlaufox</span><span class="e-when" data-de="laufend" data-en="ongoing">laufend</span>
+            <div data-de="1:1-Mentoring für einen 14-jährigen Jugendlichen aus Ghana."
+                 data-en="One-to-one mentoring for a 14-year-old from Ghana.">1:1-Mentoring für einen 14-jährigen Jugendlichen aus Ghana.</div>
+          </li>
+          <li><span class="e-name">Arbeiterkind.de</span><span class="e-when" data-de="laufend" data-en="ongoing">laufend</span>
+            <div data-de="Unterstützung bei Infoveranstaltungen für Erststudierende."
+                 data-en="Supporting info events for first-generation students.">Unterstützung bei Infoveranstaltungen für Erststudierende.</div>
+          </li>
+          <li><span class="e-name">GoBanyo</span><span class="e-when" data-de="laufend" data-en="ongoing">laufend</span>
+            <div data-de="Mobiler Hygiene-Service für obdachlose Menschen in Hamburg."
+                 data-en="Mobile hygiene service for homeless people in Hamburg.">Mobiler Hygiene-Service für obdachlose Menschen in Hamburg.</div>
+          </li>
+          <li><span class="e-name" data-de="Deutschunterricht, Flüchtlingsunterkunft Hamburg" data-en="German lessons, refugee shelter Hamburg">Deutschunterricht, Flüchtlingsunterkunft Hamburg</span><span class="e-when">2015–2016</span></li>
+          <li><span class="e-name">180 Degrees Consulting</span><span class="e-when">2017</span>
+            <div data-de="Pro-bono-Strategiearbeit für eine NGO, Stockholm."
+                 data-en="Pro-bono strategy work for an NGO, Stockholm.">Pro-bono-Strategiearbeit für eine NGO, Stockholm.</div>
+          </li>
+        </ul>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1364,18 +1441,18 @@ section.snap-sec {
 </main>
 
 <!-- ============ KONTAKT ============ -->
-<section id="kontakt" class="snap-sec contact-section">
+<section id="kontakt" class="snap-sec">
   <div class="wrap">
-    <div class="contact-eyebrow" data-de="Lass uns sprechen" data-en="Let’s talk">Lass uns sprechen</div>
-    <h2 class="contact-line"
-        data-de="Eine kurze Nachricht reicht."
-        data-en="A short message is enough.">Eine kurze Nachricht reicht.</h2>
-    <div class="contact-actions">
-      <a class="contact-link" href="mailto:jan.kluetsch@gmail.com">jan.kluetsch@gmail.com<span class="arr" aria-hidden="true">↗</span></a>
-      <a class="contact-link" href="https://www.linkedin.com/in/jankluetsch/" target="_blank" rel="noopener">linkedin.com/in/jankluetsch<span class="arr" aria-hidden="true">↗</span></a>
-      <a class="contact-link" id="cv-link" href="Lebenslauf_JanKluetsch.pdf" target="_blank" rel="noopener" data-de-href="Lebenslauf_JanKluetsch.pdf" data-en-href="CV_JanKluetsch_EN.pdf" data-de="Lebenslauf (PDF)" data-en="CV (PDF)">Lebenslauf (PDF)<span class="arr" aria-hidden="true">↗</span></a>
+    <div class="kontakt-eyebrow" data-de="Kontakt" data-en="Contact">Kontakt</div>
+    <h2 class="kontakt-headline"
+        data-de="Lass uns sprechen."
+        data-en="Let’s talk.">Lass uns sprechen.</h2>
+    <div class="kontakt-links">
+      <a class="kontakt-link" href="mailto:jan.kluetsch@gmail.com">jan.kluetsch@gmail.com<span class="arr" aria-hidden="true">↗</span></a>
+      <a class="kontakt-link" href="https://www.linkedin.com/in/jankluetsch/" target="_blank" rel="noopener">LinkedIn<span class="arr" aria-hidden="true">↗</span></a>
+      <a class="kontakt-link" id="cv-link" href="Lebenslauf_JanKluetsch.pdf" target="_blank" rel="noopener" data-de-href="Lebenslauf_JanKluetsch.pdf" data-en-href="CV_JanKluetsch_EN.pdf" data-de="Lebenslauf (PDF)" data-en="CV (PDF)">Lebenslauf (PDF)<span class="arr" aria-hidden="true">↗</span></a>
     </div>
-    <div class="contact-meta">
+    <div class="kontakt-meta">
       <span>© 2026 Jan Klütsch</span>
       <span class="sep">·</span>
       <a href="impressum.html" data-de="Impressum" data-en="Imprint">Impressum</a>
@@ -1445,22 +1522,33 @@ const navObs = new IntersectionObserver(
 sectionEls.forEach(s => navObs.observe(s));
 setActiveNav('profil');
 
-/* ============ SKILL FILTER (per-station via tags) ============ */
+/* ============ SKILL FILTER ============ */
 let activeSkill = null;
 function applySkillFilter() {
-  document.querySelectorAll('.skill-tag').forEach(t => {
+  // Skill chips active state
+  document.querySelectorAll('.skill-chip').forEach(c => {
+    c.classList.toggle('active', !!activeSkill && c.dataset.skill === activeSkill);
+  });
+  // Station tags active state (highlight same skill across stations)
+  document.querySelectorAll('.station-tag').forEach(t => {
     t.classList.toggle('active', !!activeSkill && t.dataset.skill === activeSkill);
   });
+  // Subitems dim state
+  document.querySelectorAll('.station-subitems li').forEach(li => {
+    if (!activeSkill) { li.classList.remove('dimmed'); return; }
+    const skills = (li.dataset.skills || '').split(' ');
+    li.classList.toggle('dimmed', !skills.includes(activeSkill));
+  });
+  // Station dim state
   document.querySelectorAll('.station').forEach(s => {
     if (!activeSkill) { s.classList.remove('dim'); return; }
-    const skills = (s.dataset.skills || '').split(' ');
-    s.classList.toggle('dim', !skills.includes(activeSkill));
+    const anyMatch = !!s.querySelector('.station-subitems li:not(.dimmed)');
+    s.classList.toggle('dim', !anyMatch);
   });
 }
-document.querySelectorAll('.skill-tag').forEach(tag => {
-  tag.addEventListener('click', (e) => {
-    e.preventDefault();
-    const skill = tag.dataset.skill;
+document.querySelectorAll('.skill-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const skill = chip.dataset.skill;
     activeSkill = (activeSkill === skill) ? null : skill;
     applySkillFilter();
   });
@@ -1488,15 +1576,15 @@ function updateTopbar() { tb.classList.toggle('scrolled', window.scrollY > 8); }
 window.addEventListener('scroll', updateTopbar, { passive: true });
 updateTopbar();
 
-/* ============ SCROLL-DOWN FADE ============ */
-const sd = document.getElementById('scroll-down');
-if (sd) {
-  const sdObs = () => {
-    if (window.scrollY > 80) sd.classList.add('fade');
-    else sd.classList.remove('fade');
+/* ============ SCROLL HINT FADE ============ */
+const sh = document.getElementById('scroll-hint');
+if (sh) {
+  const hide = () => {
+    if (window.scrollY > 60) sh.classList.add('fade');
+    else sh.classList.remove('fade');
   };
-  window.addEventListener('scroll', sdObs, { passive: true });
-  sdObs();
+  window.addEventListener('scroll', hide, { passive: true });
+  hide();
 }
 </script>
 </body>
