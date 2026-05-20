@@ -186,18 +186,28 @@ section.snap-sec {
   scroll-snap-align: start;
   scroll-snap-stop: normal;
   min-height: 100vh;
-  padding: 80px 0 56px;
+  padding: 80px 0 120px;
   display: flex; flex-direction: column;
+  justify-content: center;
 }
 section.snap-sec > .wrap { width: 100%; }
+
+/* Kontakt fits its content, not a forced viewport-height. */
+section.snap-sec.contact-section {
+  min-height: auto;
+  justify-content: flex-start;
+  padding: 96px 0 64px;
+}
 
 @media (max-width: 760px), (prefers-reduced-motion: reduce) {
   html { scroll-snap-type: none; }
   section.snap-sec {
     scroll-snap-align: none;
     min-height: auto;
-    padding: 56px 0 32px;
+    padding: 56px 0 56px;
+    justify-content: flex-start;
   }
+  section.snap-sec.contact-section { padding: 60px 0 48px; }
 }
 
 .section-eyebrow {
@@ -301,14 +311,17 @@ h1, h2, h3 { color: var(--ink); }
 }
 .role-val { color: var(--ink-soft); font-size: 0.96rem; line-height: 1.55; }
 
-/* Felder-Kachel: kleines Grid mit Icon+Label */
+/* Icon-Listen in den Rolle-Kacheln */
 .felder-grid {
   display: grid; grid-template-columns: repeat(2, 1fr);
   gap: 12px 14px;
 }
+.role-icons {
+  display: flex; flex-direction: column; gap: 12px;
+}
 .felder-item {
   display: flex; align-items: center; gap: 10px;
-  font-size: 0.9rem; color: var(--ink-soft); line-height: 1.3;
+  font-size: 0.92rem; color: var(--ink-soft); line-height: 1.35;
 }
 .felder-icon {
   width: 20px; height: 20px; flex-shrink: 0;
@@ -727,10 +740,10 @@ h1, h2, h3 { color: var(--ink); }
     <div class="profil-grid">
       <div class="profil-text">
         <div class="profil-eyebrow" data-de="Hamburg · Commercial Leader" data-en="Hamburg · Commercial Leader">Hamburg · Commercial Leader</div>
-        <h1 class="hero-title"><span class="hero-word">Good</span> <span class="hero-word">Commercial</span> <span class="hero-word">Leadership</span></h1>
+        <h1 class="hero-title">Good Commercial Leadership</h1>
         <p class="profil-sub"
-           data-de="Ich helfe Unternehmen, gute Ideen in nachhaltiges Wachstum zu übersetzen."
-           data-en="I help companies translate good ideas into sustainable growth.">Ich helfe Unternehmen, gute Ideen in nachhaltiges Wachstum zu übersetzen.</p>
+           data-de="Ich helfe Unternehmen und Organisationen, gute Ideen in nachhaltiges Wachstum zu überführen."
+           data-en="I help companies and organisations translate good ideas into sustainable growth.">Ich helfe Unternehmen und Organisationen, gute Ideen in nachhaltiges Wachstum zu überführen.</p>
         <p class="profil-usp"
            data-de="<strong>Strategische Tiefe aus vier Jahren Top-Management-Beratung</strong> trifft auf den <strong>operativen Aufbau einer B2B-Vertriebsorganisation im Startup</strong>. Dazu ein über ein Jahrzehnt geschärftes <strong>Gespür für Kunden und Organisationen</strong>, die Fähigkeit, die menschliche Seite hinter Daten und Verhandlungen zu verstehen. Mich reizen besonders <strong>Felder, in denen Wachstum auch echten Impact schafft</strong>."
            data-en="<strong>Strategic depth from four years in top-management consulting</strong> meets the <strong>hands-on build-out of a B2B sales organisation at a startup</strong>. Add a feel for <strong>customers and organisations sharpened over more than a decade</strong>, the ability to read the human side behind data and negotiations. I am especially drawn to <strong>fields where growth also creates real impact</strong>."><strong>Strategische Tiefe aus vier Jahren Top-Management-Beratung</strong> trifft auf den <strong>operativen Aufbau einer B2B-Vertriebsorganisation im Startup</strong>. Dazu ein über ein Jahrzehnt geschärftes <strong>Gespür für Kunden und Organisationen</strong>, die Fähigkeit, die menschliche Seite hinter Daten und Verhandlungen zu verstehen. Mich reizen besonders <strong>Felder, in denen Wachstum auch echten Impact schafft</strong>.</p>
@@ -750,9 +763,24 @@ h1, h2, h3 { color: var(--ink); }
       <div class="role-grid">
         <div class="role-tile">
           <div class="role-key" data-de="Rolle" data-en="Role">Rolle</div>
-          <div class="role-val"
-               data-de="Head of Sales / Commercial, CRO oder CCO. Offen auch für eine Co-Founder-Rolle, wenn Idee und Team passen."
-               data-en="Head of Sales / Commercial, CRO or CCO. Also open to a co-founder role if idea and team are the right fit.">Head of Sales / Commercial, CRO oder CCO. Offen auch für eine Co-Founder-Rolle, wenn Idee und Team passen.</div>
+          <div class="role-icons">
+            <div class="felder-item">
+              <svg class="felder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              </svg>
+              <span data-de="Head of Sales / Commercial, CRO oder CCO" data-en="Head of Sales / Commercial, CRO or CCO">Head of Sales / Commercial, CRO oder CCO</span>
+            </div>
+            <div class="felder-item">
+              <svg class="felder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+              <span data-de="Co-Founder, wenn Idee und Team passen" data-en="Co-founder, if idea and team fit">Co-Founder, wenn Idee und Team passen</span>
+            </div>
+          </div>
         </div>
         <div class="role-tile">
           <div class="role-key" data-de="Felder" data-en="Fields">Felder</div>
@@ -794,9 +822,24 @@ h1, h2, h3 { color: var(--ink); }
         </div>
         <div class="role-tile">
           <div class="role-key" data-de="Umfeld" data-en="Setting">Umfeld</div>
-          <div class="role-val"
-               data-de="Startup oder Scale-up mit echter Ownership und langfristiger Perspektive. Hamburg oder remote-first."
-               data-en="Startup or scale-up with real ownership and a long-term perspective. Hamburg or remote-first.">Startup oder Scale-up mit echter Ownership und langfristiger Perspektive. Hamburg oder remote-first.</div>
+          <div class="role-icons">
+            <div class="felder-item">
+              <svg class="felder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+                <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+              </svg>
+              <span data-de="Startup oder Scale-up mit echter Ownership" data-en="Startup or scale-up with real ownership">Startup oder Scale-up mit echter Ownership</span>
+            </div>
+            <div class="felder-item">
+              <svg class="felder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span data-de="Hamburg oder remote-first" data-en="Hamburg or remote-first">Hamburg oder remote-first</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
