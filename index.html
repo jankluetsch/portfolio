@@ -343,18 +343,13 @@ h1, h2, h3 { color: var(--ink); }
   padding: 0 4px;
 }
 
-/* Column headings (Erfahrung / Skills) */
+/* Column headings (Erfahrung / Skills) — same size, both outside their boxes */
 .col-heading {
   font-family: var(--serif); font-weight: 600;
   font-size: 1.55rem; letter-spacing: -0.015em;
   color: var(--ink);
-  margin-bottom: 22px;
-}
-.erfahrung-main > .col-heading { margin-bottom: 22px; }
-.skill-panel > .col-heading {
-  font-size: 1.2rem;
-  margin-bottom: 8px;
-  padding: 0;
+  margin: 0 0 22px;
+  line-height: 1.15;
 }
 .skill-intro {
   font-size: 0.88rem;
@@ -976,8 +971,8 @@ h1, h2, h3 { color: var(--ink); }
       </div>
 
       <aside class="erfahrung-aside">
+        <h2 class="col-heading" data-de="Skills" data-en="Skills">Skills</h2>
         <div class="skill-panel">
-          <h2 class="col-heading" data-de="Skills" data-en="Skills">Skills</h2>
           <p class="skill-intro" data-de="Skill auswählen, um zu sehen, wo er zum Tragen kam." data-en="Pick a skill to see where it played a role.">Skill auswählen, um zu sehen, wo er zum Tragen kam.</p>
           <div class="skill-list" role="group" aria-label="Skills">
             <button class="skillchip" data-skill="gtm" data-de="Go-to-Market &amp; Markteintritt" data-en="Go-to-market &amp; market entry">Go-to-Market &amp; Markteintritt</button>
