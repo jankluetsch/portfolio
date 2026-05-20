@@ -229,10 +229,14 @@ section.snap-sec {
   display: flex; flex-direction: column;
   justify-content: center;
   padding: 40px var(--side-x) 80px var(--side-x);
-  max-width: 800px;
-  justify-self: end;
   width: 100%;
+  position: relative;
+  z-index: 3;
+  overflow: visible;
+  pointer-events: none;
 }
+.hero-text > * { pointer-events: auto; max-width: 720px; }
+.hero-text > .hero-title { max-width: none; }
 
 .hero-eyebrow {
   font-size: 11px;
@@ -245,38 +249,29 @@ section.snap-sec {
 .hero-title {
   font-family: var(--sans);
   font-weight: 250;
-  font-size: clamp(72px, 10.5vw, 168px);
-  line-height: 0.94;
+  font-size: clamp(72px, 12vw, 208px);
+  line-height: 0.92;
   letter-spacing: -0.03em;
   color: var(--ink);
-  margin: 0 0 32px 0;
+  margin: 0 0 36px 0;
+  white-space: nowrap;
 }
 .hero-line { display: block; }
-.hero-word {
-  display: inline-block;
-  margin-right: 0.25em;
+.hero-rotate {
+  display: inline-grid;
+  vertical-align: top;
+}
+.hero-rot {
+  grid-area: 1 / 1;
   opacity: 0;
-  transform: translateY(8px);
-  animation:
-    hero-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) forwards,
-    hero-heartbeat 8s ease-in-out infinite;
+  transition: opacity 0.55s ease;
 }
-.hero-word:last-child { margin-right: 0; }
-.hero-word.w1 { animation-delay: 0.1s, 1.5s; }
-.hero-word.w2 { animation-delay: 0.35s, 1.75s; }
-.hero-word.w3 { animation-delay: 0.6s, 2s; }
+.hero-rot.active { opacity: 1; }
 
-@keyframes hero-in {
-  to { opacity: 1; transform: none; }
-}
-@keyframes hero-heartbeat {
-  0%   { opacity: 1; }
-  4%   { opacity: 0.55; }
-  8%   { opacity: 1; }
-  100% { opacity: 1; }
-}
 @media (prefers-reduced-motion: reduce) {
-  .hero-word { opacity: 1; transform: none; animation: none; }
+  .hero-rot { transition: none; }
+  .hero-rot.active { opacity: 1; }
+  .hero-rot:not(.active) { opacity: 0; }
 }
 
 .hero-subtitle {
@@ -413,15 +408,15 @@ section.snap-sec {
 }
 .credo {
   font-family: var(--sans);
-  font-size: clamp(20px, 2.4vw, 32px);
+  font-size: clamp(22px, 2.6vw, 36px);
   font-weight: 300;
-  line-height: 1.45;
+  line-height: 1.4;
   color: var(--ink);
-  max-width: 1100px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 var(--side-x);
   text-align: left;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.008em;
 }
 
 /* ============ ERFAHRUNG ============ */
@@ -453,12 +448,12 @@ section.snap-sec {
 }
 .skills-heading {
   font-family: var(--sans);
-  font-size: 22px;
-  font-weight: 500;
+  font-size: clamp(40px, 5.4vw, 64px);
+  font-weight: 300;
   color: var(--ink);
-  letter-spacing: -0.005em;
+  letter-spacing: -0.02em;
   margin: 0;
-  line-height: 1.2;
+  line-height: 1;
 }
 .skill-hint {
   font-size: 13px;
@@ -913,9 +908,13 @@ section.snap-sec {
     <div class="hero-text">
       <div class="hero-eyebrow" data-de="Hamburg · Commercial Leader" data-en="Hamburg · Commercial Leader">Hamburg · Commercial Leader</div>
       <h1 class="hero-title">
-        <span class="hero-line"><span class="hero-word w1">Good</span></span>
-        <span class="hero-line"><span class="hero-word w2">Commercial</span></span>
-        <span class="hero-line"><span class="hero-word w3">Leadership</span></span>
+        <span class="hero-line">
+          <span class="hero-rotate" aria-label="Good or Commercial">
+            <span class="hero-rot active">Good</span>
+            <span class="hero-rot">Commercial</span>
+          </span>
+        </span>
+        <span class="hero-line">Leadership</span>
       </h1>
       <p class="hero-subtitle"
          data-de="Ich helfe Unternehmen und Organisationen, gute Ideen zu verkaufen und nachhaltig zu skalieren."
@@ -1600,6 +1599,19 @@ const tb = document.getElementById('topbar');
 function updateTopbar() { tb.classList.toggle('scrolled', window.scrollY > 8); }
 window.addEventListener('scroll', updateTopbar, { passive: true });
 updateTopbar();
+
+/* ============ HERO ROTATING WORD ============ */
+(function () {
+  const rots = document.querySelectorAll('.hero-rotate .hero-rot');
+  if (rots.length < 2) return;
+  if (prefersReduced) return; /* keep first word visible, no rotation */
+  let idx = 0;
+  setInterval(() => {
+    rots[idx].classList.remove('active');
+    idx = (idx + 1) % rots.length;
+    rots[idx].classList.add('active');
+  }, 3500);
+})();
 
 /* ============ SCROLL HINT FADE ============ */
 const sh = document.getElementById('scroll-hint');
