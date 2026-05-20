@@ -467,19 +467,12 @@ section.snap-sec {
   display: flex; flex-direction: column;
   gap: 12px;
 }
-.skills-heading {
-  font-family: var(--sans);
-  font-size: clamp(40px, 5.4vw, 64px);
-  font-weight: 300;
-  color: var(--ink);
-  letter-spacing: -0.02em;
-  margin: 0;
-  line-height: 1;
-}
+.col-heading { margin: 0; line-height: 1; }
+.erfahrung-main > .col-heading { margin-bottom: 24px; }
 .skill-hint {
   font-size: 13px;
   color: var(--ink-mute);
-  margin: 0 0 8px 0;
+  margin: 0 0 12px 0;
   line-height: 1.4;
 }
 .skill-chip-list {
@@ -1080,12 +1073,12 @@ section.snap-sec {
   <div class="wrap">
     <div class="erfahrung-head reveal">
       <div class="eyebrow" data-de="Explore my career" data-en="Explore my career">Explore my career</div>
-      <h2 class="section-title" data-de="Erfahrung" data-en="Career">Erfahrung</h2>
     </div>
 
     <div class="erfahrung-grid">
 
       <div class="erfahrung-main">
+        <h2 class="section-title col-heading" data-de="Erfahrung" data-en="Career">Erfahrung</h2>
         <div class="stations">
 
           <article class="station" data-station="porsche" data-skills="gtm strategie pricing vertriebsaufbau funnel stakeholder erklaerung b2b">
@@ -1234,8 +1227,8 @@ section.snap-sec {
       </div>
 
       <aside class="erfahrung-skills" aria-label="Skills">
-        <h3 class="skills-heading" data-de="Skills" data-en="Skills">Skills</h3>
-        <p class="skill-hint" data-de="Skill anklicken zum Filtern." data-en="Click a skill to filter.">Skill anklicken zum Filtern.</p>
+        <h2 class="section-title col-heading" data-de="Skills" data-en="Skills">Skills</h2>
+        <p class="skill-hint" data-de="Anklicken zum Filtern." data-en="Click to filter.">Anklicken zum Filtern.</p>
         <div class="skill-chip-list">
           <button class="skill-chip" data-skill="gtm" data-de="Go-to-Market" data-en="Go-to-market">Go-to-Market</button>
           <button class="skill-chip" data-skill="vertriebsaufbau" data-de="Teamaufbau" data-en="Team build-out">Teamaufbau</button>
