@@ -217,18 +217,20 @@ section.snap-sec {
   overflow: hidden;
 }
 .hero-wrap {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--side-x);
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0;
+  gap: 32px;
   align-items: stretch;
-  padding: 0;
   position: relative;
 }
 .hero-text {
   display: flex; flex-direction: column;
   justify-content: center;
-  padding: 40px var(--side-x) 80px var(--side-x);
+  padding: 40px 0 80px 0;
   width: 100%;
   position: relative;
   z-index: 3;
@@ -260,36 +262,53 @@ section.snap-sec {
 .hero-rotate {
   display: inline-grid;
   vertical-align: top;
+  overflow: hidden;
+  padding-bottom: 0.08em; /* room for descenders */
 }
 .hero-rot {
   grid-area: 1 / 1;
   opacity: 0;
-  transition: opacity 0.55s ease;
+  transform: translateY(110%);
 }
-.hero-rot.active { opacity: 1; }
+.hero-rot.active {
+  animation: rot-in 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.hero-rot.exit {
+  animation: rot-out 0.55s cubic-bezier(0.4, 0, 0.7, 0) forwards;
+}
+@keyframes rot-in {
+  0%   { transform: translateY(110%); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes rot-out {
+  0%   { transform: translateY(0); opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(-110%); opacity: 0; }
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-rot { transition: none; }
-  .hero-rot.active { opacity: 1; }
-  .hero-rot:not(.active) { opacity: 0; }
+  .hero-rot { transform: none; opacity: 0; animation: none; }
+  .hero-rot.active { opacity: 1; animation: none; }
+  .hero-rot.exit { opacity: 0; animation: none; }
 }
 
 .hero-subtitle {
   font-family: var(--sans);
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 400;
   line-height: 1.45;
   color: var(--ink);
-  margin: 0 0 20px 0;
-  max-width: 480px;
+  margin: 0 0 24px 0;
+  max-width: 620px;
 }
 .hero-usp {
   font-family: var(--sans);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.62;
   color: var(--ink-soft);
-  max-width: 480px;
+  max-width: 620px;
 }
 .hero-usp strong { color: var(--ink); font-weight: 600; }
 
@@ -300,6 +319,8 @@ section.snap-sec {
   height: 100%;
   overflow: hidden;
   position: relative;
+  /* Photo bleeds to the viewport right edge, beyond the centered wrap. */
+  margin-right: calc(-1 * (max(0px, (100vw - 1400px) / 2) + var(--side-x)));
 }
 .hero-photo {
   height: 100%;
@@ -1600,17 +1621,27 @@ function updateTopbar() { tb.classList.toggle('scrolled', window.scrollY > 8); }
 window.addEventListener('scroll', updateTopbar, { passive: true });
 updateTopbar();
 
-/* ============ HERO ROTATING WORD ============ */
+/* ============ HERO ROTATING WORD (slot-style) ============ */
 (function () {
   const rots = document.querySelectorAll('.hero-rotate .hero-rot');
   if (rots.length < 2) return;
-  if (prefersReduced) return; /* keep first word visible, no rotation */
+  if (prefersReduced) return; /* first word stays, no rotation */
   let idx = 0;
+  const STEP = 3800;   /* total time per word, ms */
+  const ANIM = 700;    /* exit animation duration, ms */
   setInterval(() => {
-    rots[idx].classList.remove('active');
-    idx = (idx + 1) % rots.length;
-    rots[idx].classList.add('active');
-  }, 3500);
+    const current = rots[idx];
+    const next = (idx + 1) % rots.length;
+    // Clear any leftover exit on the incoming word (rare edge case)
+    rots[next].classList.remove('exit');
+    // Animate current out (up), next in (from below)
+    current.classList.remove('active');
+    current.classList.add('exit');
+    rots[next].classList.add('active');
+    // Reset exit class after animation finishes so word returns to "below" default
+    setTimeout(() => current.classList.remove('exit'), ANIM);
+    idx = next;
+  }, STEP);
 })();
 
 /* ============ SCROLL HINT FADE ============ */
