@@ -834,7 +834,9 @@ section.snap-sec {
   color: var(--ink);
   position: relative;
   overflow: hidden;
-  min-height: 100vh;
+  /* Section height minus topbar so the footer at the bottom stays in view
+     when scroll-snap lands on the section start. */
+  min-height: calc(100vh - var(--topbar-h));
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -849,17 +851,19 @@ section.snap-sec {
 .kontakt-bg-svg path {
   fill: none;
   stroke: var(--ink);
-  stroke-width: 0.4;
+  stroke-width: 0.5;
   vector-effect: non-scaling-stroke;
 }
 .kontakt-bg-lines {
+  transform-box: fill-box;
   transform-origin: 0 100%;
-  animation: kontakt-flow 32s ease-in-out infinite;
+  animation: kontakt-flow 28s ease-in-out infinite;
+  will-change: transform;
 }
 @keyframes kontakt-flow {
-  0%   { transform: translate(-30px, 10px); }
-  50%  { transform: translate(30px, -10px); }
-  100% { transform: translate(-30px, 10px); }
+  0%   { transform: translate(-90px, 30px) rotate(-1deg); }
+  50%  { transform: translate(90px, -30px) rotate(1deg); }
+  100% { transform: translate(-90px, 30px) rotate(-1deg); }
 }
 .kontakt-main {
   position: relative;
@@ -892,8 +896,25 @@ section.snap-sec {
   letter-spacing: -0.025em;
   line-height: 1;
   color: var(--ink);
-  margin: 0;
+  margin: 0 0 44px 0;
 }
+.kontakt-contacts {
+  display: flex; gap: 18px 36px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.kontakt-contact-link {
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 3px;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: opacity 0.2s ease;
+}
+.kontakt-contact-link:hover { opacity: 0.65; color: var(--ink); }
+.kontakt-contact-link .arr { font-size: 14px; }
 
 @media (max-width: 880px) {
   #kontakt { min-height: auto; padding: 0; }
@@ -1002,11 +1023,11 @@ section.snap-sec {
         <span class="hero-line">Leadership</span>
       </h1>
       <p class="hero-subtitle"
-         data-de="Ich helfe Unternehmen und Organisationen, gute Ideen zu verkaufen und nachhaltig zu skalieren."
-         data-en="I help companies and organisations sell good ideas and scale them sustainably.">Ich helfe Unternehmen und Organisationen, gute Ideen zu verkaufen und nachhaltig zu skalieren.</p>
+         data-de="Ich helfe Unternehmen und Organisationen, gute Ideen zu verkaufen und damit nachhaltig zu skalieren."
+         data-en="I help companies and organisations sell good ideas so they can scale sustainably.">Ich helfe Unternehmen und Organisationen, gute Ideen zu verkaufen und damit nachhaltig zu skalieren.</p>
       <p class="hero-usp"
-         data-de="<strong>Strategische Tiefe aus vier Jahren Top-Management-Beratung</strong> trifft auf den <strong>operativen Aufbau einer B2B-Vertriebsorganisation im Startup</strong>. Dazu ein über ein Jahrzehnt geschärftes <strong>Gespür für Kunden und Organisationen</strong>, die Fähigkeit, die menschliche Seite hinter Daten und Verhandlungen zu verstehen. Mich reizen besonders <strong>Felder, in denen Wachstum auch echten Impact schafft</strong>."
-         data-en="<strong>Strategic depth from four years in top-management consulting</strong> meets the <strong>hands-on build-out of a B2B sales organisation at a startup</strong>. Add a feel for <strong>customers and organisations sharpened over more than a decade</strong>, the ability to read the human side behind data and negotiations. I am especially drawn to <strong>fields where growth also creates real impact</strong>."><strong>Strategische Tiefe aus vier Jahren Top-Management-Beratung</strong> trifft auf den <strong>operativen Aufbau einer B2B-Vertriebsorganisation im Startup</strong>. Dazu ein über ein Jahrzehnt geschärftes <strong>Gespür für Kunden und Organisationen</strong>, die Fähigkeit, die menschliche Seite hinter Daten und Verhandlungen zu verstehen. Mich reizen besonders <strong>Felder, in denen Wachstum auch echten Impact schafft</strong>.</p>
+         data-de="Über ein Jahrzehnt Erfahrung in Vertrieb, Marketing und Beratung gibt mir ein tiefes Verständnis für <strong>Kunden und deren Bedürfnisse</strong>. Dabei kombiniere ich <strong>strategische Tiefe</strong> aus über vier Jahren Top-Management-Beratung mit der <strong>Umsetzungsstärke aus dem operativen Aufbau einer B2B-Vertriebsorganisation im Startup</strong>. Heute will ich meine Erfahrung und Energie dort einbringen, wo <strong>Wachstum echten Impact und gesellschaftlichen Mehrwert schafft</strong>."
+         data-en="Over a decade of experience in sales, marketing and consulting gives me a deep understanding of <strong>customers and their needs</strong>. I combine <strong>strategic depth</strong> from more than four years in top-management consulting with <strong>the execution strength of building a B2B sales organisation from the ground up at a startup</strong>. Today I want to bring this experience and energy into places where <strong>growth creates real impact and social value</strong>.">Über ein Jahrzehnt Erfahrung in Vertrieb, Marketing und Beratung gibt mir ein tiefes Verständnis für <strong>Kunden und deren Bedürfnisse</strong>. Dabei kombiniere ich <strong>strategische Tiefe</strong> aus über vier Jahren Top-Management-Beratung mit der <strong>Umsetzungsstärke aus dem operativen Aufbau einer B2B-Vertriebsorganisation im Startup</strong>. Heute will ich meine Erfahrung und Energie dort einbringen, wo <strong>Wachstum echten Impact und gesellschaftlichen Mehrwert schafft</strong>.</p>
     </div>
 
     <div class="hero-photo-wrap" id="hero-photo-wrap">
@@ -1600,13 +1621,15 @@ section.snap-sec {
       <h2 class="kontakt-headline reveal"
           data-de="Lass uns sprechen."
           data-en="Let’s talk.">Lass uns sprechen.</h2>
+      <div class="kontakt-contacts">
+        <a class="kontakt-contact-link" href="mailto:jan.kluetsch@gmail.com">jan.kluetsch@gmail.com<span class="arr" aria-hidden="true">↗</span></a>
+        <a class="kontakt-contact-link" href="https://www.linkedin.com/in/jankluetsch/" target="_blank" rel="noopener">LinkedIn<span class="arr" aria-hidden="true">↗</span></a>
+      </div>
     </div>
   </div>
   <footer class="page-footer">
     <div class="wrap footer-row">
       <div class="footer-links">
-        <a class="footer-link" href="mailto:jan.kluetsch@gmail.com">jan.kluetsch@gmail.com<span class="arr" aria-hidden="true">↗</span></a>
-        <a class="footer-link" href="https://www.linkedin.com/in/jankluetsch/" target="_blank" rel="noopener">LinkedIn<span class="arr" aria-hidden="true">↗</span></a>
         <a class="footer-link" id="cv-link" href="Lebenslauf_JanKluetsch.pdf" target="_blank" rel="noopener" data-de-href="Lebenslauf_JanKluetsch.pdf" data-en-href="CV_JanKluetsch_EN.pdf" data-de="Lebenslauf (PDF)" data-en="CV (PDF)">Lebenslauf (PDF)<span class="arr" aria-hidden="true">↗</span></a>
       </div>
       <div class="footer-meta">
