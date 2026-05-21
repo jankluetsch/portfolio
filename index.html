@@ -398,6 +398,15 @@ section.snap-sec {
   padding-left: 48px;
   border-left: 1px solid var(--line);
 }
+.suche-col-heading {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  font-weight: 500;
+  margin: 0 0 18px 0;
+}
 .suche-fields {
   display: flex; flex-direction: column;
   gap: 12px;
@@ -425,17 +434,41 @@ section.snap-sec {
   padding: 80px 0 100px;
   background: var(--paper);
 }
+.credo-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 56px;
+  align-items: center;
+}
+.credo-photo {
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--surface);
+}
+.credo-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(100%);
+}
 .credo {
   font-family: var(--sans);
-  font-size: clamp(22px, 2.6vw, 36px);
+  font-size: clamp(20px, 2.2vw, 28px);
   font-weight: 300;
-  line-height: 1.4;
+  line-height: 1.45;
   color: var(--ink);
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 var(--side-x);
+  margin: 0;
   text-align: left;
-  letter-spacing: -0.008em;
+  letter-spacing: -0.005em;
+}
+@media (max-width: 880px) {
+  .credo-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    justify-items: start;
+  }
+  .credo-photo { width: 140px; height: 140px; }
 }
 
 /* ============ ERFAHRUNG ============ */
@@ -599,7 +632,7 @@ section.snap-sec {
 
 /* ============ WERTE ============ */
 #werte {
-  padding: 96px 0 112px;
+  padding: 96px 0 240px;
 }
 .werte-head {
   margin-bottom: 32px;
@@ -764,6 +797,21 @@ section.snap-sec {
   grid-template-columns: 1fr;
   align-items: start;
 }
+.engage-block.full .engage-content {
+  max-width: none;
+  width: 100%;
+}
+.engage-block.full .engagement-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 48px;
+  margin-top: 16px;
+}
+@media (max-width: 880px) {
+  .engage-block.full .engagement-list {
+    grid-template-columns: 1fr;
+  }
+}
 .engage-photo {
   aspect-ratio: 4 / 3;
   overflow: hidden;
@@ -857,7 +905,7 @@ section.snap-sec {
 .kontakt-bg-lines {
   transform-box: fill-box;
   transform-origin: 0 100%;
-  animation: kontakt-flow 28s ease-in-out infinite;
+  animation: kontakt-flow 18s linear infinite;
   will-change: transform;
 }
 @keyframes kontakt-flow {
@@ -915,6 +963,19 @@ section.snap-sec {
 }
 .kontakt-contact-link:hover { opacity: 0.65; color: var(--ink); }
 .kontakt-contact-link .arr { font-size: 14px; }
+
+.kontakt-takeaway {
+  margin-top: 40px;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 10px;
+}
+.kontakt-takeaway-label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  font-weight: 500;
+}
 
 @media (max-width: 880px) {
   #kontakt { min-height: auto; padding: 0; }
@@ -1045,6 +1106,7 @@ section.snap-sec {
     <div class="suche-grid">
 
       <div class="suche-col">
+        <h3 class="suche-col-heading" data-de="Rolle" data-en="Role">Rolle</h3>
         <div class="suche-fields">
           <div class="suche-field">
             <svg class="suche-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1068,12 +1130,13 @@ section.snap-sec {
               <circle cx="12" cy="12" r="6"/>
               <circle cx="12" cy="12" r="2"/>
             </svg>
-            <span data-de="Impact Investing oder Consulting (Associate, Principal)" data-en="Impact investing or consulting (associate, principal)">Impact Investing oder Consulting (Associate, Principal)</span>
+            <span data-de="Impact Investing oder Consulting" data-en="Impact investing or consulting">Impact Investing oder Consulting</span>
           </div>
         </div>
       </div>
 
       <div class="suche-col">
+        <h3 class="suche-col-heading" data-de="Felder" data-en="Fields">Felder</h3>
         <div class="suche-fields">
           <div class="suche-field">
             <svg class="suche-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1120,6 +1183,7 @@ section.snap-sec {
       </div>
 
       <div class="suche-col">
+        <h3 class="suche-col-heading" data-de="Umfeld" data-en="Setting">Umfeld</h3>
         <div class="suche-fields">
           <div class="suche-field">
             <svg class="suche-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1128,7 +1192,7 @@ section.snap-sec {
               <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
               <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
             </svg>
-            <span data-de="Startup oder Scale-up mit echter Ownership" data-en="Startup or scale-up with real ownership">Startup oder Scale-up mit echter Ownership</span>
+            <span data-de="Startup oder Scale-up mit echtem Ownership" data-en="Startup or scale-up with real ownership">Startup oder Scale-up mit echtem Ownership</span>
           </div>
           <div class="suche-field">
             <svg class="suche-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1153,11 +1217,16 @@ section.snap-sec {
 </section>
 
 <!-- ============ CREDO ============ -->
-<section class="credo-section snap-sec">
-  <blockquote class="credo">
-    <p data-de="„Wachstum entsteht dort, wo echter Kundennutzen vermittelt wird. Ohne Product-Market-Fit und Kundenzentriertheit gibt es weder Erfolg noch Wirkung. Meine Aufgabe ist, die Strukturen zu schaffen, in denen das gelingt. KI und Daten helfen dabei. Am Ende geht es um Menschen.“"
-       data-en="„Growth happens where real customer value is created. Without product-market fit and customer focus, neither success nor impact follow. My job is to build the structures in which that succeeds. AI and data help. In the end, it is about people.“">„Wachstum entsteht dort, wo echter Kundennutzen vermittelt wird. Ohne Product-Market-Fit und Kundenzentriertheit gibt es weder Erfolg noch Wirkung. Meine Aufgabe ist, die Strukturen zu schaffen, in denen das gelingt. KI und Daten helfen dabei. Am Ende geht es um Menschen.“</p>
-  </blockquote>
+<section class="credo-section">
+  <div class="wrap credo-layout">
+    <div class="credo-photo">
+      <img src="assets/photo/jan-credo.jpg" alt="Jan Klütsch">
+    </div>
+    <blockquote class="credo">
+      <p data-de="„Wirkung entsteht, wenn Organisationen ihren Kunden echten Nutzen vermitteln. Good Commercial Leadership schafft die Strukturen, in denen das nachhaltig gelingt. KI und Daten sind dabei unerlässlich. Doch am Ende geht es darum, mit Menschen Mehrwert für Kunden, Teams und Unternehmen zu schaffen.“"
+         data-en="„Impact emerges when organisations deliver real value to their customers. Good Commercial Leadership builds the structures in which that succeeds sustainably. AI and data are indispensable. But in the end, it is about creating value with people, for customers, teams and companies.“">„Wirkung entsteht, wenn Organisationen ihren Kunden echten Nutzen vermitteln. Good Commercial Leadership schafft die Strukturen, in denen das nachhaltig gelingt. KI und Daten sind dabei unerlässlich. Doch am Ende geht es darum, mit Menschen Mehrwert für Kunden, Teams und Unternehmen zu schaffen.“</p>
+    </blockquote>
+  </div>
 </section>
 
 <!-- ============ ERFAHRUNG ============ -->
@@ -1180,36 +1249,36 @@ section.snap-sec {
             </div>
             <div class="station-col-2">
               <div class="station-role" data-de="Manager, Brand &amp; Sales Practice" data-en="Manager, Brand &amp; Sales Practice">Manager, Brand &amp; Sales Practice</div>
-              <p class="station-desc" data-de="Strategieberatung im Volkswagen-Konzern; Fokus Brand, Marketing und Sales."
-                 data-en="Strategy consulting in the Volkswagen Group; focus on brand, marketing and sales.">Strategieberatung im Volkswagen-Konzern; Fokus Brand, Marketing und Sales.</p>
+              <p class="station-desc" data-de="Top-Management-Beratung, Fokus auf Brand, Marketing und Sales sowie Mobility"
+                 data-en="Top-management consulting, focus on brand, marketing and sales as well as mobility">Top-Management-Beratung, Fokus auf Brand, Marketing und Sales sowie Mobility</p>
               <ul class="station-subitems">
                 <li data-skills="gtm strategie pricing vertriebsaufbau funnel stakeholder"
-                    data-de="<strong>End-to-End-Vertriebsstrategie</strong> für einen mittelständischen Auto-Abo-Anbieter: Segmentanalyse, Produktstrategie, Pricing, Vertriebsstruktur, CRM und Zusammenarbeitsmodell."
-                    data-en="<strong>End-to-end sales strategy</strong> for a mid-sized car-subscription provider: segment analysis, product strategy, pricing, sales structure, CRM and collaboration model."><strong>End-to-End-Vertriebsstrategie</strong> für einen mittelständischen Auto-Abo-Anbieter: Segmentanalyse, Produktstrategie, Pricing, Vertriebsstruktur, CRM und Zusammenarbeitsmodell.</li>
+                    data-de="<strong>End-to-End-Vertriebsstrategie</strong> für einen mittelständischen Auto-Abo-Anbieter: Segmentanalyse, Produktstrategie, Pricing, Vertriebsstruktur, CRM und Zusammenarbeitsmodell"
+                    data-en="<strong>End-to-end sales strategy</strong> for a mid-sized car-subscription provider: segment analysis, product strategy, pricing, sales structure, CRM and collaboration model"><strong>End-to-End-Vertriebsstrategie</strong> für einen mittelständischen Auto-Abo-Anbieter: Segmentanalyse, Produktstrategie, Pricing, Vertriebsstruktur, CRM und Zusammenarbeitsmodell</li>
+                <li data-skills="strategie stakeholder b2b"
+                    data-de="<strong>Akquisition eines führenden Mietwagenanbieters und Entwicklung der Mobility-Solutions-Strategie</strong> für einen globalen Automotive-OEM"
+                    data-en="<strong>Acquisition of a leading rental-car provider and development of the mobility solutions strategy</strong> for a global automotive OEM"><strong>Akquisition eines führenden Mietwagenanbieters und Entwicklung der Mobility-Solutions-Strategie</strong> für einen globalen Automotive-OEM</li>
                 <li data-skills="gtm pricing erklaerung strategie"
-                    data-de="<strong>Markteintritts- und Skalierungsstrategie</strong> für ein Hardware-Startup im Transportsektor: GTM-Design, Pricing-Logik, Channel-Strategie."
-                    data-en="<strong>Market entry and scaling strategy</strong> for a hardware startup in the transport sector: GTM design, pricing logic, channel strategy."><strong>Markteintritts- und Skalierungsstrategie</strong> für ein Hardware-Startup im Transportsektor: GTM-Design, Pricing-Logik, Channel-Strategie.</li>
+                    data-de="<strong>Markteintritts- und Skalierungsstrategie</strong> für ein Hardware-Startup im Transportsektor: GTM-Design, Pricing-Logik, Channel-Strategie"
+                    data-en="<strong>Market entry and scaling strategy</strong> for a hardware startup in the transport sector: GTM design, pricing logic, channel strategy"><strong>Markteintritts- und Skalierungsstrategie</strong> für ein Hardware-Startup im Transportsektor: GTM-Design, Pricing-Logik, Channel-Strategie</li>
                 <li data-skills="funnel vertriebsaufbau stakeholder"
-                    data-de="<strong>Vertriebs-Performance-Programm</strong> für einen mittelständischen Logistikdienstleister."
-                    data-en="<strong>Sales performance programme</strong> for a mid-sized logistics provider."><strong>Vertriebs-Performance-Programm</strong> für einen mittelständischen Logistikdienstleister.</li>
+                    data-de="<strong>Vertriebs-Performance-Programm</strong> für einen mittelständischen Logistikdienstleister"
+                    data-en="<strong>Sales performance programme</strong> for a mid-sized logistics provider"><strong>Vertriebs-Performance-Programm</strong> für einen mittelständischen Logistikdienstleister</li>
                 <li data-skills="funnel strategie stakeholder"
-                    data-de="<strong>Datengetriebene Vertriebsstrategie</strong> für Automotive-Retail-Gruppen in DE und FR: simulationsgestützte Strategie, Entscheidungstool."
-                    data-en="<strong>Data-driven sales strategy</strong> for automotive retail groups in Germany and France: simulation-based strategy, decision tool."><strong>Datengetriebene Vertriebsstrategie</strong> für Automotive-Retail-Gruppen in DE und FR: simulationsgestützte Strategie, Entscheidungstool.</li>
+                    data-de="<strong>Datengetriebene Vertriebsstrategie</strong> für Automotive-Retail-Gruppen in DE und FR: simulationsgestützte Strategie, Entscheidungstool"
+                    data-en="<strong>Data-driven sales strategy</strong> for automotive retail groups in Germany and France: simulation-based strategy, decision tool"><strong>Datengetriebene Vertriebsstrategie</strong> für Automotive-Retail-Gruppen in DE und FR: simulationsgestützte Strategie, Entscheidungstool</li>
                 <li data-skills="strategie"
-                    data-de="<strong>Datenbasierte Analyse der Einflussfaktoren</strong> auf den Automobilhandel auf Konzernebene."
-                    data-en="<strong>Data-based analysis of the drivers</strong> shaping automotive retail at group level."><strong>Datenbasierte Analyse der Einflussfaktoren</strong> auf den Automobilhandel auf Konzernebene.</li>
-                <li data-skills="strategie stakeholder b2b"
-                    data-de="<strong>Akquisition eines Mietwagenanbieters</strong> für einen globalen Automotive-OEM, Mobility-Solutions-Strategie."
-                    data-en="<strong>Acquisition of a rental-car provider</strong> for a global automotive OEM, mobility solutions strategy."><strong>Akquisition eines Mietwagenanbieters</strong> für einen globalen Automotive-OEM, Mobility-Solutions-Strategie.</li>
+                    data-de="<strong>Datenbasierte Analyse der Einflussfaktoren</strong> auf den Automobilhandel auf Konzernebene"
+                    data-en="<strong>Data-based analysis of the drivers</strong> shaping automotive retail at group level"><strong>Datenbasierte Analyse der Einflussfaktoren</strong> auf den Automobilhandel auf Konzernebene</li>
                 <li data-skills="strategie"
-                    data-de="<strong>Circular-Business-Modell</strong> zur industriellen Revitalisierung gebrauchter Komponenten."
-                    data-en="<strong>Circular business model</strong> for the industrial revitalisation of used components."><strong>Circular-Business-Modell</strong> zur industriellen Revitalisierung gebrauchter Komponenten.</li>
+                    data-de="<strong>Circular-Business-Modell</strong> zur industriellen Revitalisierung gebrauchter Komponenten"
+                    data-en="<strong>Circular business model</strong> for the industrial revitalisation of used components"><strong>Circular-Business-Modell</strong> zur industriellen Revitalisierung gebrauchter Komponenten</li>
                 <li data-skills="strategie stakeholder b2b"
-                    data-de="<strong>Optimierung der externen Vergabe</strong> von Entwicklungsaufträgen im Engineering: Strategie, Compliance, Stakeholder-Steuerung."
-                    data-en="<strong>Optimisation of external contract awarding</strong> in engineering: strategy, compliance, stakeholder steering."><strong>Optimierung der externen Vergabe</strong> von Entwicklungsaufträgen im Engineering: Strategie, Compliance, Stakeholder-Steuerung.</li>
+                    data-de="<strong>Optimierung der externen Vergabe</strong> von Entwicklungsaufträgen im Engineering: Strategie, Compliance, Stakeholder-Steuerung"
+                    data-en="<strong>Optimisation of external contract awarding</strong> in engineering: strategy, compliance, stakeholder steering"><strong>Optimierung der externen Vergabe</strong> von Entwicklungsaufträgen im Engineering: Strategie, Compliance, Stakeholder-Steuerung</li>
                 <li data-skills="vertriebsaufbau funnel"
-                    data-de="<strong>Übergreifend:</strong> Generative-AI-Taskforce, Salesforce-Einführung als CRM, interne Schulungen zu Sales Excellence."
-                    data-en="<strong>Cross-firm:</strong> Generative AI taskforce, Salesforce rollout as CRM, internal trainings on sales excellence."><strong>Übergreifend:</strong> Generative-AI-Taskforce, Salesforce-Einführung als CRM, interne Schulungen zu Sales Excellence.</li>
+                    data-de="<strong>Übergreifend:</strong> Generative-AI-Taskforce, Salesforce-Einführung als CRM, interne Schulungen zu Sales Excellence"
+                    data-en="<strong>Cross-firm:</strong> Generative AI taskforce, Salesforce rollout as CRM, internal trainings on sales excellence"><strong>Übergreifend:</strong> Generative-AI-Taskforce, Salesforce-Einführung als CRM, interne Schulungen zu Sales Excellence</li>
               </ul>
             </div>
           </article>
@@ -1221,24 +1290,24 @@ section.snap-sec {
             </div>
             <div class="station-col-2">
               <div class="station-role">Head of Sales</div>
-              <p class="station-desc" data-de="B2B-SaaS-Scale-up für Mikromobilität und Carsharing."
-                 data-en="B2B SaaS scale-up for micro-mobility and carsharing.">B2B-SaaS-Scale-up für Mikromobilität und Carsharing.</p>
+              <p class="station-desc" data-de="B2B-SaaS-Scale-up für Mikromobilität und Carsharing"
+                 data-en="B2B SaaS scale-up for micro-mobility and carsharing">B2B-SaaS-Scale-up für Mikromobilität und Carsharing</p>
               <ul class="station-subitems">
                 <li data-skills="vertriebsaufbau b2b stakeholder"
-                    data-de="<strong>Aufbau und Leitung des New-Ventures-Pod</strong> mit sieben Mitarbeitenden (SDR, BD, Account Management)."
-                    data-en="<strong>Built and led the New Ventures pod</strong> with seven team members (SDR, BD, account management)."><strong>Aufbau und Leitung des New-Ventures-Pod</strong> mit sieben Mitarbeitenden (SDR, BD, Account Management).</li>
+                    data-de="<strong>Aufbau und Leitung des New-Ventures-Pod</strong> mit sieben Mitarbeitenden (SDR, BD, Account Management)"
+                    data-en="<strong>Built and led the New Ventures pod</strong> with seven team members (SDR, BD, account management)"><strong>Aufbau und Leitung des New-Ventures-Pod</strong> mit sieben Mitarbeitenden (SDR, BD, Account Management)</li>
                 <li data-skills="funnel gtm vertriebsaufbau"
-                    data-de="<strong>Verantwortung für den gesamten B2B-Funnel</strong> aus Inbound, Outbound und Account Expansion; Wachstum bis +30% MRR pro Quartal."
-                    data-en="<strong>Responsibility for the full B2B funnel</strong>: inbound, outbound, account expansion; growth up to +30% MRR per quarter."><strong>Verantwortung für den gesamten B2B-Funnel</strong> aus Inbound, Outbound und Account Expansion; Wachstum bis +30% MRR pro Quartal.</li>
+                    data-de="<strong>Verantwortung für den gesamten B2B-Funnel</strong> aus Inbound, Outbound und Account Expansion; Wachstum bis +30% MRR pro Quartal"
+                    data-en="<strong>Responsibility for the full B2B funnel</strong>: inbound, outbound, account expansion; growth up to +30% MRR per quarter"><strong>Verantwortung für den gesamten B2B-Funnel</strong> aus Inbound, Outbound und Account Expansion; Wachstum bis +30% MRR pro Quartal</li>
                 <li data-skills="funnel gtm stakeholder"
-                    data-de="<strong>Aufbau einer Lead-Generation-Engine</strong> in enger Zusammenarbeit mit Performance Marketing."
-                    data-en="<strong>Build-out of a lead-generation engine</strong> in close collaboration with performance marketing."><strong>Aufbau einer Lead-Generation-Engine</strong> in enger Zusammenarbeit mit Performance Marketing.</li>
+                    data-de="<strong>Aufbau einer Lead-Generation-Engine</strong> in enger Zusammenarbeit mit Performance Marketing"
+                    data-en="<strong>Build-out of a lead-generation engine</strong> in close collaboration with performance marketing"><strong>Aufbau einer Lead-Generation-Engine</strong> in enger Zusammenarbeit mit Performance Marketing</li>
                 <li data-skills="vertriebsaufbau funnel strategie"
-                    data-de="<strong>Redesign der Commercial-Organisation:</strong> KPI-Framework, CRM-Setup (Pipedrive), Reporting."
-                    data-en="<strong>Redesign of the commercial organisation:</strong> KPI framework, CRM setup (Pipedrive), reporting."><strong>Redesign der Commercial-Organisation:</strong> KPI-Framework, CRM-Setup (Pipedrive), Reporting.</li>
+                    data-de="<strong>Redesign der Commercial-Organisation:</strong> KPI-Framework, CRM-Setup (Pipedrive), Reporting"
+                    data-en="<strong>Redesign of the commercial organisation:</strong> KPI framework, CRM setup (Pipedrive), reporting"><strong>Redesign der Commercial-Organisation:</strong> KPI-Framework, CRM-Setup (Pipedrive), Reporting</li>
                 <li data-skills="b2b stakeholder"
-                    data-de="<strong>Komplexer Lösungsvertrieb</strong> an B2B-Kunden mit mehrstufigen Entscheidungswegen."
-                    data-en="<strong>Complex solution sales</strong> to B2B customers with multi-stage decision paths."><strong>Komplexer Lösungsvertrieb</strong> an B2B-Kunden mit mehrstufigen Entscheidungswegen.</li>
+                    data-de="<strong>Komplexer Lösungsvertrieb</strong> an B2B-Kunden mit mehrstufigen Entscheidungswegen"
+                    data-en="<strong>Complex solution sales</strong> to B2B customers with multi-stage decision paths"><strong>Komplexer Lösungsvertrieb</strong> an B2B-Kunden mit mehrstufigen Entscheidungswegen</li>
               </ul>
             </div>
           </article>
@@ -1250,21 +1319,21 @@ section.snap-sec {
             </div>
             <div class="station-col-2">
               <div class="station-role">Large Customer Sales, Search Specialist</div>
-              <p class="station-desc" data-de="Search-Vertrieb für den deutschen Retail-Markt aus dem Dublin-HQ."
-                 data-en="Search sales for the German retail market from the Dublin HQ.">Search-Vertrieb für den deutschen Retail-Markt aus dem Dublin-HQ.</p>
+              <p class="station-desc" data-de="Search-Vertrieb für den deutschen Retail-Markt aus dem Dublin-HQ"
+                 data-en="Search sales for the German retail market from the Dublin HQ">Search-Vertrieb für den deutschen Retail-Markt aus dem Dublin-HQ</p>
               <ul class="station-subitems">
                 <li data-skills="gtm stakeholder b2b"
-                    data-de="<strong>Begleitung der Q4-Aktivitäten</strong> für Googles Retail-Sektor, Umsatzziel über 600 Mio. USD; Reporting an die Retail-Leadership in DE und Dublin."
-                    data-en="<strong>Supporting Q4 activities</strong> for Google's retail sector, revenue target above USD 600m; reporting into retail leadership in Germany and Dublin."><strong>Begleitung der Q4-Aktivitäten</strong> für Googles Retail-Sektor, Umsatzziel über 600 Mio. USD; Reporting an die Retail-Leadership in DE und Dublin.</li>
+                    data-de="<strong>Begleitung der Q4-Aktivitäten</strong> für Googles Retail-Sektor, Umsatzziel über 600 Mio. USD; Reporting an die Retail-Leadership in DE und Dublin"
+                    data-en="<strong>Supporting Q4 activities</strong> for Google's retail sector, revenue target above USD 600m; reporting into retail leadership in Germany and Dublin"><strong>Begleitung der Q4-Aktivitäten</strong> für Googles Retail-Sektor, Umsatzziel über 600 Mio. USD; Reporting an die Retail-Leadership in DE und Dublin</li>
                 <li data-skills="funnel vertriebsaufbau"
-                    data-de="<strong>Entwicklung neuer Tools und Prozesse</strong> für Account Manager und Specialists."
-                    data-en="<strong>Development of new tools and processes</strong> for account managers and specialists."><strong>Entwicklung neuer Tools und Prozesse</strong> für Account Manager und Specialists.</li>
+                    data-de="<strong>Entwicklung neuer Tools und Prozesse</strong> für Account Manager und Specialists"
+                    data-en="<strong>Development of new tools and processes</strong> for account managers and specialists"><strong>Entwicklung neuer Tools und Prozesse</strong> für Account Manager und Specialists</li>
                 <li data-skills="funnel"
-                    data-de="<strong>Identifikation von Wachstumspotenzialen</strong> per Datenanalyse, skalierte Initiativen mit Stakeholdern in Central Europe."
-                    data-en="<strong>Identifying growth potentials</strong> through data analysis, rolling out scaled initiatives with stakeholders across Central Europe."><strong>Identifikation von Wachstumspotenzialen</strong> per Datenanalyse, skalierte Initiativen mit Stakeholdern in Central Europe.</li>
+                    data-de="<strong>Identifikation von Wachstumspotenzialen</strong> per Datenanalyse, skalierte Initiativen mit Stakeholdern in Central Europe"
+                    data-en="<strong>Identifying growth potentials</strong> through data analysis, rolling out scaled initiatives with stakeholders across Central Europe"><strong>Identifikation von Wachstumspotenzialen</strong> per Datenanalyse, skalierte Initiativen mit Stakeholdern in Central Europe</li>
                 <li data-skills="b2b stakeholder"
-                    data-de="<strong>Enge Zusammenarbeit mit den größten Retail-Kunden</strong> zur Vorbereitung auf das pivotale Q4-Geschäft."
-                    data-en="<strong>Close collaboration with Google's largest retail customers</strong> in preparation for the pivotal Q4 business."><strong>Enge Zusammenarbeit mit den größten Retail-Kunden</strong> zur Vorbereitung auf das pivotale Q4-Geschäft.</li>
+                    data-de="<strong>Enge Zusammenarbeit mit den größten Retail-Kunden</strong> zur Vorbereitung auf das pivotale Q4-Geschäft"
+                    data-en="<strong>Close collaboration with Google's largest retail customers</strong> in preparation for the pivotal Q4 business"><strong>Enge Zusammenarbeit mit den größten Retail-Kunden</strong> zur Vorbereitung auf das pivotale Q4-Geschäft</li>
               </ul>
             </div>
           </article>
@@ -1276,15 +1345,15 @@ section.snap-sec {
             </div>
             <div class="station-col-2">
               <div class="station-role">Associate Consultant</div>
-              <p class="station-desc" data-de="Boutique-Beratung für Pricing und Wachstumsstrategie."
-                 data-en="Boutique consultancy for pricing and growth strategy.">Boutique-Beratung für Pricing und Wachstumsstrategie.</p>
+              <p class="station-desc" data-de="Boutique-Beratung für Pricing und Wachstumsstrategie"
+                 data-en="Boutique consultancy for pricing and growth strategy">Boutique-Beratung für Pricing und Wachstumsstrategie</p>
               <ul class="station-subitems">
                 <li data-skills="pricing strategie"
-                    data-de="<strong>Globales B2B/B2C-Price-Transformation-Projekt</strong> für einen Elektronikhersteller: Listenpreise, Discounting, Peer-Pricing, automatisiertes Toolset."
-                    data-en="<strong>Global B2B/B2C price-transformation project</strong> for an electronics manufacturer: list prices, discounting, peer pricing, automated toolset."><strong>Globales B2B/B2C-Price-Transformation-Projekt</strong> für einen Elektronikhersteller: Listenpreise, Discounting, Peer-Pricing, automatisiertes Toolset.</li>
+                    data-de="<strong>Globales B2B/B2C-Price-Transformation-Projekt</strong> für einen Elektronikhersteller: Listenpreise, Discounting, Peer-Pricing, automatisiertes Toolset"
+                    data-en="<strong>Global B2B/B2C price-transformation project</strong> for an electronics manufacturer: list prices, discounting, peer pricing, automated toolset"><strong>Globales B2B/B2C-Price-Transformation-Projekt</strong> für einen Elektronikhersteller: Listenpreise, Discounting, Peer-Pricing, automatisiertes Toolset</li>
                 <li data-skills="pricing erklaerung"
-                    data-de="<strong>Wertbasiertes Ersatzteil-Pricing-Modell</strong> für ein Schweizer Robotics-Unternehmen, inklusive integriertem Pricing-Tool."
-                    data-en="<strong>Value-based spare-parts pricing model</strong> for a Swiss robotics company, including integrated pricing tool."><strong>Wertbasiertes Ersatzteil-Pricing-Modell</strong> für ein Schweizer Robotics-Unternehmen, inklusive integriertem Pricing-Tool.</li>
+                    data-de="<strong>Wertbasiertes Ersatzteil-Pricing-Modell</strong> für ein Schweizer Robotics-Unternehmen, inklusive integriertem Pricing-Tool"
+                    data-en="<strong>Value-based spare-parts pricing model</strong> for a Swiss robotics company, including integrated pricing tool"><strong>Wertbasiertes Ersatzteil-Pricing-Modell</strong> für ein Schweizer Robotics-Unternehmen, inklusive integriertem Pricing-Tool</li>
               </ul>
             </div>
           </article>
@@ -1296,21 +1365,21 @@ section.snap-sec {
             </div>
             <div class="station-col-2">
               <div class="station-role">Global Key Account Manager</div>
-              <p class="station-desc" data-de="Industrielacke und Beschichtungssysteme für globale OEMs."
-                 data-en="Industrial coatings and paint systems for global OEMs.">Industrielacke und Beschichtungssysteme für globale OEMs.</p>
+              <p class="station-desc" data-de="Industrielacke und Beschichtungssysteme für globale OEMs"
+                 data-en="Industrial coatings and paint systems for global OEMs">Industrielacke und Beschichtungssysteme für globale OEMs</p>
               <ul class="station-subitems">
                 <li data-skills="vertriebsaufbau b2b stakeholder"
-                    data-de="<strong>Jüngster Key Account Manager der Firmengeschichte:</strong> globale Betreuung von Toyota, Markt-Lead für UK, Indien und Japan."
-                    data-en="<strong>Youngest key account manager in the company history:</strong> global responsibility for Toyota, market lead for UK, India and Japan."><strong>Jüngster Key Account Manager der Firmengeschichte:</strong> globale Betreuung von Toyota, Markt-Lead für UK, Indien und Japan.</li>
+                    data-de="<strong>Jüngster Key Account Manager der Firmengeschichte:</strong> globale Betreuung von Toyota, Markt-Lead für UK, Indien und Japan"
+                    data-en="<strong>Youngest key account manager in the company history:</strong> global responsibility for Toyota, market lead for UK, India and Japan"><strong>Jüngster Key Account Manager der Firmengeschichte:</strong> globale Betreuung von Toyota, Markt-Lead für UK, Indien und Japan</li>
                 <li data-skills="b2b vertriebsaufbau gtm"
-                    data-de="<strong>Steigerung des betreuten Umsatzvolumens um 30%</strong> innerhalb eines Jahres."
-                    data-en="<strong>Increase of assigned revenue volume by 30%</strong> within one year."><strong>Steigerung des betreuten Umsatzvolumens um 30%</strong> innerhalb eines Jahres.</li>
+                    data-de="<strong>Steigerung des betreuten Umsatzvolumens um 30%</strong> innerhalb eines Jahres"
+                    data-en="<strong>Increase of assigned revenue volume by 30%</strong> within one year"><strong>Steigerung des betreuten Umsatzvolumens um 30%</strong> innerhalb eines Jahres</li>
                 <li data-skills="erklaerung b2b"
-                    data-de="<strong>Verkauf von Beschichtungslösungen</strong> an die größten Automotive-OEMs, Zulieferer und Lackierbetriebe weltweit."
-                    data-en="<strong>Selling coating solutions</strong> to the largest automotive OEMs, suppliers and coating shops worldwide."><strong>Verkauf von Beschichtungslösungen</strong> an die größten Automotive-OEMs, Zulieferer und Lackierbetriebe weltweit.</li>
+                    data-de="<strong>Verkauf von Beschichtungslösungen</strong> an die größten Automotive-OEMs, Zulieferer und Lackierbetriebe weltweit"
+                    data-en="<strong>Selling coating solutions</strong> to the largest automotive OEMs, suppliers and coating shops worldwide"><strong>Verkauf von Beschichtungslösungen</strong> an die größten Automotive-OEMs, Zulieferer und Lackierbetriebe weltweit</li>
                 <li data-skills="stakeholder erklaerung"
-                    data-de="<strong>Steuerung von Projektkomplexität</strong> und vielfältigen Stakeholdern entlang der automobilen Lieferkette, inklusive Claim Management."
-                    data-en="<strong>Steering project complexity</strong> and diverse stakeholders along the automotive supply chain, including claim management."><strong>Steuerung von Projektkomplexität</strong> und vielfältigen Stakeholdern entlang der automobilen Lieferkette, inklusive Claim Management.</li>
+                    data-de="<strong>Steuerung von Projektkomplexität</strong> und vielfältigen Stakeholdern entlang der automobilen Lieferkette, inklusive Claim Management"
+                    data-en="<strong>Steering project complexity</strong> and diverse stakeholders along the automotive supply chain, including claim management"><strong>Steuerung von Projektkomplexität</strong> und vielfältigen Stakeholdern entlang der automobilen Lieferkette, inklusive Claim Management</li>
               </ul>
             </div>
           </article>
@@ -1320,7 +1389,7 @@ section.snap-sec {
 
       <aside class="erfahrung-skills" aria-label="Skills">
         <h2 class="section-title col-heading" data-de="Skills" data-en="Skills">Skills</h2>
-        <p class="skill-hint" data-de="Anklicken zum Filtern." data-en="Click to filter.">Anklicken zum Filtern.</p>
+        <p class="skill-hint" data-de="Anklicken zum Filtern" data-en="Click to filter">Anklicken zum Filtern</p>
         <div class="skill-chip-list">
           <button class="skill-chip" data-skill="gtm" data-de="Go-to-Market &amp; Markteintritt" data-en="Go-to-market &amp; market entry">Go-to-Market &amp; Markteintritt</button>
           <button class="skill-chip" data-skill="vertriebsaufbau" data-de="Vertriebsaufbau &amp; Teamführung" data-en="Sales build-out &amp; team leadership">Vertriebsaufbau &amp; Teamführung</button>
@@ -1625,13 +1694,14 @@ section.snap-sec {
         <a class="kontakt-contact-link" href="mailto:jan.kluetsch@gmail.com">jan.kluetsch@gmail.com<span class="arr" aria-hidden="true">↗</span></a>
         <a class="kontakt-contact-link" href="https://www.linkedin.com/in/jankluetsch/" target="_blank" rel="noopener">LinkedIn<span class="arr" aria-hidden="true">↗</span></a>
       </div>
+      <div class="kontakt-takeaway">
+        <div class="kontakt-takeaway-label" data-de="Zum Mitnehmen" data-en="To take with you">Zum Mitnehmen</div>
+        <a class="kontakt-contact-link" id="cv-link" href="assets/CVs/CV_JanKluetsch_DE.pdf" target="_blank" rel="noopener" data-de-href="assets/CVs/CV_JanKluetsch_DE.pdf" data-en-href="assets/CVs/CV_JanKluetsch_EN.pdf" data-de="Lebenslauf (PDF)" data-en="CV (PDF)">Lebenslauf (PDF)<span class="arr" aria-hidden="true">↗</span></a>
+      </div>
     </div>
   </div>
   <footer class="page-footer">
     <div class="wrap footer-row">
-      <div class="footer-links">
-        <a class="footer-link" id="cv-link" href="Lebenslauf_JanKluetsch.pdf" target="_blank" rel="noopener" data-de-href="Lebenslauf_JanKluetsch.pdf" data-en-href="CV_JanKluetsch_EN.pdf" data-de="Lebenslauf (PDF)" data-en="CV (PDF)">Lebenslauf (PDF)<span class="arr" aria-hidden="true">↗</span></a>
-      </div>
       <div class="footer-meta">
         <span>© 2026 Jan Klütsch</span>
         <span class="sep">·</span>
