@@ -642,34 +642,60 @@ section.snap-sec {
 }
 .werte-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
   padding: 40px 0 60px;
 }
 .wert-card {
   background: var(--surface);
-  padding: 32px;
-  border-radius: 4px;
+  padding: 32px 20px 28px;
+  border-radius: 8px;
   border: 1px solid var(--line);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .wert-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--ink-mute);
+  }
+}
+.wert-icon {
+  width: 28px; height: 28px;
+  color: var(--ink);
+  margin-bottom: 2px;
 }
 .wert-titel {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   color: var(--ink);
-  margin: 0 0 12px 0;
-  letter-spacing: -0.01em;
+  margin: 0;
+  letter-spacing: -0.005em;
 }
 .wert-text {
-  font-size: 14px;
+  font-size: 13.5px;
   color: var(--ink-soft);
   line-height: 1.55;
   margin: 0;
 }
 
+@media (max-width: 1100px) {
+  .werte-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 720px) {
+  .werte-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .werte-grid { grid-template-columns: 1fr; }
+}
 @media (max-width: 880px) {
-  #werte { padding: 64px 0; }
-  .werte-grid { grid-template-columns: 1fr; gap: 12px; padding: 24px 0 40px; }
-  .wert-card { padding: 24px; }
+  #werte { padding: 64px 0 200px; }
+  .werte-grid { gap: 12px; padding: 24px 0 40px; }
+  .wert-card { padding: 24px 18px; }
 }
 
 /* Arbeitsweise */
@@ -1418,29 +1444,59 @@ section.snap-sec {
 
     <div class="werte-grid">
       <article class="wert-card reveal">
+        <svg class="wert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3v18"/>
+          <path d="M7 21h10"/>
+          <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/>
+          <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+          <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+        </svg>
         <h3 class="wert-titel" data-de="Fairness" data-en="Fairness">Fairness</h3>
         <p class="wert-text" data-de="Ehrlich, transparent und berechenbar, nach innen wie nach außen."
            data-en="Honest, transparent and predictable, inside and out.">Ehrlich, transparent und berechenbar, nach innen wie nach außen.</p>
       </article>
       <article class="wert-card reveal">
+        <svg class="wert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+        </svg>
         <h3 class="wert-titel" data-de="Authentizität" data-en="Authenticity">Authentizität</h3>
         <p class="wert-text" data-de="Ich sage, was ich meine, und stehe für das, was ich sage."
            data-en="I say what I mean and stand by what I say.">Ich sage, was ich meine, und stehe für das, was ich sage.</p>
       </article>
       <article class="wert-card reveal">
+        <svg class="wert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2"/>
+          <path d="M12 20v2"/>
+          <path d="m4.93 4.93 1.41 1.41"/>
+          <path d="m17.66 17.66 1.41 1.41"/>
+          <path d="M2 12h2"/>
+          <path d="M20 12h2"/>
+          <path d="m6.34 17.66-1.41 1.41"/>
+          <path d="m19.07 4.93-1.41 1.41"/>
+        </svg>
         <h3 class="wert-titel" data-de="Begeisterung" data-en="Enthusiasm">Begeisterung</h3>
         <p class="wert-text" data-de="Menschen mit klarem Storytelling für eine Idee gewinnen und in Bewegung bringen."
            data-en="Winning people over for an idea with clear storytelling and getting them moving.">Menschen mit klarem Storytelling für eine Idee gewinnen und in Bewegung bringen.</p>
       </article>
       <article class="wert-card reveal">
+        <svg class="wert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 3h12l4 6-10 13L2 9Z"/>
+          <path d="M11 3 8 9l4 13 4-13-3-6"/>
+          <path d="M2 9h20"/>
+        </svg>
         <h3 class="wert-titel" data-de="Qualität" data-en="Quality">Qualität</h3>
-        <p class="wert-text" data-de="In der Arbeit, in der Zusammenarbeit, und im Leben. Lieber gründlich richtig als schnell ungefähr, lieber Substanz als Show."
-           data-en="In work, in collaboration, and in life. Better thoroughly right than quickly close enough, substance over show.">In der Arbeit, in der Zusammenarbeit, und im Leben. Lieber gründlich richtig als schnell ungefähr, lieber Substanz als Show.</p>
+        <p class="wert-text" data-de="In der Arbeit, in der Zusammenarbeit, und im Leben: Lieber Substanz als Show."
+           data-en="In work, in collaboration, and in life: substance over show.">In der Arbeit, in der Zusammenarbeit, und im Leben: Lieber Substanz als Show.</p>
       </article>
       <article class="wert-card reveal">
+        <svg class="wert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0"/>
+          <path d="M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 1 0 4"/>
+        </svg>
         <h3 class="wert-titel" data-de="Bescheidenheit" data-en="Modesty">Bescheidenheit</h3>
-        <p class="wert-text" data-de="Die besten Lösungen entstehen selten allein. Zuhören kommt vor Entscheiden."
-           data-en="The best solutions rarely come alone. Listening comes before deciding.">Die besten Lösungen entstehen selten allein. Zuhören kommt vor Entscheiden.</p>
+        <p class="wert-text" data-de="Die besten Lösungen entstehen selten allein. Zuhören und Verstehen kommt vor Entscheiden."
+           data-en="The best solutions rarely come alone. Listening and understanding come before deciding.">Die besten Lösungen entstehen selten allein. Zuhören und Verstehen kommt vor Entscheiden.</p>
       </article>
     </div>
 
