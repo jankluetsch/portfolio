@@ -44,7 +44,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
   scroll-padding-top: var(--topbar-h);
 }
 body {
@@ -477,7 +477,7 @@ section.snap-sec {
 
 /* ============ ERFAHRUNG ============ */
 #erfahrung {
-  padding: 96px 0 112px;
+  padding: 96px 0 180px;
 }
 .erfahrung-head {
   margin-bottom: 32px;
@@ -871,7 +871,7 @@ section.snap-sec {
 
 /* ============ ENGAGEMENT ============ */
 #engagement {
-  padding: 96px 0;
+  padding: 96px 0 180px;
 }
 .eng-head {
   margin-bottom: 32px;
@@ -962,6 +962,39 @@ section.snap-sec {
 }
 .engagement-list .e-name { color: var(--ink); font-weight: 500; }
 .engagement-list .e-when { color: var(--ink-mute); font-size: 11px; margin-left: 6px; }
+
+/* Gesellschaftliches Engagement: vollbreite, ruhige Blöcke */
+.social-list {
+  display: flex; flex-direction: column;
+  border-top: 1px solid var(--line);
+  margin-top: 18px;
+}
+.social-item {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+.social-title {
+  font-family: var(--sans);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+  margin: 0 0 6px;
+  line-height: 1.3;
+}
+.social-desc {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  max-width: 72ch;
+  margin: 0;
+}
+
+/* CTA-Variante des engagement-link: leicht hervorgehoben, dezent */
+.engagement-cta {
+  font-weight: 600;
+  font-size: 14px;
+}
 
 @media (max-width: 880px) {
   #engagement { padding: 64px 0; }
@@ -1731,23 +1764,21 @@ section.snap-sec {
       <div class="engage-content">
         <div class="engagement-eyebrow" data-de="Unternehmertum" data-en="Entrepreneurship">Unternehmertum</div>
         <h3 class="engagement-titel">J.L. Ingwert</h3>
-        <p data-de="Seit 2020 mit einem Freund einen Ingwer-Likör von der Rezeptur über Marke bis zum Vertrieb aufgebaut. Erste Charge: 240 Flaschen, nahezu ausverkauft."
-           data-en="Since 2020 built a ginger liqueur with a friend, from recipe through brand to distribution. First batch: 240 bottles, nearly sold out.">Seit 2020 mit einem Freund einen Ingwer-Likör von der Rezeptur über Marke bis zum Vertrieb aufgebaut. Erste Charge: 240 Flaschen, nahezu ausverkauft.</p>
-        <a class="engagement-link" href="https://www.ingwert.de/produkt/j-l-ingwert/" target="_blank" rel="noopener" data-de="ingwert.de" data-en="ingwert.de">ingwert.de<span class="arr" aria-hidden="true">↗</span></a>
+        <p data-de="Gestartet als Schnapsidee, wurde daraus ein Corona-Projekt: Mit Co-Founder Rezeptur, Marke und Vertrieb von Grund auf aufgebaut. Heraus kam ein Ingwerlikör mit Vanille und Rosmarin als feine Begleiter. Von 240 produzierten Flaschen sind die letzten gerade noch zu haben."
+           data-en="Started as a tongue-in-cheek idea that turned into a Corona-era project: with a co-founder, recipe, brand and distribution built from scratch. The result is a ginger liqueur with vanilla and rosemary as subtle companions. Of the 240 bottles produced, the last few are still available.">Gestartet als Schnapsidee, wurde daraus ein Corona-Projekt: Mit Co-Founder Rezeptur, Marke und Vertrieb von Grund auf aufgebaut. Heraus kam ein Ingwerlikör mit Vanille und Rosmarin als feine Begleiter. Von 240 produzierten Flaschen sind die letzten gerade noch zu haben.</p>
+        <a class="engagement-link engagement-cta" href="https://www.ingwert.de" target="_blank" rel="noopener" data-de="Sichere dir eine der letzten Flaschen" data-en="Get one of the last bottles">Sichere dir eine der letzten Flaschen<span class="arr" aria-hidden="true">→</span></a>
       </div>
     </article>
 
     <article class="engage-block flip">
       <div class="engage-content">
         <div class="engagement-eyebrow" data-de="Sport" data-en="Sport">Sport</div>
-        <h3 class="engagement-titel" data-de="Ausdauer und Berge" data-en="Endurance and mountains">Ausdauer und Berge</h3>
-        <p data-de="Ausdauersport ist für mich Leidenschaft und Teil meiner Identität. Lange Distanzen, draußen, oft in den Bergen."
-           data-en="Endurance sport is a passion and part of who I am. Long distances, outdoors, often in the mountains.">Ausdauersport ist für mich Leidenschaft und Teil meiner Identität. Lange Distanzen, draußen, oft in den Bergen.</p>
+        <h3 class="engagement-titel" data-de="Langstrecke &amp; Ausdauer" data-en="Endurance &amp; Long Distance">Langstrecke &amp; Ausdauer</h3>
+        <p data-de="Sport ist Teil meiner Identität. Im Triathlon und auf langer Strecke finde ich beides: ein Feld, auf dem ich mich entwickeln und challengen kann, und gleichzeitig Ruhe, Fokus und etwas Meditatives. Draußen sein zählt für mich genauso wie das Training selbst. Drei Marathons, der Zugspitz Ultratrail und ein Halbdistanz-Triathlon stehen bislang im Logbuch. Daneben begeisterter Radsport-Fan."
+           data-en="Sport is part of my identity. In triathlon and on long distances I find both: a field where I can grow and challenge myself, and at the same time stillness, focus and something meditative. Being outdoors matters as much as the training itself. Three marathons, the Zugspitz Ultra Trail and a half-distance triathlon are on the log so far. Cycling sports fan on top.">Sport ist Teil meiner Identität. Im Triathlon und auf langer Strecke finde ich beides: ein Feld, auf dem ich mich entwickeln und challengen kann, und gleichzeitig Ruhe, Fokus und etwas Meditatives. Draußen sein zählt für mich genauso wie das Training selbst. Drei Marathons, der Zugspitz Ultratrail und ein Halbdistanz-Triathlon stehen bislang im Logbuch. Daneben begeisterter Radsport-Fan.</p>
         <div class="engagement-tags">
-          <span data-de="3× Marathon" data-en="3× marathon">3× Marathon</span>
-          <span>Zugspitz Ultratrail</span>
+          <span data-de="Triathlet (FC St. Pauli)" data-en="Triathlete (FC St. Pauli)">Triathlet (FC St. Pauli)</span>
           <span data-de="Halbmarathon &lt; 1:30 h" data-en="Half marathon &lt; 1:30 h">Halbmarathon &lt; 1:30 h</span>
-          <span>Triathlon FC St. Pauli</span>
         </div>
         <a class="engagement-link" href="https://www.strava.com/athletes/53896142" target="_blank" rel="noopener" data-de="Strava-Profil" data-en="Strava profile">Strava-Profil<span class="arr" aria-hidden="true">↗</span></a>
       </div>
@@ -1760,25 +1791,20 @@ section.snap-sec {
       <div class="engage-content">
         <div class="engagement-eyebrow" data-de="Gesellschaft" data-en="Society">Gesellschaft</div>
         <h3 class="engagement-titel" data-de="Gesellschaftliches Engagement" data-en="Social commitment">Gesellschaftliches Engagement</h3>
-        <ul class="engagement-list">
-          <li><span class="e-name">Schlaufox</span><span class="e-when" data-de="laufend" data-en="ongoing">laufend</span>
-            <div data-de="1:1-Mentoring für einen 14-jährigen Jugendlichen aus Ghana."
-                 data-en="One-to-one mentoring for a 14-year-old from Ghana.">1:1-Mentoring für einen 14-jährigen Jugendlichen aus Ghana.</div>
-          </li>
-          <li><span class="e-name">Arbeiterkind.de</span><span class="e-when" data-de="laufend" data-en="ongoing">laufend</span>
-            <div data-de="Unterstützung bei Infoveranstaltungen für Erststudierende."
-                 data-en="Supporting info events for first-generation students.">Unterstützung bei Infoveranstaltungen für Erststudierende.</div>
-          </li>
-          <li><span class="e-name">GoBanyo</span><span class="e-when" data-de="laufend" data-en="ongoing">laufend</span>
-            <div data-de="Mobiler Hygiene-Service für obdachlose Menschen in Hamburg."
-                 data-en="Mobile hygiene service for homeless people in Hamburg.">Mobiler Hygiene-Service für obdachlose Menschen in Hamburg.</div>
-          </li>
-          <li><span class="e-name" data-de="Deutschunterricht, Flüchtlingsunterkunft Hamburg" data-en="German lessons, refugee shelter Hamburg">Deutschunterricht, Flüchtlingsunterkunft Hamburg</span><span class="e-when">2015–2016</span></li>
-          <li><span class="e-name">180 Degrees Consulting</span><span class="e-when">2017</span>
-            <div data-de="Pro-bono-Strategiearbeit für eine NGO, Stockholm."
-                 data-en="Pro-bono strategy work for an NGO, Stockholm.">Pro-bono-Strategiearbeit für eine NGO, Stockholm.</div>
-          </li>
-        </ul>
+        <div class="social-list">
+          <div class="social-item">
+            <h4 class="social-title">Schlaufox / Arbeiterkind.de</h4>
+            <p class="social-desc"
+               data-de="1:1-Mentoring für einen 14-jährigen Jugendlichen aus Ghana sowie Unterstützung bei Infoveranstaltungen für Erststudierende."
+               data-en="One-to-one mentoring for a 14-year-old from Ghana, plus supporting info events for first-generation students.">1:1-Mentoring für einen 14-jährigen Jugendlichen aus Ghana sowie Unterstützung bei Infoveranstaltungen für Erststudierende.</p>
+          </div>
+          <div class="social-item">
+            <h4 class="social-title">GoBanyo</h4>
+            <p class="social-desc"
+               data-de="Mobiler Hygiene-Service für obdachlose Menschen in Hamburg."
+               data-en="Mobile hygiene service for homeless people in Hamburg.">Mobiler Hygiene-Service für obdachlose Menschen in Hamburg.</p>
+          </div>
+        </div>
       </div>
     </article>
 
