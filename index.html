@@ -963,8 +963,8 @@ section.snap-sec {
 .engagement-list .e-name { color: var(--ink); font-weight: 500; }
 .engagement-list .e-when { color: var(--ink-mute); font-size: 11px; margin-left: 6px; }
 
-/* Gesellschaftliches Engagement: vollbreite Liste analog Erfahrung,
-   visuell ruhiger (kleinere Titel, weniger Padding) */
+/* Gesellschaftliches Engagement: vollbreite Liste, 3-Spalten
+   (Titel | Beschreibung | Zeitraum), visuell ruhig */
 .social-list {
   display: flex; flex-direction: column;
   border-top: 1px solid var(--line);
@@ -972,22 +972,11 @@ section.snap-sec {
 }
 .social-item {
   display: grid;
-  grid-template-columns: 26fr 74fr;
-  gap: 40px;
+  grid-template-columns: 22fr 58fr 20fr;
+  gap: 32px;
   padding: 20px 0;
   border-bottom: 1px solid var(--line);
   align-items: baseline;
-}
-.social-when {
-  font-size: 12px;
-  color: var(--ink-mute);
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-  display: flex; align-items: center; gap: 6px;
-}
-.social-when::before {
-  content: ''; width: 4px; height: 4px; border-radius: 999px;
-  background: var(--ink-mute); display: inline-block;
 }
 .social-title {
   font-family: var(--sans);
@@ -995,23 +984,29 @@ section.snap-sec {
   font-weight: 600;
   color: var(--ink);
   letter-spacing: -0.005em;
-  margin: 0 0 4px;
+  margin: 0;
   line-height: 1.3;
 }
 .social-desc {
   font-size: 13.5px;
   color: var(--ink-soft);
   line-height: 1.55;
-  max-width: 72ch;
   margin: 0;
+}
+.social-when {
+  font-size: 12px;
+  color: var(--ink-mute);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-align: right;
 }
 @media (max-width: 880px) {
   .social-item {
     grid-template-columns: 1fr;
-    gap: 6px;
+    gap: 4px;
     padding: 16px 0;
   }
-  .social-when { font-variant-numeric: normal; letter-spacing: 0; }
+  .social-when { font-variant-numeric: normal; letter-spacing: 0; text-align: left; }
 }
 
 /* Engage-Photo Variante: leicht reingezoomt, gegen Weißraum im Bild selbst */
@@ -1802,8 +1797,11 @@ section.snap-sec {
         <p data-de="Sport ist Teil meiner Identität. Im Triathlon und auf langer Strecke finde ich beides: ein Feld, auf dem ich mich entwickeln und challengen kann, und gleichzeitig Ruhe, Fokus und manchmal etwas Meditatives. Draußen sein zählt für mich genauso wie das Training selbst."
            data-en="Sport is part of my identity. In triathlon and on long distances I find both: a field where I can grow and challenge myself, and at the same time stillness, focus and sometimes something meditative. Being outdoors matters as much as the training itself.">Sport ist Teil meiner Identität. Im Triathlon und auf langer Strecke finde ich beides: ein Feld, auf dem ich mich entwickeln und challengen kann, und gleichzeitig Ruhe, Fokus und manchmal etwas Meditatives. Draußen sein zählt für mich genauso wie das Training selbst.</p>
         <div class="engagement-tags">
-          <span data-de="Triathlet (FC St. Pauli)" data-en="Triathlete (FC St. Pauli)">Triathlet (FC St. Pauli)</span>
+          <span data-de="3× Marathon" data-en="3× marathon">3× Marathon</span>
+          <span>Zugspitz Ultratrail</span>
+          <span data-de="Halbdistanz-Triathlon" data-en="Half-distance triathlon">Halbdistanz-Triathlon</span>
           <span data-de="Halbmarathon &lt; 1:30 h" data-en="Half marathon &lt; 1:30 h">Halbmarathon &lt; 1:30 h</span>
+          <span data-de="Triathlet (FC St. Pauli)" data-en="Triathlete (FC St. Pauli)">Triathlet (FC St. Pauli)</span>
         </div>
         <a class="engagement-link" href="https://www.strava.com/athletes/53896142" target="_blank" rel="noopener" data-de="Strava-Profil" data-en="Strava profile">Strava-Profil<span class="arr" aria-hidden="true">↗</span></a>
       </div>
@@ -1818,46 +1816,39 @@ section.snap-sec {
         <h3 class="engagement-titel" data-de="Gesellschaftliches Engagement" data-en="Social commitment">Gesellschaftliches Engagement</h3>
         <div class="social-list">
           <div class="social-item">
+            <h4 class="social-title">Schlaufox</h4>
+            <p class="social-desc"
+               data-de="1:1-Mentoring für einen 14-jährigen Jugendlichen aus Ghana."
+               data-en="One-to-one mentoring for a 14-year-old from Ghana.">1:1-Mentoring für einen 14-jährigen Jugendlichen aus Ghana.</p>
             <div class="social-when" data-de="laufend" data-en="ongoing">laufend</div>
-            <div class="social-body">
-              <h4 class="social-title">Schlaufox</h4>
-              <p class="social-desc"
-                 data-de="1:1-Mentoring für einen 14-jährigen Jugendlichen aus Ghana."
-                 data-en="One-to-one mentoring for a 14-year-old from Ghana.">1:1-Mentoring für einen 14-jährigen Jugendlichen aus Ghana.</p>
-            </div>
           </div>
           <div class="social-item">
+            <h4 class="social-title">Arbeiterkind.de</h4>
+            <p class="social-desc"
+               data-de="Unterstützung bei Infoveranstaltungen für Erststudierende."
+               data-en="Supporting info events for first-generation students.">Unterstützung bei Infoveranstaltungen für Erststudierende.</p>
             <div class="social-when" data-de="laufend" data-en="ongoing">laufend</div>
-            <div class="social-body">
-              <h4 class="social-title">Arbeiterkind.de</h4>
-              <p class="social-desc"
-                 data-de="Unterstützung bei Infoveranstaltungen für Erststudierende."
-                 data-en="Supporting info events for first-generation students.">Unterstützung bei Infoveranstaltungen für Erststudierende.</p>
-            </div>
           </div>
           <div class="social-item">
+            <h4 class="social-title">GoBanyo</h4>
+            <p class="social-desc"
+               data-de="Mobiler Hygiene-Service für obdachlose Menschen in Hamburg."
+               data-en="Mobile hygiene service for homeless people in Hamburg.">Mobiler Hygiene-Service für obdachlose Menschen in Hamburg.</p>
             <div class="social-when" data-de="laufend" data-en="ongoing">laufend</div>
-            <div class="social-body">
-              <h4 class="social-title">GoBanyo</h4>
-              <p class="social-desc"
-                 data-de="Mobiler Hygiene-Service für obdachlose Menschen in Hamburg."
-                 data-en="Mobile hygiene service for homeless people in Hamburg.">Mobiler Hygiene-Service für obdachlose Menschen in Hamburg.</p>
-            </div>
           </div>
           <div class="social-item">
+            <h4 class="social-title">180 Degrees Consulting</h4>
+            <p class="social-desc"
+               data-de="Pro-bono-Strategiearbeit für eine NGO, Stockholm."
+               data-en="Pro-bono strategy work for an NGO, Stockholm.">Pro-bono-Strategiearbeit für eine NGO, Stockholm.</p>
             <div class="social-when">2017</div>
-            <div class="social-body">
-              <h4 class="social-title">180 Degrees Consulting</h4>
-              <p class="social-desc"
-                 data-de="Pro-bono-Strategiearbeit für eine NGO, Stockholm."
-                 data-en="Pro-bono strategy work for an NGO, Stockholm.">Pro-bono-Strategiearbeit für eine NGO, Stockholm.</p>
-            </div>
           </div>
           <div class="social-item">
+            <h4 class="social-title" data-de="Deutschunterricht, Flüchtlingsunterkunft Hamburg" data-en="German lessons, refugee shelter Hamburg">Deutschunterricht, Flüchtlingsunterkunft Hamburg</h4>
+            <p class="social-desc"
+               data-de="Sprachunterricht für Geflüchtete, ehrenamtlich."
+               data-en="Language lessons for refugees, volunteer basis.">Sprachunterricht für Geflüchtete, ehrenamtlich.</p>
             <div class="social-when">2015–2016</div>
-            <div class="social-body">
-              <h4 class="social-title" data-de="Deutschunterricht, Flüchtlingsunterkunft Hamburg" data-en="German lessons, refugee shelter Hamburg">Deutschunterricht, Flüchtlingsunterkunft Hamburg</h4>
-            </div>
           </div>
         </div>
       </div>
