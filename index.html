@@ -1402,8 +1402,8 @@ section.snap-sec {
       <img src="assets/photo/jan-credo.jpg" alt="Jan Klütsch">
     </div>
     <blockquote class="credo">
-      <p data-de="„Wirkung entsteht, wenn Organisationen ihren Kunden echten Nutzen vermitteln können. Good Commercial Leadership schafft die Strukturen, in denen das nachhaltig gelingt. KI und Daten sind dabei unerlässlich. Doch am Ende geht es darum, mit Menschen Mehrwert zu schaffen: für Kunden, das eigene Unternehmen, Teams und die Umwelt.“"
-         data-en="„Impact emerges when organisations can deliver real value to their customers. Good Commercial Leadership builds the structures in which this succeeds sustainably. AI and data are indispensable. But in the end, it is about creating value with people: for customers, the company itself, teams and the environment.“">„Wirkung entsteht, wenn Organisationen ihren Kunden echten Nutzen vermitteln können. Good Commercial Leadership schafft die Strukturen, in denen das nachhaltig gelingt. KI und Daten sind dabei unerlässlich. Doch am Ende geht es darum, mit Menschen Mehrwert zu schaffen: für Kunden, das eigene Unternehmen, Teams und die Umwelt.“</p>
+      <p data-de="„Wirkung entsteht, wenn Organisationen ihren Kunden echten Nutzen vermitteln können. Good Commercial Leadership schafft die Strukturen, in denen das nachhaltig gelingt. KI und Daten sind dabei unerlässlich. Doch am Ende geht es darum, mit Menschen Mehrwert zu schaffen und Geschichten zu erzählen: für Kunden, das eigene Unternehmen, Teams und die Umwelt.“"
+         data-en="„Impact emerges when organisations can deliver real value to their customers. Good Commercial Leadership builds the structures in which this succeeds sustainably. AI and data are indispensable. But in the end, it is about creating value and telling stories with people: for customers, the company itself, teams and the environment.“">„Wirkung entsteht, wenn Organisationen ihren Kunden echten Nutzen vermitteln können. Good Commercial Leadership schafft die Strukturen, in denen das nachhaltig gelingt. KI und Daten sind dabei unerlässlich. Doch am Ende geht es darum, mit Menschen Mehrwert zu schaffen und Geschichten zu erzählen: für Kunden, das eigene Unternehmen, Teams und die Umwelt.“</p>
     </blockquote>
   </div>
 </section>
@@ -1965,6 +1965,21 @@ section.snap-sec {
 
 <script>
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ============ LANGUAGE FROM URL ============ */
+/* Erlaubt: ?lang=en / ?lang=de in der URL, damit man direkt einen
+   sprachspezifischen Link verschicken kann. */
+(function () {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const lang = (params.get('lang') || '').toLowerCase();
+    if (lang === 'en' || lang === 'de') {
+      window.addEventListener('DOMContentLoaded', () => {
+        if (typeof setLang === 'function') setLang(lang);
+      });
+    }
+  } catch (e) { /* no-op */ }
+})();
 
 /* ============ SCROLL POSITION ON LOAD ============ */
 if ('scrollRestoration' in history) {
