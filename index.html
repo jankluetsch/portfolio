@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light only">
 <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+<meta name="robots" content="index, follow, noai, noimageai">
+<meta name="googlebot" content="index, follow, noai, noimageai">
 <title>Jan Klütsch</title>
 <meta name="description" content="Jan Klütsch. Commercial Leader, aktuell EU Food Transition Fellow bei EuropaBio in Brüssel. Vertrieb, Marketing und Wachstum für Unternehmen, deren Produkte reale Probleme lösen.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2212%22%20fill%3D%22%231c1c1c%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2244%22%20text-anchor%3D%22middle%22%20font-family%3D%22-apple-system%2CSegoe%20UI%2Csans-serif%22%20font-size%3D%2230%22%20font-weight%3D%22700%22%20fill%3D%22%23fcfcfa%22%20letter-spacing%3D%22-1%22%3EJK%3C%2Ftext%3E%3C%2Fsvg%3E">
@@ -1957,7 +1959,7 @@ section.snap-sec {
           data-de="Lass uns sprechen."
           data-en="Let’s talk.">Lass uns sprechen.</h2>
       <div class="kontakt-contacts">
-        <a class="kontakt-contact-link" href="mailto:jan.kluetsch@gmail.com" data-goatcounter-click="email-click" data-goatcounter-title="E-Mail">jan.kluetsch@gmail.com<span class="arr" aria-hidden="true">↗</span></a>
+        <a class="kontakt-contact-link" href="#" data-mail-b64="amFuLmtsdWV0c2NoQGdtYWlsLmNvbQ==" data-goatcounter-click="email-click" data-goatcounter-title="E-Mail"><span class="mail-target" data-de="E-Mail schreiben" data-en="Write E-mail">E-Mail schreiben</span><span class="arr" aria-hidden="true">↗</span></a>
         <a class="kontakt-contact-link" href="https://www.linkedin.com/in/jankluetsch/" target="_blank" rel="noopener" data-goatcounter-click="linkedin-click" data-goatcounter-title="LinkedIn">LinkedIn<span class="arr" aria-hidden="true">↗</span></a>
       </div>
       <div class="kontakt-takeaway">
@@ -1989,6 +1991,27 @@ section.snap-sec {
 
 <script>
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ============ EMAIL OBFUSCATION DECODE ============ */
+/* Baut base64-verschluesselte mailto-Links zur Laufzeit zusammen.
+   Regex-basierte Email-Harvester sehen nur Base64 im HTML, echte
+   User im Browser sehen und klicken die volle Adresse ganz normal. */
+(function () {
+  document.querySelectorAll('[data-mail-b64]').forEach(el => {
+    try {
+      const email = atob(el.dataset.mailB64);
+      if (el.tagName === 'A') el.setAttribute('href', 'mailto:' + email);
+      const target = el.querySelector('.mail-target');
+      if (target) {
+        target.textContent = email;
+        /* data-de/data-en angleichen, damit setLang() diese Elemente
+           nicht wieder auf den Fallback-Text zurueckwirft. */
+        target.setAttribute('data-de', email);
+        target.setAttribute('data-en', email);
+      }
+    } catch (e) { /* no-op */ }
+  });
+})();
 
 /* ============ LANGUAGE FROM URL ============ */
 /* Erlaubt: ?lang=en / ?lang=de in der URL, damit man direkt einen
